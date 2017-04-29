@@ -119,3 +119,35 @@ class AlphaVantage:
         data = json_response['Monthly Time Series']
         meta_data = json_response['Meta Data']
         return data, meta_data
+
+    def get_sma(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return simple moving average time series in two json objects as data and
+        meta_data. It raises ValueError when problem arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "SMA"
+        url = "{}function={}&symbol={}&interval={}&time_period={}&series_type={}\
+        &apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY,
+        symbol, interval, time_period, series_type, self.key)
+        #TODO: Solve the extra space coming into the line break
+        print(url)
+        json_response = self._data_request(url)
+        if 'Error Message' in json_response:
+            raise ValueError('ERROR getting data form api',
+                             json_response['Error Message'])
+        data = json_response['SMA Time Series'.format(interval)]
+        #TODO: Check the key of the json object
+        meta_data = json_response['Meta Data']
+        return data, meta_data
+
+if __name__ == '__main__':
+    av = AlphaVantage(key='486U')
+    av.get_sma('GOOGL')
