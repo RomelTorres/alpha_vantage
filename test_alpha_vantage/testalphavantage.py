@@ -104,3 +104,23 @@ class TestAlphaVantage(unittest.TestCase):
             existent key')
         except ValueError:
             self.assertTrue(True)
+
+    def test_get_monthly_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        data, meta_data = av.get_monthly(TestAlphaVantage._API_EQ_NAME_TEST)
+        self.assertIsInstance(data, dict, 'Result Data must be a dictionary')
+        self.assertIsInstance(meta_data, dict, 'Result Meta Data must be a \
+        dictionary')
+
+    def test_get_monthly_error(self):
+        """A Value error must be raised when a parameter is wrong
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        try:
+            data, meta_data = av.get_monthly('nonsense')
+            self.fail(msg='An error should be raised when using an non \
+            existent key')
+        except ValueError:
+            self.assertTrue(True)
