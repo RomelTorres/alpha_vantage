@@ -91,9 +91,8 @@ class AlphaVantage:
 
         """
         _FUNCTION_KEY = "TIME_SERIES_WEEKLY"
-        url = "{}function={}&symbol={}&outputsize={}&apikey={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY,  symbol, outputsize,
-        self.key)
+        url = "{}function={}&symbol={}&apikey={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY, symbol, self.key)
         json_response = self._data_request(url)
         if 'Error Message' in json_response:
             raise ValueError('ERROR getting data form api',
