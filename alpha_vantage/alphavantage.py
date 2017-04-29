@@ -143,8 +143,7 @@ class AlphaVantage:
         if 'Error Message' in json_response:
             raise ValueError('ERROR getting data form api',
                              json_response['Error Message'])
-        data = json_response['SMA Time Series'.format(interval)]
-        #TODO: Check the key of the json object
+        data = json_response['Technincal Analysis: SMA']
         meta_data = json_response['Meta Data']
         return data, meta_data
 
