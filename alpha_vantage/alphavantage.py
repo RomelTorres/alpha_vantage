@@ -7,6 +7,7 @@ except ImportError:
 
 from simplejson import loads
 
+
 class AlphaVantage:
     """
         This class is in charge of creating a python interface between the Alpha
@@ -18,7 +19,6 @@ class AlphaVantage:
         if key is None:
             raise ValueError('Get a free key from the alphavantage website')
         self.key = key
-
 
     def _data_request(self, url):
         """ Request data from the given url and return it as a json
@@ -49,17 +49,18 @@ class AlphaVantage:
         _INTRADAY = "TIME_SERIES_INTRADAY"
         url = "{}function={}&symbol={}&interval={}&outputsize={}&apikey={}\
         ".format(AlphaVantage._ALPHA_VANTAGE_API_URL, _INTRADAY,  symbol,
-        interval, outputsize, self.key)
+                 interval, outputsize, self.key)
         json_response = self._data_request(url)
         if 'Error Message' in json_response:
             raise ValueError('ERROR getting data form api',
-            json_response['Error Message'])
+                             json_response['Error Message'])
         data = json_response['Time Series ({})'.format(interval)]
         meta_data = json_response['Meta Data']
-        print(type(data))
         return data, meta_data
 
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
-    data, meta_data = av.get_intraday('GOOGL')
+    #data, meta_data = av.get_intraday('GOOGL')
+    #data, meta_data = av.get_daily('GOOGL')
     print(data)
+    print(len(data))
