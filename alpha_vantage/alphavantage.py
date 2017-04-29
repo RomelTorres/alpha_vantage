@@ -15,7 +15,10 @@ class AlphaVantage:
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
 
     def __init__(self, key=None):
+        if key is None:
+            raise ValueError('Get a free key from the alphavantage website')
         self.key = key
+
 
     def _data_request(self, url):
         """ Request data from the given url and return it as a json
@@ -32,7 +35,6 @@ class AlphaVantage:
     def get_intraday(self, symbol, interval='15min', outputsize='compact'):
         """ Return intraday time series in two json objects as data and
         meta_data. It raises ValueError when problem arise
-
 
         Keyword arguments:
         symbol -- the symbol for the equity we want to get its data
@@ -54,9 +56,10 @@ class AlphaVantage:
             json_response['Error Message'])
         data = json_response['Time Series ({})'.format(interval)]
         meta_data = json_response['Meta Data']
+        print(type(data))
         return data, meta_data
-        
+
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
-    data, meta_data = av.get_intraday()
+    data, meta_data = av.get_intraday('GOOGL')
     print(data)
