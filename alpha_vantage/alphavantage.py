@@ -46,9 +46,9 @@ class AlphaVantage:
         data series, and 'full' returns the full-length intraday times
         series, commonly above 1MB (default 'compact')
         """
-        _INTRADAY = "TIME_SERIES_INTRADAY"
+        _FUNCTION_KEY = "TIME_SERIES_INTRADAY"
         url = "{}function={}&symbol={}&interval={}&outputsize={}&apikey={}\
-        ".format(AlphaVantage._ALPHA_VANTAGE_API_URL, _INTRADAY,  symbol,
+        ".format(AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY,  symbol,
                  interval, outputsize, self.key)
         json_response = self._data_request(url)
         if 'Error Message' in json_response:
@@ -70,9 +70,9 @@ class AlphaVantage:
         data series, and 'full' returns the full-length intraday times
         series, commonly above 1MB (default 'compact')
         """
-        _INTRADAY = "TIME_SERIES_DAILY"
+        _FUNCTION_KEY = "TIME_SERIES_DAILY"
         url = "{}function={}&symbol={}&outputsize={}&apikey={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL, _INTRADAY,  symbol, outputsize,
+        AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY,  symbol, outputsize,
         self.key)
         json_response = self._data_request(url)
         if 'Error Message' in json_response:
@@ -90,9 +90,9 @@ class AlphaVantage:
         symbol -- the symbol for the equity we want to get its data
 
         """
-        _INTRADAY = "TIME_SERIES_WEEKLY"
+        _FUNCTION_KEY = "TIME_SERIES_WEEKLY"
         url = "{}function={}&symbol={}&outputsize={}&apikey={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL, _INTRADAY,  symbol, outputsize,
+        AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY,  symbol, outputsize,
         self.key)
         json_response = self._data_request(url)
         if 'Error Message' in json_response:
