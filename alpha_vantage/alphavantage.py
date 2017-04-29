@@ -119,11 +119,3 @@ class AlphaVantage:
         data = json_response['Monthly Time Series']
         meta_data = json_response['Meta Data']
         return data, meta_data
-
-
-if __name__ == '__main__':
-    av = AlphaVantage(key='486U')
-    #data, meta_data = av.get_intraday('GOOGL')
-    data, meta_data = av.get_monthly('GOOGL')
-    print(data)
-    print(len(data))
