@@ -22,6 +22,14 @@ av = AlphaVantage(key='YOUR_API_KEY')
 # Get json object with the intraday data and another with  the call's metadata
 data, meta_data = av.get_intraday('GOOGL')
 ```
+## Tests
+
+In order to run the tests  (it takes sometime to run):
+```shell
+cd alpha-vantage
+nosetests
+```
+
 
 ## Coming soon:
 
