@@ -7,6 +7,7 @@ except ImportError:
 
 from simplejson import loads
 
+
 class AlphaVantage:
     """
         This class is in charge of creating a python interface between the Alpha
@@ -15,6 +16,8 @@ class AlphaVantage:
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
 
     def __init__(self, key=None):
+        if key is None:
+            raise ValueError('Get a free key from the alphavantage website')
         self.key = key
 
     def _data_request(self, url):
@@ -33,7 +36,6 @@ class AlphaVantage:
         """ Return intraday time series in two json objects as data and
         meta_data. It raises ValueError when problem arise
 
-
         Keyword arguments:
         symbol -- the symbol for the equity we want to get its data
         interval -- time interval between two conscutive values,
@@ -47,16 +49,18 @@ class AlphaVantage:
         _INTRADAY = "TIME_SERIES_INTRADAY"
         url = "{}function={}&symbol={}&interval={}&outputsize={}&apikey={}\
         ".format(AlphaVantage._ALPHA_VANTAGE_API_URL, _INTRADAY,  symbol,
-        interval, outputsize, self.key)
+                 interval, outputsize, self.key)
         json_response = self._data_request(url)
         if 'Error Message' in json_response:
             raise ValueError('ERROR getting data form api',
-            json_response['Error Message'])
+                             json_response['Error Message'])
         data = json_response['Time Series ({})'.format(interval)]
         meta_data = json_response['Meta Data']
         return data, meta_data
-        
+
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
-    data, meta_data = av.get_intraday()
+    #data, meta_data = av.get_intraday('GOOGL')
+    #data, meta_data = av.get_daily('GOOGL')
     print(data)
+    print(len(data))
