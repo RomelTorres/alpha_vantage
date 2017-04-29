@@ -58,6 +58,30 @@ class AlphaVantage:
         meta_data = json_response['Meta Data']
         return data, meta_data
 
+
+    def get_daily(self, symbol, outputsize='compact'):
+        """ Return daily time series in two json objects as data and
+        meta_data. It raises ValueError when problem arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        outputsize -- The size of the call, supported values are
+        'compact' and 'full; the first returns the last 100 points in the
+        data series, and 'full' returns the full-length intraday times
+        series, commonly above 1MB (default 'compact')
+        """
+        _INTRADAY = "TIME_SERIES_DAILY"
+        url = "{}function={}&symbol={}&outputsize={}&apikey={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL, _INTRADAY,  symbol, outputsize,
+        self.key)
+        json_response = self._data_request(url)
+        if 'Error Message' in json_response:
+            raise ValueError('ERROR getting data form api',
+                             json_response['Error Message'])
+        data = json_response['Time Series (Daily)']
+        meta_data = json_response['Meta Data']
+        return data, meta_data
+
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
     #data, meta_data = av.get_intraday('GOOGL')
