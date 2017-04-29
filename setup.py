@@ -7,7 +7,7 @@ setup(
     author_email='rtorres@gmail.com',
     license='MIT',
     description='Python module to get stock data from the Alpha Vantage Api',
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
     install_requires=[
         'simplejson'
     ],
