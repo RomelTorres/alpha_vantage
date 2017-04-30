@@ -20,6 +20,28 @@ class AlphaVantage:
             raise ValueError('Get a free key from the alphavantage website')
         self.key = key
 
+    def _handle_api_call(self, url, data_key, meta_data_key="Meta Data"):
+        """ Handle the return call from the api and return a data and meta_data
+        object. It raises a ValueError on problems
+
+        Keyword arguments:
+        url -- The url of the service
+        data_key -- The key for getting the data from the jso object
+        meta_data_key -- The key for getting the meta data information out of
+        the json object
+        """
+        json_response = self._data_request(url)
+        if 'Error Message' in json_response or not json_response:
+            if json_response:
+                raise ValueError('ERROR getting data form api',
+                             json_response['Error Message'])
+            else:
+                raise ValueError('Error getting data from api, no return'\
+                 ' message from the api url (possibly wrong symbol/param)')
+        data = json_response[data_key]
+        meta_data = json_response[meta_data_key]
+        return data, meta_data
+
     def _data_request(self, url):
         """ Request data from the given url and return it as a json
         object. It raises URLError
@@ -50,14 +72,8 @@ class AlphaVantage:
         url = "{}function={}&symbol={}&interval={}&outputsize={}&apikey={}\
         ".format(AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY,  symbol,
                  interval, outputsize, self.key)
-        json_response = self._data_request(url)
-        if 'Error Message' in json_response:
-            raise ValueError('ERROR getting data form api',
-                             json_response['Error Message'])
-        data = json_response['Time Series ({})'.format(interval)]
-        meta_data = json_response['Meta Data']
-        return data, meta_data
-
+        return self._handle_api_call(url, 'Time Series ({})'.format(interval),
+        'Meta Data')
 
     def get_daily(self, symbol, outputsize='compact'):
         """ Return daily time series in two json objects as data and
@@ -74,13 +90,8 @@ class AlphaVantage:
         url = "{}function={}&symbol={}&outputsize={}&apikey={}".format(
         AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY,  symbol, outputsize,
         self.key)
-        json_response = self._data_request(url)
-        if 'Error Message' in json_response:
-            raise ValueError('ERROR getting data form api',
-                             json_response['Error Message'])
-        data = json_response['Time Series (Daily)']
-        meta_data = json_response['Meta Data']
-        return data, meta_data
+        return self._handle_api_call(url, 'Time Series (Daily)', 'Meta Data')
+
 
     def get_weekly(self, symbol):
         """ Return weekly time series in two json objects as data and
@@ -93,13 +104,7 @@ class AlphaVantage:
         _FUNCTION_KEY = "TIME_SERIES_WEEKLY"
         url = "{}function={}&symbol={}&apikey={}".format(
         AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY, symbol, self.key)
-        json_response = self._data_request(url)
-        if 'Error Message' in json_response:
-            raise ValueError('ERROR getting data form api',
-                             json_response['Error Message'])
-        data = json_response['Weekly Time Series']
-        meta_data = json_response['Meta Data']
-        return data, meta_data
+        return self._handle_api_call(url, 'Weekly Time Series', 'Meta Data')
 
     def get_monthly(self, symbol):
         """ Return monthly time series in two json objects as data and
@@ -112,13 +117,7 @@ class AlphaVantage:
         _FUNCTION_KEY = "TIME_SERIES_MONTHLY"
         url = "{}function={}&symbol={}&apikey={}".format(
         AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY, symbol, self.key)
-        json_response = self._data_request(url)
-        if 'Error Message' in json_response:
-            raise ValueError('ERROR getting data form api',
-                             json_response['Error Message'])
-        data = json_response['Monthly Time Series']
-        meta_data = json_response['Meta Data']
-        return data, meta_data
+        return self._handle_api_call(url, 'Monthly Time Series', 'Meta Data')
 
     def get_sma(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return simple moving average time series in two json objects as data and
@@ -137,18 +136,7 @@ class AlphaVantage:
         url = "{}function={}&symbol={}&interval={}&time_period={}"\
         "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
         _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        json_response = self._data_request(url)
-        if 'Error Message' in json_response or not json_response:
-            if json_response:
-                raise ValueError('ERROR getting data form api',
-                             json_response['Error Message'])
-            else:
-                raise ValueError('Error getting data from api, no return'\
-                 ' message from the api url (possibly wrong symbol/param)')
-        print(json_response)
-        data = json_response['Technical Analysis: SMA']
-        meta_data = json_response['Meta Data']
-        return data, meta_data
+        return self._handle_api_call(url,'Technical Analysis: SMA','Meta Data')
 
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
