@@ -9,7 +9,8 @@ setup(
     description='Python module to get stock data from the Alpha Vantage Api',
     long_description=open('README.md').read(),
     install_requires=[
-        'simplejson'
+        'simplejson',
+        'nose'
     ],
     keywords='stocks market finance alpha-vantage quotes shares currency',
     package_data={
