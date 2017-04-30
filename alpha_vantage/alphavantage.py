@@ -134,16 +134,14 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "SMA"
-        url = "{}function={}&symbol={}&interval={}&time_period={}&series_type={}\
-        &apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY,
-        symbol, interval, time_period, series_type, self.key)
-        #TODO: Solve the extra space coming into the line break
-        print(url)
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
         json_response = self._data_request(url)
         if 'Error Message' in json_response:
             raise ValueError('ERROR getting data form api',
                              json_response['Error Message'])
-        data = json_response['Technincal Analysis: SMA']
+        data = json_response['Technical Analysis: SMA']
         meta_data = json_response['Meta Data']
         return data, meta_data
 
