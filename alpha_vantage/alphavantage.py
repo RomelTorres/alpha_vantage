@@ -253,6 +253,35 @@ class AlphaVantage:
         _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
         return self._handle_api_call(url,'Technical Analysis: KAMA','Meta Data')
 
+    def get_mama(self, symbol, interval='60min', time_period=20, series_type='close',
+    fastlimit=None, slowlimit=None):
+        """ Return MESA adaptative moving average time series in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        fastlimit -- Positive floats for the fast limit are accepted
+        (default=None)
+        slowlimit -- Positive floats for the slow limit are accepted
+        (default=None)
+        """
+        _FUNCTION_KEY = "MAMA"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type)
+        if fastlimit:
+            url="{}&fastlimit={}".format(url,fastlimit)
+        if slowlimit:
+            url="{}&slowlimit={}".format(url, slowlimit)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: MAMA','Meta Data')
+
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
     data, meta_data = av.get_sma('GOOGL')
