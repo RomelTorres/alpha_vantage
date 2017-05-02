@@ -30,6 +30,7 @@ class AlphaVantage:
         meta_data_key -- The key for getting the meta data information out of
         the json object
         """
+        print(url)
         json_response = self._data_request(url)
         if 'Error Message' in json_response or not json_response:
             if json_response:
@@ -157,7 +158,26 @@ class AlphaVantage:
         _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
         return self._handle_api_call(url,'Technical Analysis: EMA','Meta Data')
 
+    def get_wma(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return weighted moving average time series in two json objects
+        as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "WMA"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: EMA','Meta Data')
+
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
-    data, meta_data = av.get_sma('GOOGLX')
+    data, meta_data = av.get_sma('GOOGL')
     print(data)
