@@ -301,7 +301,7 @@ class AlphaVantage:
         _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
         return self._handle_api_call(url,'Technical Analysis: T3','Meta Data')
 
-    def get_macd(self, symbol, interval='60min', time_period=20, series_type='close',
+    def get_macd(self, symbol, interval='60min', series_type='close',
     fastperiod=None, slowperiod=None, signalperiod=None):
         """ Return the moving average convergence/divergence time series in two
         json objects as data and meta_data. It raises ValueError when problems
@@ -311,8 +311,7 @@ class AlphaVantage:
         symbol -- the symbol for the equity we want to get its data
         interval -- time interval between two conscutive values,
         supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
+        'weekly', 'monthly' (default '60min'
         series_type -- The desired price type in the time series. Four types
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         fastperiod -- Positive integers are accepted (default=None)
@@ -320,9 +319,9 @@ class AlphaVantage:
         signalperiod -- Positive integers are accepted (default=None)
         """
         _FUNCTION_KEY = "MACD"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type)
+        url = "{}function={}&symbol={}&interval={}&series_type={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
+        series_type)
         if fastperiod:
             url="{}&fastperiod={}".format(url,fastperiod)
         if slowperiod:
@@ -332,7 +331,7 @@ class AlphaVantage:
         url = "{}&apikey={}".format(url, self.key)
         return self._handle_api_call(url,'Technical Analysis: MACD','Meta Data')
 
-    def get_macdext(self, symbol, interval='60min', time_period=20, series_type='close',
+    def get_macdext(self, symbol, interval='60min', series_type='close',
     fastperiod=None, slowperiod=None, signalperiod=None, fastmatype=None,
     slowmatype=None, signalmatype=None):
         """ Return the moving average convergence/divergence time series in two
@@ -344,7 +343,6 @@ class AlphaVantage:
         interval -- time interval between two conscutive values,
         supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
         'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
         series_type -- The desired price type in the time series. Four types
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         fastperiod -- Positive integers are accepted (default=None)
@@ -374,9 +372,9 @@ class AlphaVantage:
         8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "MACDEXT"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type)
+        url = "{}function={}&symbol={}&interval={}&series_type={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
+        series_type)
         if fastperiod:
             url="{}&fastperiod={}".format(url,fastperiod)
         if slowperiod:
@@ -407,6 +405,7 @@ class AlphaVantage:
         url = "{}&apikey={}".format(url, self.key)
         return self._handle_api_call(url,'Technical Analysis: MACDEXT',
         'Meta Data')
+
 
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
