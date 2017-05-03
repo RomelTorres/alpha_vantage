@@ -30,9 +30,9 @@ cd alpha-vantage
 nosetests
 ```
 
-
 ## Coming soon:
-
-1. Implement all functions described in the alpha vantage documentation 0.0.2
-2. Add unit tests for all the function parameters in the module 0.0.3
-2. Add pandas support through decorators 1.0.0
+1. ~~Add basic functionality: 0.0.1~~
+2. Add retry in order to allow the calls to be retried in case of failure: 0.0.2
+3. Implement all functions described in the alpha vantage documentation 0.0.3
+4. Add unit tests for all the function parameters in the module 0.0.4
+5. Add pandas support through decorators 1.0.0
