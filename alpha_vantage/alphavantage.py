@@ -406,6 +406,71 @@ class AlphaVantage:
         return self._handle_api_call(url,'Technical Analysis: MACDEXT',
         'Meta Data')
 
+    def get_stoch(self, symbol, interval='60min', fastkperiod=None,
+    slowkperiod=None, slowdperiod=None, slowkmatype=None, slowdmatype=None):
+        """ Return the stochatic oscillator values in two
+        json objects as data and meta_data. It raises ValueError when problems
+        arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        fastkperiod -- The time period of the fastk moving average. Positive
+        integers are accepted (default=None)
+        slowkperiod -- The time period of the slowk moving average. Positive
+        integers are accepted (default=None)
+        slowdperiod --The time period of the slowd moving average. Positive
+        integers are accepted (default=None)
+        slowkmatype -- Moving average type for the slowk moving average.
+        By default, fastmatype=0. Integers 0 - 8 are accepted
+        (check  down the mappings) or the string containing the math type can
+        also be used.
+        slowdmatype -- Moving average type for the slowd moving average.
+        By default, slowmatype=0. Integers 0 - 8 are accepted
+        (check down the mappings) or the string containing the math type can
+        also be used.
+
+        0 = Simple Moving Average (SMA),
+        1 = Exponential Moving Average (EMA),
+        2 = Weighted Moving Average (WMA),
+        3 = Double Exponential Moving Average (DEMA),
+        4 = Triple Exponential Moving Average (TEMA),
+        5 = Triangular Moving Average (TRIMA),
+        6 = T3 Moving Average,
+        7 = Kaufman Adaptive Moving Average (KAMA),
+        8 = MESA Adaptive Moving Average (MAMA)
+        """
+        _FUNCTION_KEY = "STOCH"
+        url = "{}function={}&symbol={}&interval={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval)
+        if fastkperiod:
+            url="{}&fastkperiod={}".format(url,fastkperiod)
+        if slowkperiod:
+            url="{}&slowkperiod={}".format(url, slowkperiod)
+        if slowdperiod:
+            url="{}&slowdperiod={}".format(url, slowdperiod)
+        if slowkmatype:
+            # Check if it is an integer or a string
+            try:
+                value = int(slowkmatype)
+            except ValueError:
+                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(slowkmatype)
+            url="{}&slowkmatype={}".format(url, value)
+        if slowdmatype:
+            # Check if it is an integer or a string
+            try:
+                value = int(slowdmatype)
+            except ValueError:
+                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(slowdmatype)
+            url="{}&slowdmatype={}".format(url, value)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: STOCH',
+        'Meta Data')
+
 
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
