@@ -34,4 +34,5 @@ nosetests
 ## Coming soon:
 
 1. Implement all functions described in the alpha vantage documentation 0.0.2
+2. Add unit tests for all the function parameters in the module 0.0.3
 2. Add pandas support through decorators 1.0.0
