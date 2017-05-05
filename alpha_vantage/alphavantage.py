@@ -8,6 +8,8 @@ except ImportError:
 from simplejson import loads
 
 
+
+
 class AlphaVantage:
     """
         This class is in charge of creating a python interface between the Alpha
@@ -16,13 +18,31 @@ class AlphaVantage:
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
     _ALPHA_VANTAGE_MATH_MAP = ['SMA','EMA','WMA','DEMA','TEMA', 'TRIMA','T3',
     'KAMA','MAMA']
-    def __init__(self, key=None):
+    def __init__(self, key=None, retries=0):
         if key is None:
             raise ValueError('Get a free key from the alphavantage website')
         self.key = key
+        self.retries = retries
 
+    def _retry(func):
+        """ Decorator for retrying api calls (in case of errors from the api
+        side in bringing the data)
+
+        Keyword arguments:
+        func -- The function to be retried
+        """
+        def _retry_wrapper(self, *args, **kwargs):
+            for retry in range(self.retries + 1):
+                try:
+                    return func(self, *args, **kwargs)
+                except ValueError as err:
+                    pass
+            raise ValueError(err)
+        return _retry_wrapper
+
+    @_retry
     def _handle_api_call(self, url, data_key, meta_data_key="Meta Data"):
-        """ Handle the return call from the api and return a data and meta_data
+        """ Handle the return call from the  api and return a data and meta_data
         object. It raises a ValueError on problems
 
         Keyword arguments:
