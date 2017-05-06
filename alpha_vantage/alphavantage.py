@@ -640,6 +640,22 @@ class AlphaVantage:
         _FUNCTION_KEY, symbol, interval, time_period, self.key)
         return self._handle_api_call(url,'Technical Analysis: ADX','Meta Data')
 
+    def get_adxr(self, symbol, interval='60min', time_period=20):
+        """ Return  the average directional movement index  rating in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "ADXR"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: ADXR','Meta Data')
+
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
     data, meta_data = av.get_sma('GOOGL')
