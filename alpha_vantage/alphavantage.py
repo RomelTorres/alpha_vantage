@@ -658,7 +658,7 @@ class AlphaVantage:
 
     def get_apo(self, symbol, interval='60min', series_type='close',
     fastperiod=None, slowperiod=None, matype=None):
-        """ Return the absolute price occsilator values in two
+        """ Return the absolute price oscillator values in two
         json objects as data and meta_data. It raises ValueError when problems
         arise
 
@@ -702,6 +702,53 @@ class AlphaVantage:
             url="{}&matype={}".format(url, value)
         url = "{}&apikey={}".format(url, self.key)
         return self._handle_api_call(url,'Technical Analysis: APO','Meta Data')
+
+    def get_ppo(self, symbol, interval='60min', series_type='close',
+    fastperiod=None, slowperiod=None, matype=None):
+        """ Return the percentage price oscillator values in two
+        json objects as data and meta_data. It raises ValueError when problems
+        arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min'
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        fastperiod -- Positive integers are accepted (default=None)
+        slowperiod -- Positive integers are accepted (default=None)
+        matype     -- Moving average type. By default, fastmatype=0.
+        Integers 0 - 8 are accepted (check  down the mappings) or the string
+        containing the math type can also be used.
+
+        0 = Simple Moving Average (SMA),
+        1 = Exponential Moving Average (EMA),
+        2 = Weighted Moving Average (WMA),
+        3 = Double Exponential Moving Average (DEMA),
+        4 = Triple Exponential Moving Average (TEMA),
+        5 = Triangular Moving Average (TRIMA),
+        6 = T3 Moving Average,
+        7 = Kaufman Adaptive Moving Average (KAMA),
+        8 = MESA Adaptive Moving Average (MAMA)
+        """
+        _FUNCTION_KEY = "PPO"
+        url = "{}function={}&symbol={}&interval={}&series_type={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
+        series_type)
+        if fastperiod:
+            url="{}&fastperiod={}".format(url,fastperiod)
+        if slowperiod:
+            url="{}&slowperiod={}".format(url, slowperiod)
+        if matype:
+            # Check if it is an integer or a string
+            try:
+                value = int(matype)
+            except ValueError:
+                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(matype)
+            url="{}&matype={}".format(url, value)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: PPO','Meta Data')
 
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
