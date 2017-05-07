@@ -935,6 +935,34 @@ class AlphaVantage:
         _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
         return self._handle_api_call(url,'Technical Analysis: TRIX','Meta Data')
 
+    def get_ultsoc(self, symbol, interval='60min', timeperiod1=None,
+    timeperiod2=None, timeperiod3=None):
+        """ Return the ultimate oscillaror values in two json objects as
+        data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        timeperiod1 -- The first time period indicator. Positive integers are
+        accepted. By default, timeperiod1=7
+        timeperiod2 -- The first time period indicator. Positive integers are
+        accepted. By default, timeperiod2=14
+        timeperiod3 -- The first time period indicator. Positive integers are
+        accepted. By default, timeperiod3=28
+        """
+        _FUNCTION_KEY = "ULTOSC"
+        url = "{}function={}&symbol={}&interval={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval)
+        if timeperiod1:
+            url="{}&timeperiod1={}".format(url, timeperiod1)
+        if timeperiod2:
+            url="{}&timeperiod2={}".format(url, timeperiod1)
+        if timeperiod3:
+            url="{}&timeperiod3={}".format(url, timeperiod1)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: ULTOSC','Meta Data')
 
 
 if __name__ == '__main__':
