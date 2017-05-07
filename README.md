@@ -34,5 +34,6 @@ nosetests
 1. ~~Add basic functionality: 0.0.1~~
 2. ~~Add retry in order to allow the calls to be retried in case of failure: 0.0.2~~
 3. Implement all functions described in the alpha vantage documentation 0.0.3
-4. Add unit tests for all the function parameters in the module 0.0.4
-5. Add pandas support through decorators 1.0.0
+4. Re-factor functions to have an unified method for accessing the api 0.1.0
+5. Add unit tests for all the function parameters in the module 0.1.1
+6. Add pandas support through decorators 0.2.0
