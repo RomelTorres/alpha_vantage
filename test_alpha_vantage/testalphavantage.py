@@ -248,3 +248,10 @@ class TestAlphaVantage(unittest.TestCase):
         av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
         self._assert_result_is_dict(av.get_aroon,
         symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_aroonosc_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_aroonosc,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
