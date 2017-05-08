@@ -1280,6 +1280,24 @@ class AlphaVantage:
         _FUNCTION_KEY, symbol, interval, series_type, self.key)
         return self._handle_api_call(url,'Technical Analysis: HT_TRENDLINE','Meta Data')
 
+    def get_ht_sine(self, symbol, interval='60min', series_type='close'):
+        """ Return the Hilbert transform, sine wave values in two
+        json objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "HT_SINE"
+        url = "{}function={}&symbol={}&interval={}&series_type={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: HT_SINE','Meta Data')
+
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
     data, meta_data = av.get_sma('GOOGL')
