@@ -18,7 +18,7 @@ class AlphaVantage:
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
     _ALPHA_VANTAGE_MATH_MAP = ['SMA','EMA','WMA','DEMA','TEMA', 'TRIMA','T3',
     'KAMA','MAMA']
-    def __init__(self, key=None, retries=0):
+    def __init__(self, key=None, retries=3):
         if key is None:
             raise ValueError('Get a free key from the alphavantage website')
         self.key = key
