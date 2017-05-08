@@ -1246,6 +1246,21 @@ class AlphaVantage:
         url = "{}&apikey={}".format(url, self.key)
         return self._handle_api_call(url,'Technical Analysis: ADOSC','Meta Data')
 
+    def get_obv(self, symbol, interval='60min'):
+        """ Return the on balance volume values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "OBV"
+        url = "{}function={}&symbol={}&interval={}&apikey={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
+        self.key)
+        return self._handle_api_call(url,'Technical Analysis: OBV','Meta Data')
 
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
