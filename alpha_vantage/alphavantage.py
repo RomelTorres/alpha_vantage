@@ -1000,7 +1000,7 @@ class AlphaVantage:
         return self._handle_api_call(url,'Technical Analysis: MINUS_DI','Meta Data')
 
     def get_plus_di(self, symbol, interval='60min', time_period=20):
-        """ Return the plus directional index values in two json
+        """ Return the plus directional indicator values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
         Keyword arguments:
@@ -1014,6 +1014,38 @@ class AlphaVantage:
         "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
         _FUNCTION_KEY, symbol, interval, time_period, self.key)
         return self._handle_api_call(url,'Technical Analysis: PLUS_DI','Meta Data')
+
+    def get_minus_dm(self, symbol, interval='60min', time_period=20):
+        """ Return the minus directional movement values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "MINUS_DM"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: MINUS_DM','Meta Data')
+
+    def get_plus_dm(self, symbol, interval='60min', time_period=20):
+        """ Return the plus directional movement values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "PLUS_DM"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: PLUS_DM','Meta Data')
 
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
