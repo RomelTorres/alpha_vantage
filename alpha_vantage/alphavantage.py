@@ -1222,6 +1222,30 @@ class AlphaVantage:
         self.key)
         return self._handle_api_call(url,'Technical Analysis: Chaikin A/D','Meta Data')
 
+    def get_adosc(self, symbol, interval='60min', fastperiod=None,
+    slowperiod=None):
+        """ Return the Chaikin A/D oscillator values in two
+        json objects as data and meta_data. It raises ValueError when problems
+        arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min'
+        fastperiod -- Positive integers are accepted (default=None)
+        slowperiod -- Positive integers are accepted (default=None)
+        """
+        _FUNCTION_KEY = "ADOSC"
+        url = "{}function={}&symbol={}&interval={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,)
+        if fastperiod:
+            url="{}&fastperiod={}".format(url,fastperiod)
+        if slowperiod:
+            url="{}&slowperiod={}".format(url, slowperiod)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: ADOSC','Meta Data')
+
 
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
