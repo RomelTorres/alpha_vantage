@@ -1132,6 +1132,30 @@ class AlphaVantage:
         _FUNCTION_KEY, symbol, interval, time_period, self.key)
         return self._handle_api_call(url,'Technical Analysis: MIDPRICE','Meta Data')
 
+    def get_sar(self, symbol, interval='60min', acceleration=None, maximum=None):
+        """ Return the midprice values in two json objects as
+        data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        acceleration -- The acceleration factor. Positive floats are accepted (
+        default 0.01)
+        maximum -- The acceleration factor maximum value. Positive floats
+        are accepted (default 0.20 )
+        """
+        _FUNCTION_KEY = "SAR"
+        url = "{}function={}&symbol={}&interval={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval)
+        if acceleration:
+            url = "{}&acceleration={}".format(url, acceleration)
+        if maximum:
+            url = "{}&maximum={}".format(url, maximum)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: SAR','Meta Data')
+
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
     data, meta_data = av.get_sma('GOOGL')
