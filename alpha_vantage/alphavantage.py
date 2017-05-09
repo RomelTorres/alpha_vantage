@@ -18,7 +18,7 @@ class AlphaVantage:
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
     _ALPHA_VANTAGE_MATH_MAP = ['SMA','EMA','WMA','DEMA','TEMA', 'TRIMA','T3',
     'KAMA','MAMA']
-    def __init__(self, key=None, retries=0):
+    def __init__(self, key=None, retries=3):
         if key is None:
             raise ValueError('Get a free key from the alphavantage website')
         self.key = key
@@ -437,8 +437,6 @@ class AlphaVantage:
         interval -- time interval between two conscutive values,
         supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
         'weekly', 'monthly' (default '60min')
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
         fastkperiod -- The time period of the fastk moving average. Positive
         integers are accepted (default=None)
         slowkperiod -- The time period of the slowk moving average. Positive
@@ -502,8 +500,6 @@ class AlphaVantage:
         interval -- time interval between two conscutive values,
         supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
         'weekly', 'monthly' (default '60min')
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
         fastkperiod -- The time period of the fastk moving average. Positive
         integers are accepted (default=None)
         fastdperiod -- The time period of the fastd moving average. Positive
@@ -559,6 +555,820 @@ class AlphaVantage:
         "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
         _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
         return self._handle_api_call(url,'Technical Analysis: RSI','Meta Data')
+
+    def get_stochrsi(self, symbol, interval='60min', time_period=20,
+    series_type='close', fastkperiod=None, fastdperiod=None, fastdmatype=None):
+        """ Return the stochatic relative strength index in two
+        json objects as data and meta_data. It raises ValueError when problems
+        arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        fastkperiod -- The time period of the fastk moving average. Positive
+        integers are accepted (default=None)
+        fastdperiod -- The time period of the fastd moving average. Positive
+        integers are accepted (default=None)
+        fastdmatype -- Moving average type for the fastdmatype moving average.
+        By default, fastmatype=0. Integers 0 - 8 are accepted
+        (check  down the mappings) or the string containing the math type can
+        also be used.
+
+        0 = Simple Moving Average (SMA),
+        1 = Exponential Moving Average (EMA),
+        2 = Weighted Moving Average (WMA),
+        3 = Double Exponential Moving Average (DEMA),
+        4 = Triple Exponential Moving Average (TEMA),
+        5 = Triangular Moving Average (TRIMA),
+        6 = T3 Moving Average,
+        7 = Kaufman Adaptive Moving Average (KAMA),
+        8 = MESA Adaptive Moving Average (MAMA)
+        """
+        _FUNCTION_KEY = "STOCHRSI"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type)
+        if fastkperiod:
+            url="{}&fastkperiod={}".format(url,fastkperiod)
+        if fastdperiod:
+            url="{}&fastdperiod={}".format(url, fastdperiod)
+        if fastdmatype:
+            # Check if it is an integer or a string
+            try:
+                value = int(fastdmatype)
+            except ValueError:
+                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(fastdmatype)
+            url="{}&fastdmatype={}".format(url, value)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: STOCHRSI',
+        'Meta Data')
+
+    def get_willr(self, symbol, interval='60min', time_period=20):
+        """ Return the Williams' %R (WILLR) values in two json objects as data
+        and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "WILLR"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: WILLR','Meta Data')
+
+    def get_adx(self, symbol, interval='60min', time_period=20):
+        """ Return  the average directional movement index values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "ADX"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: ADX','Meta Data')
+
+    def get_adxr(self, symbol, interval='60min', time_period=20):
+        """ Return  the average directional movement index  rating in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "ADXR"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: ADXR','Meta Data')
+
+    def get_apo(self, symbol, interval='60min', series_type='close',
+    fastperiod=None, slowperiod=None, matype=None):
+        """ Return the absolute price oscillator values in two
+        json objects as data and meta_data. It raises ValueError when problems
+        arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min'
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        fastperiod -- Positive integers are accepted (default=None)
+        slowperiod -- Positive integers are accepted (default=None)
+        matype     -- Moving average type. By default, fastmatype=0.
+        Integers 0 - 8 are accepted (check  down the mappings) or the string
+        containing the math type can also be used.
+
+        0 = Simple Moving Average (SMA),
+        1 = Exponential Moving Average (EMA),
+        2 = Weighted Moving Average (WMA),
+        3 = Double Exponential Moving Average (DEMA),
+        4 = Triple Exponential Moving Average (TEMA),
+        5 = Triangular Moving Average (TRIMA),
+        6 = T3 Moving Average,
+        7 = Kaufman Adaptive Moving Average (KAMA),
+        8 = MESA Adaptive Moving Average (MAMA)
+        """
+        _FUNCTION_KEY = "APO"
+        url = "{}function={}&symbol={}&interval={}&series_type={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
+        series_type)
+        if fastperiod:
+            url="{}&fastperiod={}".format(url,fastperiod)
+        if slowperiod:
+            url="{}&slowperiod={}".format(url, slowperiod)
+        if matype:
+            # Check if it is an integer or a string
+            try:
+                value = int(matype)
+            except ValueError:
+                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(matype)
+            url="{}&matype={}".format(url, value)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: APO','Meta Data')
+
+    def get_ppo(self, symbol, interval='60min', series_type='close',
+    fastperiod=None, slowperiod=None, matype=None):
+        """ Return the percentage price oscillator values in two
+        json objects as data and meta_data. It raises ValueError when problems
+        arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min'
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        fastperiod -- Positive integers are accepted (default=None)
+        slowperiod -- Positive integers are accepted (default=None)
+        matype     -- Moving average type. By default, fastmatype=0.
+        Integers 0 - 8 are accepted (check  down the mappings) or the string
+        containing the math type can also be used.
+
+        0 = Simple Moving Average (SMA),
+        1 = Exponential Moving Average (EMA),
+        2 = Weighted Moving Average (WMA),
+        3 = Double Exponential Moving Average (DEMA),
+        4 = Triple Exponential Moving Average (TEMA),
+        5 = Triangular Moving Average (TRIMA),
+        6 = T3 Moving Average,
+        7 = Kaufman Adaptive Moving Average (KAMA),
+        8 = MESA Adaptive Moving Average (MAMA)
+        """
+        _FUNCTION_KEY = "PPO"
+        url = "{}function={}&symbol={}&interval={}&series_type={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
+        series_type)
+        if fastperiod:
+            url="{}&fastperiod={}".format(url,fastperiod)
+        if slowperiod:
+            url="{}&slowperiod={}".format(url, slowperiod)
+        if matype:
+            # Check if it is an integer or a string
+            try:
+                value = int(matype)
+            except ValueError:
+                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(matype)
+            url="{}&matype={}".format(url, value)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: PPO','Meta Data')
+
+    def get_mom(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return the momentum values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "MOM"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: MOM','Meta Data')
+
+    def get_bop(self, symbol, interval='60min', time_period=20):
+        """ Return the balance of power values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "BOP"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: BOP','Meta Data')
+
+    def get_cci(self, symbol, interval='60min', time_period=20):
+        """ Return the commodity channel index values  in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "CCI"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: CCI','Meta Data')
+
+    def get_cmo(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return the Chande momentum oscillator in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "CMO"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: CMO','Meta Data')
+
+    def get_roc(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return the rate of change values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "ROC"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: ROC','Meta Data')
+
+    def get_rocr(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return the rate of change ratio values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "ROCR"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: ROCR','Meta Data')
+
+    def get_aroon(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return the aroon values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "AROON"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: AROON','Meta Data')
+
+    def get_aroonosc(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return the aroon oscillator values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "AROONOSC"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: AROONOSC','Meta Data')
+
+    def get_mfi(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return the money flow index values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "MFI"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: MFI','Meta Data')
+
+    def get_trix(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return the1-day rate of change of a triple smooth exponential
+        moving average in two json objects as data and meta_data.
+        It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "TRIX"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: TRIX','Meta Data')
+
+    def get_ultsoc(self, symbol, interval='60min', timeperiod1=None,
+    timeperiod2=None, timeperiod3=None):
+        """ Return the ultimate oscillaror values in two json objects as
+        data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        timeperiod1 -- The first time period indicator. Positive integers are
+        accepted. By default, timeperiod1=7
+        timeperiod2 -- The first time period indicator. Positive integers are
+        accepted. By default, timeperiod2=14
+        timeperiod3 -- The first time period indicator. Positive integers are
+        accepted. By default, timeperiod3=28
+        """
+        _FUNCTION_KEY = "ULTOSC"
+        url = "{}function={}&symbol={}&interval={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval)
+        if timeperiod1:
+            url="{}&timeperiod1={}".format(url, timeperiod1)
+        if timeperiod2:
+            url="{}&timeperiod2={}".format(url, timeperiod1)
+        if timeperiod3:
+            url="{}&timeperiod3={}".format(url, timeperiod1)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: ULTOSC','Meta Data')
+
+    def get_dx(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return the directional movement index values in two json objects as
+        data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "DX"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: DX','Meta Data')
+
+    def get_minus_di(self, symbol, interval='60min', time_period=20):
+        """ Return the minus directional indicator values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "MINUS_DI"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: MINUS_DI','Meta Data')
+
+    def get_plus_di(self, symbol, interval='60min', time_period=20):
+        """ Return the plus directional indicator values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "PLUS_DI"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: PLUS_DI','Meta Data')
+
+    def get_minus_dm(self, symbol, interval='60min', time_period=20):
+        """ Return the minus directional movement values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "MINUS_DM"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: MINUS_DM','Meta Data')
+
+    def get_plus_dm(self, symbol, interval='60min', time_period=20):
+        """ Return the plus directional movement values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "PLUS_DM"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: PLUS_DM','Meta Data')
+
+    def get_bbands(self, symbol, interval='60min', time_period=20,  series_type='close',
+    nbdevup=None, nbdevdn=None, matype=None):
+        """ Return the bollinger bands values in two
+        json objects as data and meta_data. It raises ValueError when problems
+        arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min'
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        nbdevup -- The standard deviation multiplier of the upper band. Positive
+        integers are accepted as default (default=2)
+        nbdevdn -- The standard deviation multiplier of the lower band. Positive
+        integers are accepted as default (default=2)
+        matype  -- Moving average type. By default, matype=0.
+        Integers 0 - 8 are accepted (check  down the mappings) or the string
+        containing the math type can also be used.
+
+        0 = Simple Moving Average (SMA),
+        1 = Exponential Moving Average (EMA),
+        2 = Weighted Moving Average (WMA),
+        3 = Double Exponential Moving Average (DEMA),
+        4 = Triple Exponential Moving Average (TEMA),
+        5 = Triangular Moving Average (TRIMA),
+        6 = T3 Moving Average,
+        7 = Kaufman Adaptive Moving Average (KAMA),
+        8 = MESA Adaptive Moving Average (MAMA)
+        """
+        _FUNCTION_KEY = "BBANDS"
+        url = "{}function={}&symbol={}&interval={}&time_period={}&series_type={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
+        time_period, series_type)
+        if nbdevup:
+            url="{}&nbdevup={}".format(url,nbdevup)
+        if nbdevdn:
+            url="{}&nbdevdn={}".format(url, nbdevdn)
+        if matype:
+            # Check if it is an integer or a string
+            try:
+                value = int(matype)
+            except ValueError:
+                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(matype)
+            url="{}&matype={}".format(url, value)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: BBANDS','Meta Data')
+
+    def get_midpoint(self, symbol, interval='60min', time_period=20, series_type='close'):
+        """ Return the midpoint values in two json objects as
+        data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "MIDPOINT"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: MIDPOINT','Meta Data')
+
+    def get_midprice(self, symbol, interval='60min', time_period=20):
+        """ Return the midprice values in two json objects as
+        data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        """
+        _FUNCTION_KEY = "MIDPRICE"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: MIDPRICE','Meta Data')
+
+    def get_sar(self, symbol, interval='60min', acceleration=None, maximum=None):
+        """ Return the midprice values in two json objects as
+        data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        acceleration -- The acceleration factor. Positive floats are accepted (
+        default 0.01)
+        maximum -- The acceleration factor maximum value. Positive floats
+        are accepted (default 0.20 )
+        """
+        _FUNCTION_KEY = "SAR"
+        url = "{}function={}&symbol={}&interval={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval)
+        if acceleration:
+            url = "{}&acceleration={}".format(url, acceleration)
+        if maximum:
+            url = "{}&maximum={}".format(url, maximum)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: SAR','Meta Data')
+
+    def get_trange(self, symbol, interval='60min'):
+        """ Return the true range values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "TRANGE"
+        url = "{}function={}&symbol={}&interval={}&apikey={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
+        self.key)
+        return self._handle_api_call(url,'Technical Analysis: TRANGE','Meta Data')
+
+    def get_atr(self, symbol, interval='60min', time_period=20):
+        """ Return the average true range values in two json objects as
+        data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        """
+        _FUNCTION_KEY = "ATR"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: ATR','Meta Data')
+
+    def get_natr(self, symbol, interval='60min', time_period=20):
+        """ Return the normalized average true range values in two json objects
+        as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        time_period -- How many data points to average (default 20)
+        """
+        _FUNCTION_KEY = "NATR"
+        url = "{}function={}&symbol={}&interval={}&time_period={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, time_period, self.key)
+        return self._handle_api_call(url,'Technical Analysis: NATR','Meta Data')
+
+    def get_ad(self, symbol, interval='60min'):
+        """ Return the Chaikin A/D line values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "AD"
+        url = "{}function={}&symbol={}&interval={}&apikey={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
+        self.key)
+        return self._handle_api_call(url,'Technical Analysis: Chaikin A/D','Meta Data')
+
+    def get_adosc(self, symbol, interval='60min', fastperiod=None,
+    slowperiod=None):
+        """ Return the Chaikin A/D oscillator values in two
+        json objects as data and meta_data. It raises ValueError when problems
+        arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min'
+        fastperiod -- Positive integers are accepted (default=None)
+        slowperiod -- Positive integers are accepted (default=None)
+        """
+        _FUNCTION_KEY = "ADOSC"
+        url = "{}function={}&symbol={}&interval={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,)
+        if fastperiod:
+            url="{}&fastperiod={}".format(url,fastperiod)
+        if slowperiod:
+            url="{}&slowperiod={}".format(url, slowperiod)
+        url = "{}&apikey={}".format(url, self.key)
+        return self._handle_api_call(url,'Technical Analysis: ADOSC','Meta Data')
+
+    def get_obv(self, symbol, interval='60min'):
+        """ Return the on balance volume values in two json
+        objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        """
+        _FUNCTION_KEY = "OBV"
+        url = "{}function={}&symbol={}&interval={}&apikey={}".format(
+        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
+        self.key)
+        return self._handle_api_call(url,'Technical Analysis: OBV','Meta Data')
+
+    def get_ht_trendline(self, symbol, interval='60min', series_type='close'):
+        """ Return the Hilbert transform, instantaneous trendline values in two
+        json objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "HT_TRENDLINE"
+        url = "{}function={}&symbol={}&interval={}&series_type={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: HT_TRENDLINE','Meta Data')
+
+    def get_ht_sine(self, symbol, interval='60min', series_type='close'):
+        """ Return the Hilbert transform, sine wave values in two
+        json objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "HT_SINE"
+        url = "{}function={}&symbol={}&interval={}&series_type={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: HT_SINE','Meta Data')
+
+    def get_ht_trendmode(self, symbol, interval='60min', series_type='close'):
+        """ Return the Hilbert transform, trend vs cycle mode in two
+        json objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "HT_TRENDMODE"
+        url = "{}function={}&symbol={}&interval={}&series_type={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: HT_TRENDMODE','Meta Data')
+
+    def get_ht_dcperiod(self, symbol, interval='60min', series_type='close'):
+        """ Return the Hilbert transform, dominant cycle period in two
+        json objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "HT_DCPERIOD"
+        url = "{}function={}&symbol={}&interval={}&series_type={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: HT_DCPERIOD','Meta Data')
+
+    def get_ht_dcphase(self, symbol, interval='60min', series_type='close'):
+        """ Return the Hilbert transform, dominant cycle phase in two
+        json objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "HT_DCPHASE"
+        url = "{}function={}&symbol={}&interval={}&series_type={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: HT_DCPHASE','Meta Data')
+
+    def get_ht_phasor(self, symbol, interval='60min', series_type='close'):
+        """ Return the Hilbert transform, phasor components in two
+        json objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword arguments:
+        symbol -- the symbol for the equity we want to get its data
+        interval -- time interval between two conscutive values,
+        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+        'weekly', 'monthly' (default '60min')
+        series_type -- The desired price type in the time series. Four types
+        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        """
+        _FUNCTION_KEY = "HT_PHASOR"
+        url = "{}function={}&symbol={}&interval={}&series_type={}"\
+        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
+        _FUNCTION_KEY, symbol, interval, series_type, self.key)
+        return self._handle_api_call(url,'Technical Analysis: HT_PHASOR','Meta Data')
 
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')

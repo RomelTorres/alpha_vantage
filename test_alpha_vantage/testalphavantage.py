@@ -157,3 +157,269 @@ class TestAlphaVantage(unittest.TestCase):
         av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
         self._assert_result_is_dict(av.get_rsi,
         symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_stochrsi_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_stochrsi,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_willr_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_willr,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_adx_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_adx,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_adxr_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_adxr,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_apo_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_apo,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_ppo_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_ppo,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_mom_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_mom,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_bop_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_bop,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_cci_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_cci,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_cmo_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_cmo,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_roc_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_roc,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_rocr_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_rocr,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_aroon_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_aroon,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_aroonosc_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_aroonosc,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_mfi_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_mfi,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_trix_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_trix,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_ultsoc_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_ultsoc,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_dx_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_dx,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_minus_di_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_minus_di,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_plus_di_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_plus_di,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_minus_dm_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_minus_dm,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_plus_dm_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_plus_dm,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_bbands_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_bbands,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_midpoint_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_midpoint,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_midprice_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_midprice,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_sar_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_sar,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_trange_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_trange,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_atr_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_atr,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_natr_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_natr,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_ad_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_ad,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_adosc_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_adosc,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_obv_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_obv,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_ht_trendline_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_ht_trendline,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_ht_sine_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_ht_sine,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_ht_trendmode_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_ht_trendmode,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_ht_dcperiod_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_ht_dcperiod,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_ht_dcphase_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_ht_dcphase,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_ht_phasor_is_dict(self):
+        """Result must be a dictionary containning the json data
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_dict(av.get_ht_phasor,
+        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
