@@ -485,6 +485,7 @@ class AlphaVantage:
         _FUNCTION_KEY = "STOCH"
         return _FUNCTION_KEY, 'Technical Analysis: STOCH', 'Meta Data'
 
+    @_call_api_on_func
     def get_stochf(self, symbol, interval='60min', fastkperiod=None,
     fastdperiod=None, fastdmatype=None):
         """ Return the stochatic oscillator values in two
@@ -516,23 +517,9 @@ class AlphaVantage:
         8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "STOCHF"
-        url = "{}function={}&symbol={}&interval={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval)
-        if fastkperiod:
-            url="{}&fastkperiod={}".format(url,fastkperiod)
-        if fastdperiod:
-            url="{}&fastdperiod={}".format(url, fastdperiod)
-        if fastdmatype:
-            # Check if it is an integer or a string
-            try:
-                value = int(fastdmatype)
-            except ValueError:
-                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(fastdmatype)
-            url="{}&fastdmatype={}".format(url, value)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: STOCHF',
-        'Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: STOCHF', 'Meta Data'
 
+    @_call_api_on_func
     def get_rsi(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the relative strength index time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -547,11 +534,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "RSI"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: RSI','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: RSI','Meta Data'
 
+    @_call_api_on_func
     def get_stochrsi(self, symbol, interval='60min', time_period=20,
     series_type='close', fastkperiod=None, fastdperiod=None, fastdmatype=None):
         """ Return the stochatic relative strength index in two
@@ -586,24 +571,9 @@ class AlphaVantage:
         8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "STOCHRSI"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type)
-        if fastkperiod:
-            url="{}&fastkperiod={}".format(url,fastkperiod)
-        if fastdperiod:
-            url="{}&fastdperiod={}".format(url, fastdperiod)
-        if fastdmatype:
-            # Check if it is an integer or a string
-            try:
-                value = int(fastdmatype)
-            except ValueError:
-                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(fastdmatype)
-            url="{}&fastdmatype={}".format(url, value)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: STOCHRSI',
-        'Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: STOCHRSI', 'Meta Data'
 
+    @_call_api_on_func
     def get_willr(self, symbol, interval='60min', time_period=20):
         """ Return the Williams' %R (WILLR) values in two json objects as data
         and meta_data. It raises ValueError when problems arise
@@ -615,11 +585,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "WILLR"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: WILLR','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: WILLR','Meta Data'
 
+    @_call_api_on_func
     def get_adx(self, symbol, interval='60min', time_period=20):
         """ Return  the average directional movement index values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -631,11 +599,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "ADX"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: ADX','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: ADX','Meta Data'
 
+    @_call_api_on_func
     def get_adxr(self, symbol, interval='60min', time_period=20):
         """ Return  the average directional movement index  rating in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -647,11 +613,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "ADXR"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: ADXR','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: ADXR','Meta Data'
 
+    @_call_api_on_func
     def get_apo(self, symbol, interval='60min', series_type='close',
     fastperiod=None, slowperiod=None, matype=None):
         """ Return the absolute price oscillator values in two
@@ -682,23 +646,9 @@ class AlphaVantage:
         8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "APO"
-        url = "{}function={}&symbol={}&interval={}&series_type={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
-        series_type)
-        if fastperiod:
-            url="{}&fastperiod={}".format(url,fastperiod)
-        if slowperiod:
-            url="{}&slowperiod={}".format(url, slowperiod)
-        if matype:
-            # Check if it is an integer or a string
-            try:
-                value = int(matype)
-            except ValueError:
-                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(matype)
-            url="{}&matype={}".format(url, value)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: APO','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: APO','Meta Data'
 
+    @_call_api_on_func
     def get_ppo(self, symbol, interval='60min', series_type='close',
     fastperiod=None, slowperiod=None, matype=None):
         """ Return the percentage price oscillator values in two
@@ -729,23 +679,9 @@ class AlphaVantage:
         8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "PPO"
-        url = "{}function={}&symbol={}&interval={}&series_type={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
-        series_type)
-        if fastperiod:
-            url="{}&fastperiod={}".format(url,fastperiod)
-        if slowperiod:
-            url="{}&slowperiod={}".format(url, slowperiod)
-        if matype:
-            # Check if it is an integer or a string
-            try:
-                value = int(matype)
-            except ValueError:
-                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(matype)
-            url="{}&matype={}".format(url, value)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: PPO','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: PPO','Meta Data'
 
+    @_call_api_on_func
     def get_mom(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the momentum values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -760,11 +696,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "MOM"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: MOM','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: MOM','Meta Data'
 
+    @_call_api_on_func
     def get_bop(self, symbol, interval='60min', time_period=20):
         """ Return the balance of power values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -776,11 +710,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "BOP"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: BOP','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: BOP','Meta Data'
 
+    @_call_api_on_func
     def get_cci(self, symbol, interval='60min', time_period=20):
         """ Return the commodity channel index values  in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -792,11 +724,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "CCI"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: CCI','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: CCI','Meta Data'
 
+    @_call_api_on_func
     def get_cmo(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the Chande momentum oscillator in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -811,11 +741,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "CMO"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: CMO','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: CMO','Meta Data'
 
+    @_call_api_on_func
     def get_roc(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the rate of change values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -830,11 +758,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "ROC"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: ROC','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: ROC','Meta Data'
 
+    @_call_api_on_func
     def get_rocr(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the rate of change ratio values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -849,11 +775,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "ROCR"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: ROCR','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: ROCR','Meta Data'
 
+    @_call_api_on_func
     def get_aroon(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the aroon values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -868,11 +792,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "AROON"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: AROON','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: AROON','Meta Data'
 
+    @_call_api_on_func
     def get_aroonosc(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the aroon oscillator values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -887,11 +809,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "AROONOSC"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: AROONOSC','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: AROONOSC','Meta Data'
 
+    @_call_api_on_func
     def get_mfi(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the money flow index values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -906,11 +826,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "MFI"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: MFI','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: MFI','Meta Data'
 
+    @_call_api_on_func
     def get_trix(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the1-day rate of change of a triple smooth exponential
         moving average in two json objects as data and meta_data.
@@ -926,11 +844,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "TRIX"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: TRIX','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: TRIX','Meta Data'
 
+    @_call_api_on_func
     def get_ultsoc(self, symbol, interval='60min', timeperiod1=None,
     timeperiod2=None, timeperiod3=None):
         """ Return the ultimate oscillaror values in two json objects as
@@ -949,17 +865,9 @@ class AlphaVantage:
         accepted. By default, timeperiod3=28
         """
         _FUNCTION_KEY = "ULTOSC"
-        url = "{}function={}&symbol={}&interval={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval)
-        if timeperiod1:
-            url="{}&timeperiod1={}".format(url, timeperiod1)
-        if timeperiod2:
-            url="{}&timeperiod2={}".format(url, timeperiod1)
-        if timeperiod3:
-            url="{}&timeperiod3={}".format(url, timeperiod1)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: ULTOSC','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: ULTOSC','Meta Data'
 
+    @_call_api_on_func
     def get_dx(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the directional movement index values in two json objects as
         data and meta_data. It raises ValueError when problems arise
@@ -974,11 +882,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "DX"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: DX','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: DX','Meta Data'
 
+    @_call_api_on_func
     def get_minus_di(self, symbol, interval='60min', time_period=20):
         """ Return the minus directional indicator values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -990,11 +896,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "MINUS_DI"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: MINUS_DI','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: MINUS_DI','Meta Data'
 
+    @_call_api_on_func
     def get_plus_di(self, symbol, interval='60min', time_period=20):
         """ Return the plus directional indicator values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -1006,11 +910,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "PLUS_DI"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: PLUS_DI','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: PLUS_DI','Meta Data'
 
+    @_call_api_on_func
     def get_minus_dm(self, symbol, interval='60min', time_period=20):
         """ Return the minus directional movement values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -1022,11 +924,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "MINUS_DM"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: MINUS_DM','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: MINUS_DM','Meta Data'
 
+    @_call_api_on_func
     def get_plus_dm(self, symbol, interval='60min', time_period=20):
         """ Return the plus directional movement values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -1038,11 +938,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "PLUS_DM"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: PLUS_DM','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: PLUS_DM','Meta Data'
 
+    @_call_api_on_func
     def get_bbands(self, symbol, interval='60min', time_period=20,  series_type='close',
     nbdevup=None, nbdevdn=None, matype=None):
         """ Return the bollinger bands values in two
@@ -1075,23 +973,9 @@ class AlphaVantage:
         8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "BBANDS"
-        url = "{}function={}&symbol={}&interval={}&time_period={}&series_type={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
-        time_period, series_type)
-        if nbdevup:
-            url="{}&nbdevup={}".format(url,nbdevup)
-        if nbdevdn:
-            url="{}&nbdevdn={}".format(url, nbdevdn)
-        if matype:
-            # Check if it is an integer or a string
-            try:
-                value = int(matype)
-            except ValueError:
-                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(matype)
-            url="{}&matype={}".format(url, value)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: BBANDS','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: BBANDS','Meta Data'
 
+    @_call_api_on_func
     def get_midpoint(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the midpoint values in two json objects as
         data and meta_data. It raises ValueError when problems arise
@@ -1106,11 +990,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "MIDPOINT"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: MIDPOINT','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: MIDPOINT','Meta Data'
 
+    @_call_api_on_func
     def get_midprice(self, symbol, interval='60min', time_period=20):
         """ Return the midprice values in two json objects as
         data and meta_data. It raises ValueError when problems arise
@@ -1123,11 +1005,9 @@ class AlphaVantage:
         time_period -- How many data points to average (default 20)
         """
         _FUNCTION_KEY = "MIDPRICE"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: MIDPRICE','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: MIDPRICE','Meta Data'
 
+    @_call_api_on_func
     def get_sar(self, symbol, interval='60min', acceleration=None, maximum=None):
         """ Return the midprice values in two json objects as
         data and meta_data. It raises ValueError when problems arise
@@ -1143,15 +1023,9 @@ class AlphaVantage:
         are accepted (default 0.20 )
         """
         _FUNCTION_KEY = "SAR"
-        url = "{}function={}&symbol={}&interval={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval)
-        if acceleration:
-            url = "{}&acceleration={}".format(url, acceleration)
-        if maximum:
-            url = "{}&maximum={}".format(url, maximum)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: SAR','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: SAR','Meta Data'
 
+    @_call_api_on_func
     def get_trange(self, symbol, interval='60min'):
         """ Return the true range values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -1163,11 +1037,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "TRANGE"
-        url = "{}function={}&symbol={}&interval={}&apikey={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
-        self.key)
-        return self._handle_api_call(url,'Technical Analysis: TRANGE','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: TRANGE','Meta Data'
 
+    @_call_api_on_func
     def get_atr(self, symbol, interval='60min', time_period=20):
         """ Return the average true range values in two json objects as
         data and meta_data. It raises ValueError when problems arise
@@ -1180,11 +1052,9 @@ class AlphaVantage:
         time_period -- How many data points to average (default 20)
         """
         _FUNCTION_KEY = "ATR"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: ATR','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: ATR','Meta Data'
 
+    @_call_api_on_func
     def get_natr(self, symbol, interval='60min', time_period=20):
         """ Return the normalized average true range values in two json objects
         as data and meta_data. It raises ValueError when problems arise
@@ -1197,11 +1067,9 @@ class AlphaVantage:
         time_period -- How many data points to average (default 20)
         """
         _FUNCTION_KEY = "NATR"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, self.key)
-        return self._handle_api_call(url,'Technical Analysis: NATR','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: NATR','Meta Data'
 
+    @_call_api_on_func
     def get_ad(self, symbol, interval='60min'):
         """ Return the Chaikin A/D line values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -1213,11 +1081,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "AD"
-        url = "{}function={}&symbol={}&interval={}&apikey={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
-        self.key)
-        return self._handle_api_call(url,'Technical Analysis: Chaikin A/D','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: Chaikin A/D','Meta Data'
 
+    @_call_api_on_func
     def get_adosc(self, symbol, interval='60min', fastperiod=None,
     slowperiod=None):
         """ Return the Chaikin A/D oscillator values in two
@@ -1233,15 +1099,9 @@ class AlphaVantage:
         slowperiod -- Positive integers are accepted (default=None)
         """
         _FUNCTION_KEY = "ADOSC"
-        url = "{}function={}&symbol={}&interval={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,)
-        if fastperiod:
-            url="{}&fastperiod={}".format(url,fastperiod)
-        if slowperiod:
-            url="{}&slowperiod={}".format(url, slowperiod)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: ADOSC','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: ADOSC','Meta Data'
 
+    @_call_api_on_func
     def get_obv(self, symbol, interval='60min'):
         """ Return the on balance volume values in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -1253,11 +1113,9 @@ class AlphaVantage:
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "OBV"
-        url = "{}function={}&symbol={}&interval={}&apikey={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
-        self.key)
-        return self._handle_api_call(url,'Technical Analysis: OBV','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: OBV','Meta Data'
 
+    @_call_api_on_func
     def get_ht_trendline(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, instantaneous trendline values in two
         json objects as data and meta_data. It raises ValueError when problems arise
@@ -1271,11 +1129,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_TRENDLINE"
-        url = "{}function={}&symbol={}&interval={}&series_type={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: HT_TRENDLINE','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: HT_TRENDLINE','Meta Data'
 
+    @_call_api_on_func
     def get_ht_sine(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, sine wave values in two
         json objects as data and meta_data. It raises ValueError when problems arise
@@ -1289,11 +1145,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_SINE"
-        url = "{}function={}&symbol={}&interval={}&series_type={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: HT_SINE','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: HT_SINE','Meta Data'
 
+    @_call_api_on_func
     def get_ht_trendmode(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, trend vs cycle mode in two
         json objects as data and meta_data. It raises ValueError when problems arise
@@ -1307,11 +1161,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_TRENDMODE"
-        url = "{}function={}&symbol={}&interval={}&series_type={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: HT_TRENDMODE','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: HT_TRENDMODE','Meta Data'
 
+    @_call_api_on_func
     def get_ht_dcperiod(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, dominant cycle period in two
         json objects as data and meta_data. It raises ValueError when problems arise
@@ -1325,11 +1177,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_DCPERIOD"
-        url = "{}function={}&symbol={}&interval={}&series_type={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: HT_DCPERIOD','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: HT_DCPERIOD','Meta Data'
 
+    @_call_api_on_func
     def get_ht_dcphase(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, dominant cycle phase in two
         json objects as data and meta_data. It raises ValueError when problems arise
@@ -1343,11 +1193,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_DCPHASE"
-        url = "{}function={}&symbol={}&interval={}&series_type={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: HT_DCPHASE','Meta Data')
+        return _FUNCTION_KEY,'Technical Analysis: HT_DCPHASE','Meta Data'
 
+    @_call_api_on_func
     def get_ht_phasor(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, phasor components in two
         json objects as data and meta_data. It raises ValueError when problems arise
@@ -1361,10 +1209,7 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_PHASOR"
-        url = "{}function={}&symbol={}&interval={}&series_type={}"\
-        "&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: HT_PHASOR','Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: HT_PHASOR', 'Meta Data'
 
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
