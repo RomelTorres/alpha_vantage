@@ -51,8 +51,21 @@ class AlphaVantage:
         func -- The function to be decorated
         """
         argspec = inspect.getargspec(func)
-        positional_count = len(argspec.args) - len(argspec.defaults)
-        defaults = dict(zip(argspec.args[positional_count:], argspec.defaults))
+        try:
+            # Asumme most of the cases have a mixed between args and named
+            # args
+            positional_count = len(argspec.args) - len(argspec.defaults)
+            defaults = dict(zip(argspec.args[positional_count:], argspec.defaults))
+        except TypeError:
+            if argspec.args:
+                # No defaults
+                positional_count = len(argspec.args)
+                defaults = {}
+            elif argspec.defaults:
+                # Only defaults
+                positional_count = 0
+                defaults = argspec.defaults
+
         @wraps(func)
         def _call_wrapper(self, *args, **kwargs):
             used_kwargs = kwargs.copy()
@@ -151,7 +164,7 @@ class AlphaVantage:
         _FUNCTION_KEY = "TIME_SERIES_DAILY"
         return _FUNCTION_KEY, 'Time Series (Daily)', 'Meta Data'
 
-
+    @_call_api_on_func
     def get_weekly(self, symbol):
         """ Return weekly time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
@@ -161,10 +174,9 @@ class AlphaVantage:
 
         """
         _FUNCTION_KEY = "TIME_SERIES_WEEKLY"
-        url = "{}function={}&symbol={}&apikey={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY, symbol, self.key)
-        return self._handle_api_call(url, 'Weekly Time Series', 'Meta Data')
+        return _FUNCTION_KEY, 'Weekly Time Series', 'Meta Data'
 
+    @_call_api_on_func
     def get_monthly(self, symbol):
         """ Return monthly time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
@@ -174,10 +186,9 @@ class AlphaVantage:
 
         """
         _FUNCTION_KEY = "TIME_SERIES_MONTHLY"
-        url = "{}function={}&symbol={}&apikey={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY, symbol, self.key)
-        return self._handle_api_call(url, 'Monthly Time Series', 'Meta Data')
+        return _FUNCTION_KEY, 'Monthly Time Series', 'Meta Data'
 
+    @_call_api_on_func
     def get_sma(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return simple moving average time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
@@ -192,11 +203,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "SMA"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: SMA','Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: SMA','Meta Data'
 
+    @_call_api_on_func
     def get_ema(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return exponential moving average time series in two json objects
         as data and meta_data. It raises ValueError when problems arise
@@ -211,11 +220,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "EMA"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: EMA','Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: EMA','Meta Data'
 
+    @_call_api_on_func
     def get_wma(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return weighted moving average time series in two json objects
         as data and meta_data. It raises ValueError when problems arise
@@ -230,11 +237,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "WMA"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: WMA','Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: WMA','Meta Data'
 
+    @_call_api_on_func
     def get_dema(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return double exponential moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -249,10 +254,7 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "DEMA"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: DEMA','Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: DEMA','Meta Data'
 
     def get_tema(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return triple exponential moving average time series in two json
