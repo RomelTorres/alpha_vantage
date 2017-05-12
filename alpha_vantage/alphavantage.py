@@ -18,6 +18,7 @@ class AlphaVantage:
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
     _ALPHA_VANTAGE_MATH_MAP = ['SMA','EMA','WMA','DEMA','TEMA', 'TRIMA','T3',
     'KAMA','MAMA']
+
     def __init__(self, key=None, retries=3):
         if key is None:
             raise ValueError('Get a free key from the alphavantage website')
@@ -87,6 +88,10 @@ class AlphaVantage:
                     arg_value = args[idx]
                 except IndexError:
                     arg_value = used_kwargs[arg_name]
+                if 'matype' in arg_name and arg_value:
+                    # If the argument name has matype, we gotta map the string
+                    # or the integer
+                    arg_value = self.map_to_matype(arg_value)
                 if arg_value:
                     # Discard argument in the url formation if it was set to
                     # None (in other words, this will call the api with its
@@ -95,6 +100,47 @@ class AlphaVantage:
             url='{}&apikey={}'.format(url, self.key)
             return self._handle_api_call(url, data_key, meta_data_key)
         return _call_wrapper
+
+    def _data_request(self, url):
+        """ Request data from the given url and return it as a json
+        object. It raises URLError
+
+        Keyword arguments:
+        url -- The url of the service
+        """
+        response = urlopen(url)
+        url_response = response.read()
+        json_response = loads(url_response)
+        return json_response
+
+    def map_to_matype(self, matype):
+        """ Convert to the alpha vantage math type integer. It returns an
+        integer correspondant to the type of math to apply to a function. It
+        raises ValueError if an integer greater than the supported math types
+        is given.
+
+        Keyword arguments
+        matype -- The math type of the alpha vantage api. It accepts integers
+        or a string representing the math type.
+
+        0 = Simple Moving Average (SMA),
+        1 = Exponential Moving Average (EMA),
+        2 = Weighted Moving Average (WMA),
+        3 = Double Exponential Moving Average (DEMA),
+        4 = Triple Exponential Moving Average (TEMA),
+        5 = Triangular Moving Average (TRIMA),
+        6 = T3 Moving Average,
+        7 = Kaufman Adaptive Moving Average (KAMA),
+        8 = MESA Adaptive Moving Average (MAMA)
+        """
+        # Check if it is an integer or a string
+        try:
+            value = int(matype)
+            if abs(value) > len(AlphaVantage._ALPHA_VANTAGE_MATH_MAP):
+                raise ValueError("The value {} is not supported".format(value))
+        except ValueError:
+            value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(matype)
+        return value
 
     @_retry
     def _handle_api_call(self, url, data_key, meta_data_key="Meta Data"):
@@ -118,18 +164,6 @@ class AlphaVantage:
         data = json_response[data_key]
         meta_data = json_response[meta_data_key]
         return data, meta_data
-
-    def _data_request(self, url):
-        """ Request data from the given url and return it as a json
-        object. It raises URLError
-
-        Keyword arguments:
-        url -- The url of the service
-        """
-        response = urlopen(url)
-        url_response = response.read()
-        json_response = loads(url_response)
-        return json_response
 
     @_call_api_on_func
     def get_intraday(self, symbol, interval='15min', outputsize='compact'):
@@ -256,6 +290,7 @@ class AlphaVantage:
         _FUNCTION_KEY = "DEMA"
         return _FUNCTION_KEY, 'Technical Analysis: DEMA','Meta Data'
 
+    @_call_api_on_func
     def get_tema(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return triple exponential moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -270,11 +305,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "TEMA"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: TEMA','Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: TEMA','Meta Data'
 
+    @_call_api_on_func
     def get_trima(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return triangular moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -289,11 +322,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "TRIMA"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: TRIMA','Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: TRIMA','Meta Data'
 
+    @_call_api_on_func
     def get_kama(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return Kaufman adaptative moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -308,11 +339,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "KAMA"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: KAMA','Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: KAMA','Meta Data'
 
+    @_call_api_on_func
     def get_mama(self, symbol, interval='60min', time_period=20, series_type='close',
     fastlimit=None, slowlimit=None):
         """ Return MESA adaptative moving average time series in two json
@@ -332,16 +361,9 @@ class AlphaVantage:
         (default=None)
         """
         _FUNCTION_KEY = "MAMA"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type)
-        if fastlimit:
-            url="{}&fastlimit={}".format(url,fastlimit)
-        if slowlimit:
-            url="{}&slowlimit={}".format(url, slowlimit)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: MAMA','Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: MAMA','Meta Data'
 
+    @_call_api_on_func
     def get_t3(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return triple exponential moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -356,11 +378,9 @@ class AlphaVantage:
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "T3"
-        url = "{}function={}&symbol={}&interval={}&time_period={}"\
-        "&series_type={}&apikey={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-        _FUNCTION_KEY, symbol, interval, time_period, series_type, self.key)
-        return self._handle_api_call(url,'Technical Analysis: T3','Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: T3','Meta Data'
 
+    @_call_api_on_func
     def get_macd(self, symbol, interval='60min', series_type='close',
     fastperiod=None, slowperiod=None, signalperiod=None):
         """ Return the moving average convergence/divergence time series in two
@@ -379,18 +399,9 @@ class AlphaVantage:
         signalperiod -- Positive integers are accepted (default=None)
         """
         _FUNCTION_KEY = "MACD"
-        url = "{}function={}&symbol={}&interval={}&series_type={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
-        series_type)
-        if fastperiod:
-            url="{}&fastperiod={}".format(url,fastperiod)
-        if slowperiod:
-            url="{}&slowperiod={}".format(url, slowperiod)
-        if signalperiod:
-            url="{}&signalperiod={}".format(url, signalperiod)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: MACD','Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: MACD','Meta Data'
 
+    @_call_api_on_func
     def get_macdext(self, symbol, interval='60min', series_type='close',
     fastperiod=None, slowperiod=None, signalperiod=None, fastmatype=None,
     slowmatype=None, signalmatype=None):
@@ -432,40 +443,9 @@ class AlphaVantage:
         8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "MACDEXT"
-        url = "{}function={}&symbol={}&interval={}&series_type={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval,
-        series_type)
-        if fastperiod:
-            url="{}&fastperiod={}".format(url,fastperiod)
-        if slowperiod:
-            url="{}&slowperiod={}".format(url, slowperiod)
-        if signalperiod:
-            url="{}&signalperiod={}".format(url, signalperiod)
-        if fastmatype:
-            # Check if it is an integer or a string
-            try:
-                value = int(fastmatype)
-            except ValueError:
-                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(fastmatype)
-            url="{}&fastmatype={}".format(url, value)
-        if slowmatype:
-            # Check if it is an integer or a string
-            try:
-                value = int(slowmatype)
-            except ValueError:
-                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(slowmatype)
-            url="{}&slowmatype={}".format(url, value)
-        if signalmatype:
-            # Check if it is an integer or a string
-            try:
-                value = int(signalmatype)
-            except ValueError:
-                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(signalmatype)
-            url="{}&signalmatype={}".format(url, value)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: MACDEXT',
-        'Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: MACDEXT', 'Meta Data'
 
+    @_call_api_on_func
     def get_stoch(self, symbol, interval='60min', fastkperiod=None,
     slowkperiod=None, slowdperiod=None, slowkmatype=None, slowdmatype=None):
         """ Return the stochatic oscillator values in two
@@ -503,31 +483,7 @@ class AlphaVantage:
         8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "STOCH"
-        url = "{}function={}&symbol={}&interval={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL,_FUNCTION_KEY, symbol, interval)
-        if fastkperiod:
-            url="{}&fastkperiod={}".format(url,fastkperiod)
-        if slowkperiod:
-            url="{}&slowkperiod={}".format(url, slowkperiod)
-        if slowdperiod:
-            url="{}&slowdperiod={}".format(url, slowdperiod)
-        if slowkmatype:
-            # Check if it is an integer or a string
-            try:
-                value = int(slowkmatype)
-            except ValueError:
-                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(slowkmatype)
-            url="{}&slowkmatype={}".format(url, value)
-        if slowdmatype:
-            # Check if it is an integer or a string
-            try:
-                value = int(slowdmatype)
-            except ValueError:
-                value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(slowdmatype)
-            url="{}&slowdmatype={}".format(url, value)
-        url = "{}&apikey={}".format(url, self.key)
-        return self._handle_api_call(url,'Technical Analysis: STOCH',
-        'Meta Data')
+        return _FUNCTION_KEY, 'Technical Analysis: STOCH', 'Meta Data'
 
     def get_stochf(self, symbol, interval='60min', fastkperiod=None,
     fastdperiod=None, fastdmatype=None):
