@@ -6,7 +6,9 @@ except ImportError:
     from urllib2 import urlopen
 
 from simplejson import loads
+from functools import wraps
 import inspect
+
 
 class AlphaVantage:
     """
@@ -29,6 +31,7 @@ class AlphaVantage:
         Keyword arguments:
         func -- The function to be retried
         """
+        @wraps(func)
         def _retry_wrapper(self, *args, **kwargs):
             for retry in range(self.retries + 1):
                 try:
@@ -50,6 +53,7 @@ class AlphaVantage:
         argspec = inspect.getargspec(func)
         positional_count = len(argspec.args) - len(argspec.defaults)
         defaults = dict(zip(argspec.args[positional_count:], argspec.defaults))
+        @wraps(func)
         def _call_wrapper(self, *args, **kwargs):
             used_kwargs = kwargs.copy()
             # Get the used positional arguments given to the function
@@ -57,8 +61,8 @@ class AlphaVantage:
             args[positional_count:]))
             # Update the dictionary to include the default parameters from the
             # function
-            used_kwargs_def = {k: used_kwargs.get(k, d)
-            for k, d in defaults.items()}
+            used_kwargs.update({k: used_kwargs.get(k, d)
+            for k, d in defaults.items()})
             # Form the base url, the original function called must return
             # the function name defined in the alpha vantage api and the data
             # key for it and for its meta data.
@@ -69,14 +73,13 @@ class AlphaVantage:
                 try:
                     arg_value = args[idx]
                 except IndexError:
-                    arg_value = used_kwargs_def[arg_name]
+                    arg_value = used_kwargs[arg_name]
                 if arg_value:
                     # Discard argument in the url formation if it was set to
                     # None (in other words, this will call the api with its
                     # internal defined parameter)
                     url = '{}&{}={}'.format(url, arg_name, arg_value)
             url='{}&apikey={}'.format(url, self.key)
-            print(url)
             return self._handle_api_call(url, data_key, meta_data_key)
         return _call_wrapper
 
@@ -133,6 +136,7 @@ class AlphaVantage:
         _FUNCTION_KEY = "TIME_SERIES_INTRADAY"
         return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'
 
+    @_call_api_on_func
     def get_daily(self, symbol, outputsize='compact'):
         """ Return daily time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
@@ -145,10 +149,7 @@ class AlphaVantage:
         series, commonly above 1MB (default 'compact')
         """
         _FUNCTION_KEY = "TIME_SERIES_DAILY"
-        url = "{}function={}&symbol={}&outputsize={}&apikey={}".format(
-        AlphaVantage._ALPHA_VANTAGE_API_URL, _FUNCTION_KEY,  symbol, outputsize,
-        self.key)
-        return self._handle_api_call(url, 'Time Series (Daily)', 'Meta Data')
+        return _FUNCTION_KEY, 'Time Series (Daily)', 'Meta Data'
 
 
     def get_weekly(self, symbol):
@@ -1409,4 +1410,4 @@ class AlphaVantage:
 
 if __name__ == '__main__':
     av = AlphaVantage(key='486U')
-    print(av.get_intraday('GOOGL',interval='1min'))
+    print(av.get_intraday(symbol='GOOGL',interval='1min'))
