@@ -27,6 +27,24 @@ Internally there is a retries counter, that can be used to minimize connection e
 ```python
 av = AlphaVantage(key='YOUR_API_KEY',retries='YOUR_RETRIES')
 ```
+Finally the library supports giving its results as json dictionaries (default) or as pandas dataframe, simply pass the parameter output_format='pandas' to change
+the format of the output for all the api calls.
+```python
+av = AlphaVantage(key='YOUR_API_KEY',output_format='pandas')
+```
+
+## Plotting
+Using pandas support we can plot the intraminute value for GOOGL quite easily:
+
+```python
+from alpha_vantage.alphavantage import AlphaVantage
+import matplotlib.pyplot as plt
+
+av = AlphaVantage(key='YOUR_API_KEY', output_format='pandas')
+data, meta_data = av.get_intraday(symbol='GOOGL',interval='1min', outputsize='full')
+ax = data['close'].plot()
+plt.show()
+```
 
 ## Tests
 
@@ -41,5 +59,5 @@ nosetests
 2. ~~Add retry in order to allow the calls to be retried in case of failure: 0.0.2~~
 3. ~~Implement all functions described in the alpha vantage documentation 0.0.3~~
 4. ~~Re-factor functions to have an unified method for accessing the api 0.1.0~~
-5. Add unit tests for all the function parameters in the module 0.1.1
-6. Add pandas support through decorators 0.2.0
+5. Add pandas support through decorators 0.2.0
+6. Add unit tests for all the function parameters in the module 0.1.1
