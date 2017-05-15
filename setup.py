@@ -10,6 +10,7 @@ setup(
     long_description=open('README.md').read(),
     install_requires=[
         'simplejson',
+        'pandas',
         'nose'
     ],
     keywords='stocks market finance alpha-vantage quotes shares currency',

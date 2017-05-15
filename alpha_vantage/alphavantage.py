@@ -8,7 +8,8 @@ except ImportError:
 from simplejson import loads
 from functools import wraps
 import inspect
-
+import pandas
+import re
 
 class AlphaVantage:
     """
@@ -19,11 +20,20 @@ class AlphaVantage:
     _ALPHA_VANTAGE_MATH_MAP = ['SMA','EMA','WMA','DEMA','TEMA', 'TRIMA','T3',
     'KAMA','MAMA']
 
-    def __init__(self, key=None, retries=3):
+    def __init__(self, key=None, retries=3, output_format='json'):
+        """ Initialize the class
+
+        Keyword arguments:
+        key -- Alpha Vantage api key
+        retries -- Maximum amount of retries in case of faulty connection or
+        server not able to answer the call.
+        output_format -- Either 'json' or 'pandas'
+        """
         if key is None:
             raise ValueError('Get a free key from the alphavantage website')
         self.key = key
         self.retries = retries
+        self.output_format = output_format
 
     def _retry(func):
         """ Decorator for retrying api calls (in case of errors from the api
@@ -51,6 +61,8 @@ class AlphaVantage:
         Keyword arguments:
         func -- The function to be decorated
         """
+
+        # Argument Handling
         argspec = inspect.getargspec(func)
         try:
             # Asumme most of the cases have a mixed between args and named
@@ -66,7 +78,7 @@ class AlphaVantage:
                 # Only defaults
                 positional_count = 0
                 defaults = argspec.defaults
-
+        # Actual decorating
         @wraps(func)
         def _call_wrapper(self, *args, **kwargs):
             used_kwargs = kwargs.copy()
@@ -98,20 +110,36 @@ class AlphaVantage:
                     # internal defined parameter)
                     url = '{}&{}={}'.format(url, arg_name, arg_value)
             url='{}&apikey={}'.format(url, self.key)
-            return self._handle_api_call(url, data_key, meta_data_key)
+            return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
-    def _data_request(self, url):
-        """ Request data from the given url and return it as a json
-        object. It raises URLError
+    def _output_format(func):
+        """ Decorator in charge of giving the output its right format, either
+        json or pandas
 
         Keyword arguments:
-        url -- The url of the service
+        func -- The function to be decorated
         """
-        response = urlopen(url)
-        url_response = response.read()
-        json_response = loads(url_response)
-        return json_response
+        @wraps(func)
+        def _format_wrapper(self, *args, **kwargs):
+            json_response, data_key, meta_data_key = func(self, *args, **kwargs)
+            data = json_response[data_key]
+            meta_data = json_response[meta_data_key]
+            if self.output_format.lower() == 'json':
+                return data, meta_data
+            elif self.output_format.lower() == 'pandas':
+                data_pandas = pandas.DataFrame.from_dict(data,
+                orient='index', dtype=float)
+                # Rename columns to have a nicer name
+                col_names = [re.sub(r'\d+.', '', name).strip(' ')
+                    for name in list(data_pandas)]
+                data_pandas.columns = col_names
+                return data_pandas, meta_data
+            else:
+                raise ValueError('Format: {} is not supported'.format(
+                self.output_format))
+
+        return _format_wrapper
 
     def map_to_matype(self, matype):
         """ Convert to the alpha vantage math type integer. It returns an
@@ -143,7 +171,7 @@ class AlphaVantage:
         return value
 
     @_retry
-    def _handle_api_call(self, url, data_key, meta_data_key="Meta Data"):
+    def _handle_api_call(self, url):
         """ Handle the return call from the  api and return a data and meta_data
         object. It raises a ValueError on problems
 
@@ -153,7 +181,9 @@ class AlphaVantage:
         meta_data_key -- The key for getting the meta data information out of
         the json object
         """
-        json_response = self._data_request(url)
+        response = urlopen(url)
+        url_response = response.read()
+        json_response = loads(url_response)
         if 'Error Message' in json_response or not json_response:
             if json_response:
                 raise ValueError('ERROR getting data form api',
@@ -161,10 +191,9 @@ class AlphaVantage:
             else:
                 raise ValueError('Error getting data from api, no return'\
                  ' message from the api url (possibly wrong symbol/param)')
-        data = json_response[data_key]
-        meta_data = json_response[meta_data_key]
-        return data, meta_data
+        return json_response
 
+    @_output_format
     @_call_api_on_func
     def get_intraday(self, symbol, interval='15min', outputsize='compact'):
         """ Return intraday time series in two json objects as data and
@@ -183,6 +212,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "TIME_SERIES_INTRADAY"
         return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_daily(self, symbol, outputsize='compact'):
         """ Return daily time series in two json objects as data and
@@ -198,6 +229,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "TIME_SERIES_DAILY"
         return _FUNCTION_KEY, 'Time Series (Daily)', 'Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_weekly(self, symbol):
         """ Return weekly time series in two json objects as data and
@@ -210,6 +243,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "TIME_SERIES_WEEKLY"
         return _FUNCTION_KEY, 'Weekly Time Series', 'Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_monthly(self, symbol):
         """ Return monthly time series in two json objects as data and
@@ -222,6 +257,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "TIME_SERIES_MONTHLY"
         return _FUNCTION_KEY, 'Monthly Time Series', 'Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_sma(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return simple moving average time series in two json objects as data and
@@ -239,6 +276,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "SMA"
         return _FUNCTION_KEY, 'Technical Analysis: SMA','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_ema(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return exponential moving average time series in two json objects
@@ -256,6 +295,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "EMA"
         return _FUNCTION_KEY, 'Technical Analysis: EMA','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_wma(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return weighted moving average time series in two json objects
@@ -273,6 +314,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "WMA"
         return _FUNCTION_KEY, 'Technical Analysis: WMA','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_dema(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return double exponential moving average time series in two json
@@ -290,6 +333,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "DEMA"
         return _FUNCTION_KEY, 'Technical Analysis: DEMA','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_tema(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return triple exponential moving average time series in two json
@@ -307,6 +352,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "TEMA"
         return _FUNCTION_KEY, 'Technical Analysis: TEMA','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_trima(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return triangular moving average time series in two json
@@ -324,6 +371,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "TRIMA"
         return _FUNCTION_KEY, 'Technical Analysis: TRIMA','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_kama(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return Kaufman adaptative moving average time series in two json
@@ -341,6 +390,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "KAMA"
         return _FUNCTION_KEY, 'Technical Analysis: KAMA','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_mama(self, symbol, interval='60min', time_period=20, series_type='close',
     fastlimit=None, slowlimit=None):
@@ -363,6 +414,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "MAMA"
         return _FUNCTION_KEY, 'Technical Analysis: MAMA','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_t3(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return triple exponential moving average time series in two json
@@ -380,6 +433,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "T3"
         return _FUNCTION_KEY, 'Technical Analysis: T3','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_macd(self, symbol, interval='60min', series_type='close',
     fastperiod=None, slowperiod=None, signalperiod=None):
@@ -401,6 +456,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "MACD"
         return _FUNCTION_KEY, 'Technical Analysis: MACD','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_macdext(self, symbol, interval='60min', series_type='close',
     fastperiod=None, slowperiod=None, signalperiod=None, fastmatype=None,
@@ -445,6 +502,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "MACDEXT"
         return _FUNCTION_KEY, 'Technical Analysis: MACDEXT', 'Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_stoch(self, symbol, interval='60min', fastkperiod=None,
     slowkperiod=None, slowdperiod=None, slowkmatype=None, slowdmatype=None):
@@ -485,6 +544,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "STOCH"
         return _FUNCTION_KEY, 'Technical Analysis: STOCH', 'Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_stochf(self, symbol, interval='60min', fastkperiod=None,
     fastdperiod=None, fastdmatype=None):
@@ -519,6 +580,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "STOCHF"
         return _FUNCTION_KEY, 'Technical Analysis: STOCHF', 'Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_rsi(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the relative strength index time series in two json
@@ -536,6 +599,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "RSI"
         return _FUNCTION_KEY,'Technical Analysis: RSI','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_stochrsi(self, symbol, interval='60min', time_period=20,
     series_type='close', fastkperiod=None, fastdperiod=None, fastdmatype=None):
@@ -573,6 +638,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "STOCHRSI"
         return _FUNCTION_KEY, 'Technical Analysis: STOCHRSI', 'Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_willr(self, symbol, interval='60min', time_period=20):
         """ Return the Williams' %R (WILLR) values in two json objects as data
@@ -587,6 +654,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "WILLR"
         return _FUNCTION_KEY,'Technical Analysis: WILLR','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_adx(self, symbol, interval='60min', time_period=20):
         """ Return  the average directional movement index values in two json
@@ -601,6 +670,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "ADX"
         return _FUNCTION_KEY,'Technical Analysis: ADX','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_adxr(self, symbol, interval='60min', time_period=20):
         """ Return  the average directional movement index  rating in two json
@@ -615,6 +686,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "ADXR"
         return _FUNCTION_KEY,'Technical Analysis: ADXR','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_apo(self, symbol, interval='60min', series_type='close',
     fastperiod=None, slowperiod=None, matype=None):
@@ -648,6 +721,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "APO"
         return _FUNCTION_KEY,'Technical Analysis: APO','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_ppo(self, symbol, interval='60min', series_type='close',
     fastperiod=None, slowperiod=None, matype=None):
@@ -681,6 +756,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "PPO"
         return _FUNCTION_KEY,'Technical Analysis: PPO','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_mom(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the momentum values in two json
@@ -698,6 +775,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "MOM"
         return _FUNCTION_KEY,'Technical Analysis: MOM','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_bop(self, symbol, interval='60min', time_period=20):
         """ Return the balance of power values in two json
@@ -712,6 +791,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "BOP"
         return _FUNCTION_KEY,'Technical Analysis: BOP','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_cci(self, symbol, interval='60min', time_period=20):
         """ Return the commodity channel index values  in two json
@@ -726,6 +807,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "CCI"
         return _FUNCTION_KEY,'Technical Analysis: CCI','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_cmo(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the Chande momentum oscillator in two json
@@ -743,6 +826,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "CMO"
         return _FUNCTION_KEY,'Technical Analysis: CMO','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_roc(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the rate of change values in two json
@@ -760,6 +845,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "ROC"
         return _FUNCTION_KEY,'Technical Analysis: ROC','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_rocr(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the rate of change ratio values in two json
@@ -777,6 +864,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "ROCR"
         return _FUNCTION_KEY,'Technical Analysis: ROCR','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_aroon(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the aroon values in two json
@@ -794,6 +883,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "AROON"
         return _FUNCTION_KEY,'Technical Analysis: AROON','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_aroonosc(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the aroon oscillator values in two json
@@ -811,6 +902,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "AROONOSC"
         return _FUNCTION_KEY,'Technical Analysis: AROONOSC','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_mfi(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the money flow index values in two json
@@ -828,6 +921,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "MFI"
         return _FUNCTION_KEY,'Technical Analysis: MFI','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_trix(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the1-day rate of change of a triple smooth exponential
@@ -846,6 +941,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "TRIX"
         return _FUNCTION_KEY,'Technical Analysis: TRIX','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_ultsoc(self, symbol, interval='60min', timeperiod1=None,
     timeperiod2=None, timeperiod3=None):
@@ -867,6 +964,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "ULTOSC"
         return _FUNCTION_KEY,'Technical Analysis: ULTOSC','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_dx(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the directional movement index values in two json objects as
@@ -884,6 +983,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "DX"
         return _FUNCTION_KEY,'Technical Analysis: DX','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_minus_di(self, symbol, interval='60min', time_period=20):
         """ Return the minus directional indicator values in two json
@@ -898,6 +999,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "MINUS_DI"
         return _FUNCTION_KEY,'Technical Analysis: MINUS_DI','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_plus_di(self, symbol, interval='60min', time_period=20):
         """ Return the plus directional indicator values in two json
@@ -912,6 +1015,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "PLUS_DI"
         return _FUNCTION_KEY,'Technical Analysis: PLUS_DI','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_minus_dm(self, symbol, interval='60min', time_period=20):
         """ Return the minus directional movement values in two json
@@ -926,6 +1031,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "MINUS_DM"
         return _FUNCTION_KEY,'Technical Analysis: MINUS_DM','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_plus_dm(self, symbol, interval='60min', time_period=20):
         """ Return the plus directional movement values in two json
@@ -940,6 +1047,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "PLUS_DM"
         return _FUNCTION_KEY,'Technical Analysis: PLUS_DM','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_bbands(self, symbol, interval='60min', time_period=20,  series_type='close',
     nbdevup=None, nbdevdn=None, matype=None):
@@ -975,6 +1084,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "BBANDS"
         return _FUNCTION_KEY,'Technical Analysis: BBANDS','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_midpoint(self, symbol, interval='60min', time_period=20, series_type='close'):
         """ Return the midpoint values in two json objects as
@@ -992,6 +1103,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "MIDPOINT"
         return _FUNCTION_KEY,'Technical Analysis: MIDPOINT','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_midprice(self, symbol, interval='60min', time_period=20):
         """ Return the midprice values in two json objects as
@@ -1007,6 +1120,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "MIDPRICE"
         return _FUNCTION_KEY,'Technical Analysis: MIDPRICE','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_sar(self, symbol, interval='60min', acceleration=None, maximum=None):
         """ Return the midprice values in two json objects as
@@ -1025,6 +1140,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "SAR"
         return _FUNCTION_KEY,'Technical Analysis: SAR','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_trange(self, symbol, interval='60min'):
         """ Return the true range values in two json
@@ -1039,6 +1156,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "TRANGE"
         return _FUNCTION_KEY,'Technical Analysis: TRANGE','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_atr(self, symbol, interval='60min', time_period=20):
         """ Return the average true range values in two json objects as
@@ -1054,6 +1173,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "ATR"
         return _FUNCTION_KEY,'Technical Analysis: ATR','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_natr(self, symbol, interval='60min', time_period=20):
         """ Return the normalized average true range values in two json objects
@@ -1069,6 +1190,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "NATR"
         return _FUNCTION_KEY,'Technical Analysis: NATR','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_ad(self, symbol, interval='60min'):
         """ Return the Chaikin A/D line values in two json
@@ -1083,6 +1206,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "AD"
         return _FUNCTION_KEY,'Technical Analysis: Chaikin A/D','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_adosc(self, symbol, interval='60min', fastperiod=None,
     slowperiod=None):
@@ -1101,6 +1226,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "ADOSC"
         return _FUNCTION_KEY,'Technical Analysis: ADOSC','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_obv(self, symbol, interval='60min'):
         """ Return the on balance volume values in two json
@@ -1115,6 +1242,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "OBV"
         return _FUNCTION_KEY,'Technical Analysis: OBV','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_ht_trendline(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, instantaneous trendline values in two
@@ -1131,6 +1260,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "HT_TRENDLINE"
         return _FUNCTION_KEY,'Technical Analysis: HT_TRENDLINE','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_ht_sine(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, sine wave values in two
@@ -1147,6 +1278,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "HT_SINE"
         return _FUNCTION_KEY,'Technical Analysis: HT_SINE','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_ht_trendmode(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, trend vs cycle mode in two
@@ -1163,6 +1296,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "HT_TRENDMODE"
         return _FUNCTION_KEY,'Technical Analysis: HT_TRENDMODE','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_ht_dcperiod(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, dominant cycle period in two
@@ -1179,6 +1314,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "HT_DCPERIOD"
         return _FUNCTION_KEY,'Technical Analysis: HT_DCPERIOD','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_ht_dcphase(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, dominant cycle phase in two
@@ -1195,6 +1332,8 @@ class AlphaVantage:
         _FUNCTION_KEY = "HT_DCPHASE"
         return _FUNCTION_KEY,'Technical Analysis: HT_DCPHASE','Meta Data'
 
+
+    @_output_format
     @_call_api_on_func
     def get_ht_phasor(self, symbol, interval='60min', series_type='close'):
         """ Return the Hilbert transform, phasor components in two
@@ -1210,7 +1349,3 @@ class AlphaVantage:
         """
         _FUNCTION_KEY = "HT_PHASOR"
         return _FUNCTION_KEY, 'Technical Analysis: HT_PHASOR', 'Meta Data'
-
-if __name__ == '__main__':
-    av = AlphaVantage(key='486U')
-    print(av.get_intraday(symbol='GOOGL',interval='1min'))

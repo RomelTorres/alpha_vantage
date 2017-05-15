@@ -8,6 +8,7 @@ python:
 
 install:
     - pip install simplejson
+    - pip install pandas
 
 script:
     -  nosetests
