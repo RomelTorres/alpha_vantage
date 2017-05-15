@@ -112,6 +112,28 @@ class AlphaVantage:
             return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
+    def _ouput_format(func):
+        """ Decorator in charge of giving the output its right format, either
+        json or pandas
+
+        Keyword arguments:
+        func -- The function to be decorated
+        """
+        def _format_wrapper(self, *args, **kwargs):
+            json_response, data_key, meta_data_key = func(self, *args, **kargs)
+            if self.output_format.lower() == 'json':
+                data = json_response[data_key]
+                meta_data = json_response[meta_data_key]
+                return data, meta_data
+            elif self.output_format.lower() == 'pandas':
+                pass
+            else:
+                raise ValueError('Format: {} is not supported'.format(
+                self.output_format))
+
+        return _format_wrapper
+
+
     def _data_request(self, url):
         """ Request data from the given url and return it as a json
         object. It raises URLError
