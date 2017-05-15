@@ -3,12 +3,13 @@ from alpha_vantage.alphavantage import AlphaVantage
 from simplejson import loads, dumps
 import unittest
 import timeit
+import os
 
 class TestAlphaVantage(unittest.TestCase):
     """
         Test data request different implementations
     """
-    _API_KEY_TEST = '486U'
+    _API_KEY_TEST = os.environ['API_KEY']
     _API_EQ_NAME_TEST = 'MSFT'
 
     def _assert_result_is_dict(self, func, **args):
