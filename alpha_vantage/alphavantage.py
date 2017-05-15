@@ -19,11 +19,20 @@ class AlphaVantage:
     _ALPHA_VANTAGE_MATH_MAP = ['SMA','EMA','WMA','DEMA','TEMA', 'TRIMA','T3',
     'KAMA','MAMA']
 
-    def __init__(self, key=None, retries=3):
+    def __init__(self, key=None, retries=3, output_format='json'):
+        """ Initialize the class
+
+        Keyword arguments:
+        key -- Alpha Vantage api key
+        retries -- Maximum amount of retries in case of faulty connection or
+        server not able to answer the call.
+        output_format -- Either 'json' or 'pandas'
+        """
         if key is None:
             raise ValueError('Get a free key from the alphavantage website')
         self.key = key
         self.retries = retries
+        self.output_format = output_format
 
     def _retry(func):
         """ Decorator for retrying api calls (in case of errors from the api
@@ -51,6 +60,8 @@ class AlphaVantage:
         Keyword arguments:
         func -- The function to be decorated
         """
+
+        # Argument Handling
         argspec = inspect.getargspec(func)
         try:
             # Asumme most of the cases have a mixed between args and named
@@ -66,7 +77,7 @@ class AlphaVantage:
                 # Only defaults
                 positional_count = 0
                 defaults = argspec.defaults
-
+        # Actual decorating
         @wraps(func)
         def _call_wrapper(self, *args, **kwargs):
             used_kwargs = kwargs.copy()
@@ -98,7 +109,7 @@ class AlphaVantage:
                     # internal defined parameter)
                     url = '{}&{}={}'.format(url, arg_name, arg_value)
             url='{}&apikey={}'.format(url, self.key)
-            return self._handle_api_call(url, data_key, meta_data_key)
+            return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
     def _data_request(self, url):
@@ -143,7 +154,7 @@ class AlphaVantage:
         return value
 
     @_retry
-    def _handle_api_call(self, url, data_key, meta_data_key="Meta Data"):
+    def _handle_api_call(self, url):
         """ Handle the return call from the  api and return a data and meta_data
         object. It raises a ValueError on problems
 
@@ -161,9 +172,7 @@ class AlphaVantage:
             else:
                 raise ValueError('Error getting data from api, no return'\
                  ' message from the api url (possibly wrong symbol/param)')
-        data = json_response[data_key]
-        meta_data = json_response[meta_data_key]
-        return data, meta_data
+        return json_response
 
     @_call_api_on_func
     def get_intraday(self, symbol, interval='15min', outputsize='compact'):
