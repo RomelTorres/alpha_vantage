@@ -8,7 +8,8 @@ except ImportError:
 from simplejson import loads
 from functools import wraps
 import inspect
-
+import pandas
+import re
 
 class AlphaVantage:
     """
@@ -122,30 +123,23 @@ class AlphaVantage:
         @wraps(func)
         def _format_wrapper(self, *args, **kwargs):
             json_response, data_key, meta_data_key = func(self, *args, **kwargs)
+            data = json_response[data_key]
+            meta_data = json_response[meta_data_key]
             if self.output_format.lower() == 'json':
-                data = json_response[data_key]
-                meta_data = json_response[meta_data_key]
                 return data, meta_data
             elif self.output_format.lower() == 'pandas':
-                pass
+                data_pandas = pandas.DataFrame.from_dict(data,
+                orient='index', dtype=float)
+                # Rename columns to have a nicer name
+                col_names = [re.sub(r'\d+.', '', name).strip(' ')
+                    for name in list(data_pandas)]
+                data_pandas.columns = col_names
+                return data_pandas, meta_data
             else:
                 raise ValueError('Format: {} is not supported'.format(
                 self.output_format))
 
         return _format_wrapper
-
-
-    def _data_request(self, url):
-        """ Request data from the given url and return it as a json
-        object. It raises URLError
-
-        Keyword arguments:
-        url -- The url of the service
-        """
-        response = urlopen(url)
-        url_response = response.read()
-        json_response = loads(url_response)
-        return json_response
 
     def map_to_matype(self, matype):
         """ Convert to the alpha vantage math type integer. It returns an
@@ -187,7 +181,9 @@ class AlphaVantage:
         meta_data_key -- The key for getting the meta data information out of
         the json object
         """
-        json_response = self._data_request(url)
+        response = urlopen(url)
+        url_response = response.read()
+        json_response = loads(url_response)
         if 'Error Message' in json_response or not json_response:
             if json_response:
                 raise ValueError('ERROR getting data form api',
@@ -196,8 +192,6 @@ class AlphaVantage:
                 raise ValueError('Error getting data from api, no return'\
                  ' message from the api url (possibly wrong symbol/param)')
         return json_response
-
-
 
     @_output_format
     @_call_api_on_func
@@ -1355,7 +1349,3 @@ class AlphaVantage:
         """
         _FUNCTION_KEY = "HT_PHASOR"
         return _FUNCTION_KEY, 'Technical Analysis: HT_PHASOR', 'Meta Data'
-
-if __name__ == '__main__':
-    av = AlphaVantage(key='486U')
-    print(av.get_intraday(symbol='GOOGL',interval='1min'))
