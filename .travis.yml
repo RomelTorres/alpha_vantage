@@ -1,13 +1,15 @@
 language: python
-
+cache: pip
 python:
-    - "2.7"
-    - "3.3"
-    - "3.4"
-    - "3.5"
-
+- '2.7'
+- '3.3'
+- '3.4'
+- '3.5'
 install:
-    - pip install simplejson
-
+- pip install simplejson
+- pip install pandas
 script:
-    -  nosetests
+- nosetests
+env:
+  global:
+    secure: b5W0+Z5GaQS5xcVTtyhThQEBKd2uUgcQ479ZvaX2UMTMvm0ZY/UU9WIUVtjniAHYRcq1XBm6cEe93ew3TiE8nNkcFcqB9KHBaXmy7bYP3KQWPrToal2a4IMV9zGRjLDx2P72CJ/j5I2xIMNRvAc7NqfVj2W90//RtMAZUt46wGm/YXiPcRXqMgkh1MBQMflqurbAHq8HAj1OAhCsMXawUvNTOqSAZox397ROJVINHdLngvNCL1uhX+5YNSkGrahiiNsKvU6X2PxAhNWJxPMYdmAXNrL2FPEM1U0dVkhdr17BvU8VtRValFOycNYEIflSH3yzRiFiWYrkXXDbsVN+Mvg5elvUtmNcovqmnL+Dksafgj8mP6EyFdeFw/PShFg/KbkhR4zTXwDX/Te3Ug2oLg8gO0SboAmqDf4REmfDUB5dAlC+6lRGb7Vw/qBqm0nvFP1ZucA9xNHaBysq4nbjlG1P7VoBfHvmEMIc1ZxetXKMcCPBG80cnP313cDtQTTov3/k/LHJzTjn4/VU3efmQCuFOZSwFD0KJIt223UvJnEls/yvPVuyTjRapIjsqu8KZY/nidfn4zCgHDTUhBvA5Ns7s2ECd2I13SerfambAXeO2IA1Ny7YRD4stHUXYeWAUBv8crqB/1MBSGhn8/BnbCjpHVbvzQeXH1CFcWwQOUA=
