@@ -42,11 +42,28 @@ import matplotlib.pyplot as plt
 
 ts = TimesSeries(key='YOUR_API_KEY', output_format='pandas')
 data, meta_data = ts.get_intraday(symbol='MSFT',interval='1min', outputsize='full')
-ax = data['close'].plot()
+data['close'].plot()
+plt.title('Intraday Times Series for the MSFT stock (1 min)')
 plt.show()
 ```
 Giving us as output:
-![alt text](images/docs_mft_example.png?raw=True "MSFT minute value plot example")
+![alt text](images/docs_ts_msft_example.png?raw=True "MSFT minute value plot example")
+
+The same way we can get pandas to plot technical indicators like
+bollinger Bolliger Bands®
+
+```python
+from alpha_vantage.techindicators import TechIndicators
+import matplotlib.pyplot as plt
+
+ts = TechIndicators(key='YOUR_API_KEY', output_format='pandas')
+data, meta_data = ti.get_bbands(symbol='MSFT', interval='60min', time_period=60)
+data.plot()
+plt.title('BBbands indicator for  MSFT stock (60 min)')
+plt.show()
+```
+Giving us as output:
+![alt text](images/docs_ti_msft_example.png?raw=True "MSFT minute value plot example")
 
 ## Tests
 
