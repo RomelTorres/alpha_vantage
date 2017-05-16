@@ -5,7 +5,7 @@
 *Python module to get stock data from the Alpha Vantage API*
 
 Alpha Vantage delivers a free API for real time financial data and most used finance indicators in a simple json format. This module implements a python interface to the free API provided by Alpha
-Vantage (http://www.alphavantage.co/). It requires a free API, that can be requested in their website.
+Vantage (http://www.alphavantage.co/). It requires a free API, that can be requested on http://www.alphavantage.co/support/#api-key.
 
 ## Install
 ```shell
@@ -56,6 +56,10 @@ In order to run the tests  (it takes sometime to run):
 cd alpha-vantage
 nosetests
 ```
+
+## Documentation
+To find out more about the available api calls, visit the alpha-vantage documentation at
+http://www.alphavantage.co/documentation/
 
 ## Coming soon:
 1. ~~Add basic functionality: 0.0.1~~
