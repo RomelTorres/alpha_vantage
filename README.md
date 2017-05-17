@@ -1,6 +1,6 @@
-# alpha-vantage
+# alpha_vantage
 
-[![Build Status](https://travis-ci.org/RomelTorres/alpha-vantage.png?branch=master)](https://travis-ci.org/RomelTorres/alpha-vantage)
+[![Build Status](https://travis-ci.org/RomelTorres/alpha_vantage.png?branch=master)](https://travis-ci.org/RomelTorres/alpha_vantage)
 
 *Python module to get stock data from the Alpha Vantage API*
 
@@ -17,7 +17,7 @@ python setup install
 ## Usage
 To get data in a python, simply import the library and call the object with your api key and get ready for some awesome free realtime finance data.
 ```python
-from alpha_vantage.timeseries import TimesSeries
+from alpha_vantage.api_calls.timeseries import TimesSeries
 ts = TimesSeries(key='YOUR_API_KEY')
 # Get json object with the intraday data and another with  the call's metadata
 data, meta_data = ts.get_intraday('GOOGL')
@@ -37,21 +37,39 @@ ts = TimesSeries(key='YOUR_API_KEY',output_format='pandas')
 Using pandas support we can plot the intra-minute value for 'MSFT' stock quite easily:
 
 ```python
-from alpha_vantage.timeseries import TimesSeries
+from alpha_vantage.api_calls.timeseries import TimesSeries
 import matplotlib.pyplot as plt
 
 ts = TimesSeries(key='YOUR_API_KEY', output_format='pandas')
 data, meta_data = ts.get_intraday(symbol='MSFT',interval='1min', outputsize='full')
-ax = data['close'].plot()
+data['close'].plot()
+plt.title('Intraday Times Series for the MSFT stock (1 min)')
 plt.show()
 ```
 Giving us as output:
-![alt text](images/docs_mft_example.png?raw=True "MSFT minute value plot example")
+![alt text](images/docs_ts_msft_example.png?raw=True "MSFT minute value plot example")
+
+The same way we can get pandas to plot technical indicators like
+bollinger Bolliger Bands®
+
+```python
+from alpha_vantage.api_calls.techindicators import TechIndicators
+import matplotlib.pyplot as plt
+
+ts = TechIndicators(key='YOUR_API_KEY', output_format='pandas')
+data, meta_data = ti.get_bbands(symbol='MSFT', interval='60min', time_period=60)
+data.plot()
+plt.title('BBbands indicator for  MSFT stock (60 min)')
+plt.show()
+```
+Giving us as output:
+![alt text](images/docs_ti_msft_example.png?raw=True "MSFT minute value plot example")
 
 ## Tests
 
-In order to run the tests  (it takes sometime to run):
+In order to run the tests you have to first export your API key so that the test can use it to run.
 ```shell
+export API_KEY=YOUR_API_KEY
 cd alpha-vantage
 nosetests
 ```
