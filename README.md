@@ -1,6 +1,6 @@
 # alpha-vantage
 
-[![Build Status](https://travis-ci.org/RomelTorres/alpha-vantage.png?branch=master)](https://travis-ci.org/RomelTorres/alpha-vantage)
+[![Build Status](https://travis-ci.org/RomelTorres/alpha_vantage.png?branch=master)](https://travis-ci.org/RomelTorres/alpha-vantage)
 
 *Python module to get stock data from the Alpha Vantage API*
 
