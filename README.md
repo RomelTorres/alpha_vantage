@@ -1,6 +1,6 @@
-# alpha-vantage
+# alpha_vantage
 
-[![Build Status](https://travis-ci.org/RomelTorres/alpha_vantage.png?branch=master)](https://travis-ci.org/RomelTorres/alpha-vantage)
+[![Build Status](https://travis-ci.org/RomelTorres/alpha_vantage.png?branch=master)](https://travis-ci.org/RomelTorres/alpha_vantage)
 
 *Python module to get stock data from the Alpha Vantage API*
 
@@ -67,8 +67,9 @@ Giving us as output:
 
 ## Tests
 
-In order to run the tests  (it takes sometime to run):
+In order to run the tests you have to first export your API key so that the test can use it to run.
 ```shell
+export API_KEY=YOUR_API_KEY
 cd alpha-vantage
 nosetests
 ```
