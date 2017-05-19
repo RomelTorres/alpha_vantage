@@ -14,6 +14,7 @@ class TestAlphaVantage(unittest.TestCase):
     _API_KEY_TEST = os.environ['API_KEY']
     _API_EQ_NAME_TEST = 'MSFT'
 
+
     def _assert_result_is_dict(self, func, **args):
         """ Check that the data and meta data object are dictionaries
         """
@@ -29,7 +30,7 @@ class TestAlphaVantage(unittest.TestCase):
         """Raise an error when a key has not been given
         """
         try:
-            ti = AlphaVantage()
+            AlphaVantage()
             self.fail(msg='A None api key must raise an error')
         except ValueError:
             self.assertTrue(True)
