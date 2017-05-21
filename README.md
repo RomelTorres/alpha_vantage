@@ -8,10 +8,15 @@ Alpha Vantage delivers a free API for real time financial data and most used fin
 Vantage (http://www.alphavantage.co/). It requires a free API, that can be requested on http://www.alphavantage.co/support/#api-key.
 
 ## Install
+To install the package use:
+```shell
+pip install alpha_vantage
+```
+
+If you want to install from source, then use:
 ```shell
 git clone https://github.com/RomelTorres/alpha-vantage.git
-cd alpha-vantage
-python setup install
+pip install -e alpha_vantage
 ```
 
 ## Usage
@@ -83,6 +88,7 @@ http://www.alphavantage.co/documentation/
 2. ~~Add retry in order to allow the calls to be retried in case of failure: 0.0.2~~
 3. ~~Implement all functions described in the alpha vantage documentation 0.0.3~~
 4. ~~Re-factor functions to have an unified method for accessing the api 0.1.0~~
-5. Add pandas support through decorators 1.0.0
-6. Add logging to tests to store api call duration 1.0.1
-7. Add unit tests for all the function parameters in the module 1.0.2
+5. ~~Add pandas support through decorators 0.1.2~~
+6. ~~Publish on pipy 0.1.3~~
+7. Add logging to tests to store api call duration 1.0.1
+8. Add unit tests for all the function parameters in the module 1.0.2
