@@ -54,14 +54,13 @@ plt.show()
 Giving us as output:
 ![alt text](images/docs_ts_msft_example.png?raw=True "MSFT minute value plot example")
 
-The same way we can get pandas to plot technical indicators like
-bollinger Bolliger Bands®
+The same way we can get pandas to plot technical indicators like Bolliger Bands®
 
 ```python
 from alpha_vantage.techindicators import TechIndicators
 import matplotlib.pyplot as plt
 
-ts = TechIndicators(key='YOUR_API_KEY', output_format='pandas')
+ti = TechIndicators(key='YOUR_API_KEY', output_format='pandas')
 data, meta_data = ti.get_bbands(symbol='MSFT', interval='60min', time_period=60)
 data.plot()
 plt.title('BBbands indicator for  MSFT stock (60 min)')
