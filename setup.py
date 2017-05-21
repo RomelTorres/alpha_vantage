@@ -1,8 +1,8 @@
 from distutils.core import setup
 
 setup(
-    name='alpha-vantage',
-    version='0.0.1',
+    name='alpha_vantage',
+    version='0.1.2',
     author='R. J. Torres',
     author_email='rtorres@gmail.com',
     license='MIT',
@@ -13,8 +13,8 @@ setup(
         'pandas',
         'nose'
     ],
-    keywords='stocks market finance alpha-vantage quotes shares currency',
+    keywords='stocks market finance alpha_vantage quotes shares currency',
     package_data={
-        'alpha-vantage':[],
+        'alpha_vantage':[],
     }
 )
