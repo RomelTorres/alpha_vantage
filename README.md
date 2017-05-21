@@ -15,7 +15,7 @@ pip install alpha_vantage
 
 If you want to install from source, then use:
 ```shell
-git clone https://github.com/RomelTorres/alpha-vantage.git
+git clone https://github.com/RomelTorres/alpha_vantage.git
 pip install -e alpha_vantage
 ```
 
