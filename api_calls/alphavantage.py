@@ -113,21 +113,28 @@ class AlphaVantage:
         return _call_wrapper
 
     @classmethod
-    def _output_format(cls, func):
+    def _output_format(cls, func, override=None):
         """ Decorator in charge of giving the output its right format, either
         json or pandas
 
         Keyword arguments:
         func -- The function to be decorated
+        override -- Override the internal format of the call, default None
         """
         @wraps(func)
         def _format_wrapper(self, *args, **kwargs):
             json_response, data_key, meta_data_key = func(self, *args, **kwargs)
             data = json_response[data_key]
             meta_data = json_response[meta_data_key]
-            if self.output_format.lower() == 'json':
+            # Allow to override the output parameter in the call
+            if override is None:
+                output_format = self.output_format.lower()
+            elif 'json' or 'pandas' in override.lower():
+                output_format = override.lower()
+            # Choose output format
+            if output_format == 'json':
                 return data, meta_data
-            elif self.output_format.lower() == 'pandas':
+            elif output_format == 'pandas':
                 data_pandas = pandas.DataFrame.from_dict(data,
                 orient='index', dtype=float)
                 # Rename columns to have a nicer name
