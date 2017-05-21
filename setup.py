@@ -2,6 +2,7 @@ from distutils.core import setup
 
 setup(
     name='alpha_vantage',
+    packages=['alpha_vantage'],
     version='0.1.4',
     author='Romel J. Torres',
     author_email='romel.torres@gmail.com',
@@ -15,7 +16,4 @@ setup(
     ],
     keywords=['stocks', 'market', 'finance', 'alpha_vantage', 'quotes',
     'shares'],
-    package_data={
-        'alpha_vantage':[],
-    }
 )
