@@ -8,10 +8,15 @@ Alpha Vantage delivers a free API for real time financial data and most used fin
 Vantage (http://www.alphavantage.co/). It requires a free API, that can be requested on http://www.alphavantage.co/support/#api-key.
 
 ## Install
+To install the package use:
+```shell
+pip install alpha_vantage
+```
+
+If you want to install from source, then use:
 ```shell
 git clone https://github.com/RomelTorres/alpha-vantage.git
-cd alpha-vantage
-python setup install
+pip install -e alpha_vantage
 ```
 
 ## Usage
