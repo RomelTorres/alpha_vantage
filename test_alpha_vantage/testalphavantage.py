@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-from alpha_vantage.api_calls.alphavantage import AlphaVantage
-from alpha_vantage.api_calls.timeseries import TimesSeries
-from alpha_vantage.api_calls.techindicators import TechIndicators
+from ..alpha_vantage.alphavantage import AlphaVantage
+from ..alpha_vantage.timeseries import TimesSeries
+from ..alpha_vantage.techindicators import TechIndicators
 from simplejson import loads, dumps
 from pandas import DataFrame as df
 import unittest
