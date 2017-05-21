@@ -28,7 +28,7 @@ ts = TimesSeries(key='YOUR_API_KEY')
 data, meta_data = ts.get_intraday('GOOGL')
 ```
 Internally there is a retries counter, that can be used to minimize connection errors (in case that the api is not able to respond in time), the default is set to
-3 but can be increased or decreased whenever needed.
+5 but can be increased or decreased whenever needed.
 ```python
 ts = TimesSeries(key='YOUR_API_KEY',retries='YOUR_RETRIES')
 ```

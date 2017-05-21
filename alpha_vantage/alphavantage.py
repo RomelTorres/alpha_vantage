@@ -19,7 +19,7 @@ class AlphaVantage:
     _ALPHA_VANTAGE_MATH_MAP = ['SMA','EMA','WMA','DEMA','TEMA', 'TRIMA','T3',
     'KAMA','MAMA']
 
-    def __init__(self, key=None, retries=3, output_format='json'):
+    def __init__(self, key=None, retries=5, output_format='json'):
         """ Initialize the class
 
         Keyword arguments:
