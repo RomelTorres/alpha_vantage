@@ -75,7 +75,7 @@ Giving us as output:
 In order to run the tests you have to first export your API key so that the test can use it to run.
 ```shell
 export API_KEY=YOUR_API_KEY
-cd alpha-vantage
+cd alpha_vantage
 nosetests
 ```
 
