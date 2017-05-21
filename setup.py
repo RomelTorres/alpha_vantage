@@ -3,7 +3,7 @@ from os import path
 
 setup(
     name='alpha_vantage',
-    version='0.1.8',
+    version='0.1.9',
     author='Romel J. Torres',
     author_email='romel.torres@gmail.com',
     license='MIT',
