@@ -22,7 +22,7 @@ pip install -e alpha_vantage
 ## Usage
 To get data in a python, simply import the library and call the object with your api key and get ready for some awesome free realtime finance data.
 ```python
-from alpha_vantage.api_calls.timeseries import TimesSeries
+from alpha_vantage.timeseries import TimesSeries
 ts = TimesSeries(key='YOUR_API_KEY')
 # Get json object with the intraday data and another with  the call's metadata
 data, meta_data = ts.get_intraday('GOOGL')
@@ -42,7 +42,7 @@ ts = TimesSeries(key='YOUR_API_KEY',output_format='pandas')
 Using pandas support we can plot the intra-minute value for 'MSFT' stock quite easily:
 
 ```python
-from alpha_vantage.api_calls.timeseries import TimesSeries
+from alpha_vantage.timeseries import TimesSeries
 import matplotlib.pyplot as plt
 
 ts = TimesSeries(key='YOUR_API_KEY', output_format='pandas')
@@ -58,7 +58,7 @@ The same way we can get pandas to plot technical indicators like
 bollinger Bolliger Bands®
 
 ```python
-from alpha_vantage.api_calls.techindicators import TechIndicators
+from alpha_vantage.techindicators import TechIndicators
 import matplotlib.pyplot as plt
 
 ts = TechIndicators(key='YOUR_API_KEY', output_format='pandas')
