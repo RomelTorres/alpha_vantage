@@ -8,16 +8,16 @@ setup(
     author_email='romel.torres@gmail.com',
     license='MIT',
     description='Python module to get stock data from the Alpha Vantage Api',
-    url = 'https://github.com/RomelTorres/alpha_vantage',
+    url='https://github.com/RomelTorres/alpha_vantage',
     install_requires=[
         'simplejson',
         'pandas',
         'nose'
     ],
     keywords=['stocks', 'market', 'finance', 'alpha_vantage', 'quotes',
-    'shares'],
-    packages= find_packages(exclude=['helpers','test_alpha_vantage', 'images']),
+              'shares'],
+    packages=find_packages(exclude=['helpers', 'test_alpha_vantage', 'images']),
     package_data={
-        'alpha_vantage':[],
+        'alpha_vantage': [],
     }
 )

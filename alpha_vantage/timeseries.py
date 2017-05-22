@@ -23,7 +23,6 @@ class TimesSeries(av):
         _FUNCTION_KEY = "TIME_SERIES_INTRADAY"
         return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'
 
-
     @av._output_format
     @av._call_api_on_func
     def get_daily(self, symbol, outputsize='compact'):
@@ -40,7 +39,6 @@ class TimesSeries(av):
         _FUNCTION_KEY = "TIME_SERIES_DAILY"
         return _FUNCTION_KEY, 'Time Series (Daily)', 'Meta Data'
 
-
     @av._output_format
     @av._call_api_on_func
     def get_weekly(self, symbol):
@@ -53,7 +51,6 @@ class TimesSeries(av):
         """
         _FUNCTION_KEY = "TIME_SERIES_WEEKLY"
         return _FUNCTION_KEY, 'Weekly Time Series', 'Meta Data'
-
 
     @av._output_format
     @av._call_api_on_func

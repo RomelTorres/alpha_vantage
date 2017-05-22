@@ -1,5 +1,6 @@
 from .alphavantage import AlphaVantage as av
 
+
 class TechIndicators(av):
     """This class implements all the technical indicator api calls
     """
@@ -20,8 +21,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "SMA"
-        return _FUNCTION_KEY, 'Technical Analysis: SMA','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: SMA', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -39,8 +39,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "EMA"
-        return _FUNCTION_KEY, 'Technical Analysis: EMA','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: EMA', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -58,8 +57,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "WMA"
-        return _FUNCTION_KEY, 'Technical Analysis: WMA','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: WMA', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -77,8 +75,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "DEMA"
-        return _FUNCTION_KEY, 'Technical Analysis: DEMA','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: DEMA', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -96,8 +93,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "TEMA"
-        return _FUNCTION_KEY, 'Technical Analysis: TEMA','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: TEMA', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -115,8 +111,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "TRIMA"
-        return _FUNCTION_KEY, 'Technical Analysis: TRIMA','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: TRIMA', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -134,13 +129,12 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "KAMA"
-        return _FUNCTION_KEY, 'Technical Analysis: KAMA','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: KAMA', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
     def get_mama(self, symbol, interval='60min', time_period=20, series_type='close',
-    fastlimit=None, slowlimit=None):
+                 fastlimit=None, slowlimit=None):
         """ Return MESA adaptative moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -158,8 +152,7 @@ class TechIndicators(av):
         (default=None)
         """
         _FUNCTION_KEY = "MAMA"
-        return _FUNCTION_KEY, 'Technical Analysis: MAMA','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: MAMA', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -177,13 +170,12 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "T3"
-        return _FUNCTION_KEY, 'Technical Analysis: T3','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: T3', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
     def get_macd(self, symbol, interval='60min', series_type='close',
-    fastperiod=None, slowperiod=None, signalperiod=None):
+                 fastperiod=None, slowperiod=None, signalperiod=None):
         """ Return the moving average convergence/divergence time series in two
         json objects as data and meta_data. It raises ValueError when problems
         arise
@@ -200,14 +192,13 @@ class TechIndicators(av):
         signalperiod -- Positive integers are accepted (default=None)
         """
         _FUNCTION_KEY = "MACD"
-        return _FUNCTION_KEY, 'Technical Analysis: MACD','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: MACD', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
     def get_macdext(self, symbol, interval='60min', series_type='close',
-    fastperiod=None, slowperiod=None, signalperiod=None, fastmatype=None,
-    slowmatype=None, signalmatype=None):
+                    fastperiod=None, slowperiod=None, signalperiod=None, fastmatype=None,
+                    slowmatype=None, signalmatype=None):
         """ Return the moving average convergence/divergence time series in two
         json objects as data and meta_data. It raises ValueError when problems
         arise
@@ -248,11 +239,10 @@ class TechIndicators(av):
         _FUNCTION_KEY = "MACDEXT"
         return _FUNCTION_KEY, 'Technical Analysis: MACDEXT', 'Meta Data'
 
-
     @av._output_format
     @av._call_api_on_func
     def get_stoch(self, symbol, interval='60min', fastkperiod=None,
-    slowkperiod=None, slowdperiod=None, slowkmatype=None, slowdmatype=None):
+                  slowkperiod=None, slowdperiod=None, slowkmatype=None, slowdmatype=None):
         """ Return the stochatic oscillator values in two
         json objects as data and meta_data. It raises ValueError when problems
         arise
@@ -290,11 +280,10 @@ class TechIndicators(av):
         _FUNCTION_KEY = "STOCH"
         return _FUNCTION_KEY, 'Technical Analysis: STOCH', 'Meta Data'
 
-
     @av._output_format
     @av._call_api_on_func
     def get_stochf(self, symbol, interval='60min', fastkperiod=None,
-    fastdperiod=None, fastdmatype=None):
+                   fastdperiod=None, fastdmatype=None):
         """ Return the stochatic oscillator values in two
         json objects as data and meta_data. It raises ValueError when problems
         arise
@@ -326,7 +315,6 @@ class TechIndicators(av):
         _FUNCTION_KEY = "STOCHF"
         return _FUNCTION_KEY, 'Technical Analysis: STOCHF', 'Meta Data'
 
-
     @av._output_format
     @av._call_api_on_func
     def get_rsi(self, symbol, interval='60min', time_period=20, series_type='close'):
@@ -343,13 +331,12 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "RSI"
-        return _FUNCTION_KEY,'Technical Analysis: RSI','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: RSI', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
     def get_stochrsi(self, symbol, interval='60min', time_period=20,
-    series_type='close', fastkperiod=None, fastdperiod=None, fastdmatype=None):
+                     series_type='close', fastkperiod=None, fastdperiod=None, fastdmatype=None):
         """ Return the stochatic relative strength index in two
         json objects as data and meta_data. It raises ValueError when problems
         arise
@@ -384,7 +371,6 @@ class TechIndicators(av):
         _FUNCTION_KEY = "STOCHRSI"
         return _FUNCTION_KEY, 'Technical Analysis: STOCHRSI', 'Meta Data'
 
-
     @av._output_format
     @av._call_api_on_func
     def get_willr(self, symbol, interval='60min', time_period=20):
@@ -398,8 +384,7 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "WILLR"
-        return _FUNCTION_KEY,'Technical Analysis: WILLR','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: WILLR', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -414,8 +399,7 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "ADX"
-        return _FUNCTION_KEY,'Technical Analysis: ADX','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: ADX', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -430,13 +414,12 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "ADXR"
-        return _FUNCTION_KEY,'Technical Analysis: ADXR','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: ADXR', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
     def get_apo(self, symbol, interval='60min', series_type='close',
-    fastperiod=None, slowperiod=None, matype=None):
+                fastperiod=None, slowperiod=None, matype=None):
         """ Return the absolute price oscillator values in two
         json objects as data and meta_data. It raises ValueError when problems
         arise
@@ -465,13 +448,12 @@ class TechIndicators(av):
         8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "APO"
-        return _FUNCTION_KEY,'Technical Analysis: APO','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: APO', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
     def get_ppo(self, symbol, interval='60min', series_type='close',
-    fastperiod=None, slowperiod=None, matype=None):
+                fastperiod=None, slowperiod=None, matype=None):
         """ Return the percentage price oscillator values in two
         json objects as data and meta_data. It raises ValueError when problems
         arise
@@ -500,8 +482,7 @@ class TechIndicators(av):
         8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "PPO"
-        return _FUNCTION_KEY,'Technical Analysis: PPO','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: PPO', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -519,8 +500,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "MOM"
-        return _FUNCTION_KEY,'Technical Analysis: MOM','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: MOM', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -535,8 +515,7 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "BOP"
-        return _FUNCTION_KEY,'Technical Analysis: BOP','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: BOP', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -551,8 +530,7 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "CCI"
-        return _FUNCTION_KEY,'Technical Analysis: CCI','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: CCI', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -570,8 +548,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "CMO"
-        return _FUNCTION_KEY,'Technical Analysis: CMO','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: CMO', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -589,8 +566,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "ROC"
-        return _FUNCTION_KEY,'Technical Analysis: ROC','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: ROC', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -608,8 +584,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "ROCR"
-        return _FUNCTION_KEY,'Technical Analysis: ROCR','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: ROCR', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -627,8 +602,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "AROON"
-        return _FUNCTION_KEY,'Technical Analysis: AROON','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: AROON', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -646,8 +620,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "AROONOSC"
-        return _FUNCTION_KEY,'Technical Analysis: AROONOSC','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: AROONOSC', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -665,8 +638,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "MFI"
-        return _FUNCTION_KEY,'Technical Analysis: MFI','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: MFI', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -685,13 +657,12 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "TRIX"
-        return _FUNCTION_KEY,'Technical Analysis: TRIX','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: TRIX', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
     def get_ultsoc(self, symbol, interval='60min', timeperiod1=None,
-    timeperiod2=None, timeperiod3=None):
+                   timeperiod2=None, timeperiod3=None):
         """ Return the ultimate oscillaror values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
@@ -708,8 +679,7 @@ class TechIndicators(av):
         accepted. By default, timeperiod3=28
         """
         _FUNCTION_KEY = "ULTOSC"
-        return _FUNCTION_KEY,'Technical Analysis: ULTOSC','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: ULTOSC', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -727,8 +697,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "DX"
-        return _FUNCTION_KEY,'Technical Analysis: DX','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: DX', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -743,8 +712,7 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "MINUS_DI"
-        return _FUNCTION_KEY,'Technical Analysis: MINUS_DI','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: MINUS_DI', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -759,8 +727,7 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "PLUS_DI"
-        return _FUNCTION_KEY,'Technical Analysis: PLUS_DI','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: PLUS_DI', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -775,8 +742,7 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "MINUS_DM"
-        return _FUNCTION_KEY,'Technical Analysis: MINUS_DM','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: MINUS_DM', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -791,13 +757,12 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "PLUS_DM"
-        return _FUNCTION_KEY,'Technical Analysis: PLUS_DM','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: PLUS_DM', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
     def get_bbands(self, symbol, interval='60min', time_period=20,  series_type='close',
-    nbdevup=None, nbdevdn=None, matype=None):
+                   nbdevup=None, nbdevdn=None, matype=None):
         """ Return the bollinger bands values in two
         json objects as data and meta_data. It raises ValueError when problems
         arise
@@ -828,8 +793,7 @@ class TechIndicators(av):
         8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "BBANDS"
-        return _FUNCTION_KEY,'Technical Analysis: BBANDS','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: BBANDS', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -847,8 +811,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "MIDPOINT"
-        return _FUNCTION_KEY,'Technical Analysis: MIDPOINT','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: MIDPOINT', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -864,8 +827,7 @@ class TechIndicators(av):
         time_period -- How many data points to average (default 20)
         """
         _FUNCTION_KEY = "MIDPRICE"
-        return _FUNCTION_KEY,'Technical Analysis: MIDPRICE','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: MIDPRICE', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -884,8 +846,7 @@ class TechIndicators(av):
         are accepted (default 0.20 )
         """
         _FUNCTION_KEY = "SAR"
-        return _FUNCTION_KEY,'Technical Analysis: SAR','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: SAR', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -900,8 +861,7 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "TRANGE"
-        return _FUNCTION_KEY,'Technical Analysis: TRANGE','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: TRANGE', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -917,8 +877,7 @@ class TechIndicators(av):
         time_period -- How many data points to average (default 20)
         """
         _FUNCTION_KEY = "ATR"
-        return _FUNCTION_KEY,'Technical Analysis: ATR','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: ATR', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -934,8 +893,7 @@ class TechIndicators(av):
         time_period -- How many data points to average (default 20)
         """
         _FUNCTION_KEY = "NATR"
-        return _FUNCTION_KEY,'Technical Analysis: NATR','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: NATR', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -950,13 +908,12 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "AD"
-        return _FUNCTION_KEY,'Technical Analysis: Chaikin A/D','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: Chaikin A/D', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
     def get_adosc(self, symbol, interval='60min', fastperiod=None,
-    slowperiod=None):
+                  slowperiod=None):
         """ Return the Chaikin A/D oscillator values in two
         json objects as data and meta_data. It raises ValueError when problems
         arise
@@ -970,8 +927,7 @@ class TechIndicators(av):
         slowperiod -- Positive integers are accepted (default=None)
         """
         _FUNCTION_KEY = "ADOSC"
-        return _FUNCTION_KEY,'Technical Analysis: ADOSC','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: ADOSC', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -986,8 +942,7 @@ class TechIndicators(av):
         'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "OBV"
-        return _FUNCTION_KEY,'Technical Analysis: OBV','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: OBV', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -1004,8 +959,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_TRENDLINE"
-        return _FUNCTION_KEY,'Technical Analysis: HT_TRENDLINE','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: HT_TRENDLINE', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -1022,8 +976,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_SINE"
-        return _FUNCTION_KEY,'Technical Analysis: HT_SINE','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: HT_SINE', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -1040,8 +993,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_TRENDMODE"
-        return _FUNCTION_KEY,'Technical Analysis: HT_TRENDMODE','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: HT_TRENDMODE', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -1058,8 +1010,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_DCPERIOD"
-        return _FUNCTION_KEY,'Technical Analysis: HT_DCPERIOD','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: HT_DCPERIOD', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
@@ -1076,8 +1027,7 @@ class TechIndicators(av):
         are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_DCPHASE"
-        return _FUNCTION_KEY,'Technical Analysis: HT_DCPHASE','Meta Data'
-
+        return _FUNCTION_KEY, 'Technical Analysis: HT_DCPHASE', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
