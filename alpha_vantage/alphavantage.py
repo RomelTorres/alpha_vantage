@@ -126,7 +126,10 @@ class AlphaVantage:
         @wraps(func)
         def _format_wrapper(self, *args, **kwargs):
             json_response, data_key, meta_data_key = func(self, *args, **kwargs)
-            data = json_response[data_key]
+            if isinstance(data_key, list):
+                data = {key:json_response[key] for key in data_key}
+            else:
+                data = json_response[data_key]
             meta_data = json_response[meta_data_key]
             # Allow to override the output parameter in the call
             if override is None:

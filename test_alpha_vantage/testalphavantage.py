@@ -2,6 +2,7 @@
 from ..alpha_vantage.alphavantage import AlphaVantage
 from ..alpha_vantage.timeseries import TimesSeries
 from ..alpha_vantage.techindicators import TechIndicators
+from ..alpha_vantage.sectorperformance import SectorPerformances
 from simplejson import loads, dumps
 from pandas import DataFrame as df
 import unittest
@@ -718,3 +719,13 @@ class TestAlphaVantage(unittest.TestCase):
         ti = TechIndicators(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
         self._assert_result_is_format(ti.get_ht_phasor, output_format='pandas',
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
+    def test_get_sector(self):
+        """Result must be a dictionary containning the json data
+        """
+        # Test dictionary as output
+        sp = SectorPerformances(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_format(sp.get_sector)
+        # Test panda as output
+        sp = SectorPerformances(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        self._assert_result_is_format(sp.get_sector, output_format='pandas')
