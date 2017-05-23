@@ -130,4 +130,7 @@ Session.vim
 # auto-generated tag files
 tags
 
+### Do not include the README.rst ###
+README.rst
+
 # End of https://www.gitignore.io/api/vim,linux,python

@@ -128,8 +128,11 @@ class AlphaVantage:
             json_response, data_key, meta_data_key = func(self, *args, **kwargs)
             if isinstance(data_key, list):
                 data = {key:json_response[key] for key in data_key}
+                orient = 'columns'
             else:
                 data = json_response[data_key]
+                orient='index'
+            #TODO: Fix orientation in a better way
             meta_data = json_response[meta_data_key]
             # Allow to override the output parameter in the call
             if override is None:
@@ -141,7 +144,7 @@ class AlphaVantage:
                 return data, meta_data
             elif output_format == 'pandas':
                 data_pandas = pandas.DataFrame.from_dict(data,
-                                                         orient='index', dtype=float)
+                                                         orient=orient, dtype=float)
                 # Rename columns to have a nicer name
                 col_names = [re.sub(r'\d+.', '', name).strip(' ')
                              for name in list(data_pandas)]
