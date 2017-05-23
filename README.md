@@ -28,7 +28,7 @@ ts = TimesSeries(key='YOUR_API_KEY')
 data, meta_data = ts.get_intraday('GOOGL')
 ```
 Internally there is a retries counter, that can be used to minimize connection errors (in case that the api is not able to respond in time), the default is set to
-3 but can be increased or decreased whenever needed.
+5 but can be increased or decreased whenever needed.
 ```python
 ts = TimesSeries(key='YOUR_API_KEY',retries='YOUR_RETRIES')
 ```
@@ -54,14 +54,13 @@ plt.show()
 Giving us as output:
 ![alt text](images/docs_ts_msft_example.png?raw=True "MSFT minute value plot example")
 
-The same way we can get pandas to plot technical indicators like
-bollinger Bolliger Bands®
+The same way we can get pandas to plot technical indicators like Bolliger Bands®
 
 ```python
 from alpha_vantage.techindicators import TechIndicators
 import matplotlib.pyplot as plt
 
-ts = TechIndicators(key='YOUR_API_KEY', output_format='pandas')
+ti = TechIndicators(key='YOUR_API_KEY', output_format='pandas')
 data, meta_data = ti.get_bbands(symbol='MSFT', interval='60min', time_period=60)
 data.plot()
 plt.title('BBbands indicator for  MSFT stock (60 min)')
@@ -69,6 +68,23 @@ plt.show()
 ```
 Giving us as output:
 ![alt text](images/docs_ti_msft_example.png?raw=True "MSFT minute value plot example")
+
+Finally we can also plot sector performance just as easy:
+
+```python
+from alpha_vantage.sectorperformance import SectorPerformances
+import matplotlib.pyplot as plt
+
+sp = SectorPerformances(key='YOUR_API_KEY', output_format='pandas')
+data, meta_data = sp.get_sector()
+data['Rank A: Real-Time Performance'].plot(kind='bar')
+plt.title('Real Time Performance (%) per Sector')
+plt.tight_layout()
+plt.grid()
+plt.show()
+```
+Giving us as output:
+![alt text](images/docs_sp_rt_example.png?raw=True "Real Time Sector Performance")
 
 ## Tests
 

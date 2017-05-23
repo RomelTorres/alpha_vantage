@@ -11,15 +11,16 @@ import inspect
 import pandas
 import re
 
+
 class AlphaVantage:
     """This class is in charge of creating a base class for implementing the
     decorators for the api calls
     """
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
-    _ALPHA_VANTAGE_MATH_MAP = ['SMA','EMA','WMA','DEMA','TEMA', 'TRIMA','T3',
-    'KAMA','MAMA']
+    _ALPHA_VANTAGE_MATH_MAP = ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA', 'T3',
+                               'KAMA', 'MAMA']
 
-    def __init__(self, key=None, retries=3, output_format='json'):
+    def __init__(self, key=None, retries=5, output_format='json'):
         """ Initialize the class
 
         Keyword arguments:
@@ -78,22 +79,23 @@ class AlphaVantage:
                 positional_count = 0
                 defaults = argspec.defaults
         # Actual decorating
+
         @wraps(func)
         def _call_wrapper(self, *args, **kwargs):
             used_kwargs = kwargs.copy()
             # Get the used positional arguments given to the function
             used_kwargs.update(zip(argspec.args[positional_count:],
-            args[positional_count:]))
+                                   args[positional_count:]))
             # Update the dictionary to include the default parameters from the
             # function
             used_kwargs.update({k: used_kwargs.get(k, d)
-            for k, d in defaults.items()})
+                                for k, d in defaults.items()})
             # Form the base url, the original function called must return
             # the function name defined in the alpha vantage api and the data
             # key for it and for its meta data.
             function_name, data_key, meta_data_key = func(self, *args, **kwargs)
             url = "{}function={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-            function_name)
+                                         function_name)
             for idx, arg_name in enumerate(argspec.args[1:]):
                 try:
                     arg_value = args[idx]
@@ -108,7 +110,7 @@ class AlphaVantage:
                     # None (in other words, this will call the api with its
                     # internal defined parameter)
                     url = '{}&{}={}'.format(url, arg_name, arg_value)
-            url='{}&apikey={}'.format(url, self.key)
+            url = '{}&apikey={}'.format(url, self.key)
             return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
@@ -125,6 +127,7 @@ class AlphaVantage:
         def _format_wrapper(self, *args, **kwargs):
             json_response, data_key, meta_data_key = func(self, *args, **kwargs)
             data = json_response[data_key]
+            #TODO: Fix orientation in a better way
             meta_data = json_response[meta_data_key]
             # Allow to override the output parameter in the call
             if override is None:
@@ -136,16 +139,15 @@ class AlphaVantage:
                 return data, meta_data
             elif output_format == 'pandas':
                 data_pandas = pandas.DataFrame.from_dict(data,
-                orient='index', dtype=float)
+                                                         orient='index', dtype=float)
                 # Rename columns to have a nicer name
                 col_names = [re.sub(r'\d+.', '', name).strip(' ')
-                    for name in list(data_pandas)]
+                             for name in list(data_pandas)]
                 data_pandas.columns = col_names
                 return data_pandas, meta_data
             else:
                 raise ValueError('Format: {} is not supported'.format(
-                self.output_format))
-
+                    self.output_format))
         return _format_wrapper
 
     def map_to_matype(self, matype):
@@ -194,8 +196,8 @@ class AlphaVantage:
         if 'Error Message' in json_response or not json_response:
             if json_response:
                 raise ValueError('ERROR getting data form api',
-                             json_response['Error Message'])
+                                 json_response['Error Message'])
             else:
-                raise ValueError('Error getting data from api, no return'\
-                 ' message from the api url (possibly wrong symbol/param)')
+                raise ValueError('Error getting data from api, no return'
+                                 ' message from the api url (possibly wrong symbol/param)')
         return json_response

@@ -1,0 +1,3 @@
+include README.rst
+recursive-include images
+include LICENSE.txt
