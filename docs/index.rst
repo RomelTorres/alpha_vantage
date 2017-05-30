@@ -15,7 +15,7 @@ Contents
 .. toctree::
     :maxdepth: 2
     
-    _source/installation.rst
+    source/installation.rst
 
 
 .. automodule:: alpha_vantage
