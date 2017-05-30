@@ -11,14 +11,14 @@ class TechIndicators(av):
         """ Return simple moving average time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "SMA"
         return _FUNCTION_KEY, 'Technical Analysis: SMA', 'Meta Data'
@@ -29,14 +29,14 @@ class TechIndicators(av):
         """ Return exponential moving average time series in two json objects
         as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "EMA"
         return _FUNCTION_KEY, 'Technical Analysis: EMA', 'Meta Data'
@@ -47,14 +47,14 @@ class TechIndicators(av):
         """ Return weighted moving average time series in two json objects
         as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "WMA"
         return _FUNCTION_KEY, 'Technical Analysis: WMA', 'Meta Data'
@@ -65,14 +65,14 @@ class TechIndicators(av):
         """ Return double exponential moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "DEMA"
         return _FUNCTION_KEY, 'Technical Analysis: DEMA', 'Meta Data'
@@ -83,14 +83,14 @@ class TechIndicators(av):
         """ Return triple exponential moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "TEMA"
         return _FUNCTION_KEY, 'Technical Analysis: TEMA', 'Meta Data'
@@ -101,14 +101,14 @@ class TechIndicators(av):
         """ Return triangular moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "TRIMA"
         return _FUNCTION_KEY, 'Technical Analysis: TRIMA', 'Meta Data'
@@ -119,14 +119,14 @@ class TechIndicators(av):
         """ Return Kaufman adaptative moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "KAMA"
         return _FUNCTION_KEY, 'Technical Analysis: KAMA', 'Meta Data'
@@ -138,18 +138,18 @@ class TechIndicators(av):
         """ Return MESA adaptative moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
-        fastlimit -- Positive floats for the fast limit are accepted
-        (default=None)
-        slowlimit -- Positive floats for the slow limit are accepted
-        (default=None)
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
+            fastlimit:  Positive floats for the fast limit are accepted
+                (default=None)
+            slowlimit:  Positive floats for the slow limit are accepted
+                (default=None)
         """
         _FUNCTION_KEY = "MAMA"
         return _FUNCTION_KEY, 'Technical Analysis: MAMA', 'Meta Data'
@@ -160,14 +160,14 @@ class TechIndicators(av):
         """ Return triple exponential moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "T3"
         return _FUNCTION_KEY, 'Technical Analysis: T3', 'Meta Data'
@@ -180,16 +180,16 @@ class TechIndicators(av):
         json objects as data and meta_data. It raises ValueError when problems
         arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min'
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
-        fastperiod -- Positive integers are accepted (default=None)
-        slowperiod -- Positive integers are accepted (default=None)
-        signalperiod -- Positive integers are accepted (default=None)
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min'
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
+            fastperiod:  Positive integers are accepted (default=None)
+            slowperiod:  Positive integers are accepted (default=None)
+            signalperiod:  Positive integers are accepted (default=None)
         """
         _FUNCTION_KEY = "MACD"
         return _FUNCTION_KEY, 'Technical Analysis: MACD', 'Meta Data'
@@ -203,38 +203,38 @@ class TechIndicators(av):
         json objects as data and meta_data. It raises ValueError when problems
         arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
-        fastperiod -- Positive integers are accepted (default=None)
-        slowperiod -- Positive integers are accepted (default=None)
-        signalperiod -- Positive integers are accepted (default=None)
-        fastmatype -- Moving average type for the faster moving average.
-        By default, fastmatype=0. Integers 0 - 8 are accepted
-        (check  down the mappings) or the string containing the math type can
-        also be used.
-        slowmatype -- Moving average type for the slower moving average.
-        By default, slowmatype=0. Integers 0 - 8 are accepted
-        (check down the mappings) or the string containing the math type can
-        also be used.
-        signalmatype -- Moving average type for the signal moving average.
-        By default, signalmatype=0. Integers 0 - 8 are accepted
-        (check down the mappings) or the string containing the math type can
-        also be used.
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
+            fastperiod:  Positive integers are accepted (default=None)
+            slowperiod:  Positive integers are accepted (default=None)
+            signalperiod:  Positive integers are accepted (default=None)
+            fastmatype:  Moving average type for the faster moving average.
+                By default, fastmatype=0. Integers 0 - 8 are accepted
+                (check  down the mappings) or the string containing the math type can
+                also be used.
+            slowmatype:  Moving average type for the slower moving average.
+                By default, slowmatype=0. Integers 0 - 8 are accepted
+                (check down the mappings) or the string containing the math type can
+                also be used.
+            signalmatype:  Moving average type for the signal moving average.
+                By default, signalmatype=0. Integers 0 - 8 are accepted
+                (check down the mappings) or the string containing the math type can
+                also be used.
 
-        0 = Simple Moving Average (SMA),
-        1 = Exponential Moving Average (EMA),
-        2 = Weighted Moving Average (WMA),
-        3 = Double Exponential Moving Average (DEMA),
-        4 = Triple Exponential Moving Average (TEMA),
-        5 = Triangular Moving Average (TRIMA),
-        6 = T3 Moving Average,
-        7 = Kaufman Adaptive Moving Average (KAMA),
-        8 = MESA Adaptive Moving Average (MAMA)
+                * 0 = Simple Moving Average (SMA),
+                * 1 = Exponential Moving Average (EMA),
+                * 2 = Weighted Moving Average (WMA),
+                * 3 = Double Exponential Moving Average (DEMA),
+                * 4 = Triple Exponential Moving Average (TEMA),
+                * 5 = Triangular Moving Average (TRIMA),
+                * 6 = T3 Moving Average,
+                * 7 = Kaufman Adaptive Moving Average (KAMA),
+                * 8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "MACDEXT"
         return _FUNCTION_KEY, 'Technical Analysis: MACDEXT', 'Meta Data'
@@ -247,35 +247,35 @@ class TechIndicators(av):
         json objects as data and meta_data. It raises ValueError when problems
         arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        fastkperiod -- The time period of the fastk moving average. Positive
-        integers are accepted (default=None)
-        slowkperiod -- The time period of the slowk moving average. Positive
-        integers are accepted (default=None)
-        slowdperiod --The time period of the slowd moving average. Positive
-        integers are accepted (default=None)
-        slowkmatype -- Moving average type for the slowk moving average.
-        By default, fastmatype=0. Integers 0 - 8 are accepted
-        (check  down the mappings) or the string containing the math type can
-        also be used.
-        slowdmatype -- Moving average type for the slowd moving average.
-        By default, slowmatype=0. Integers 0 - 8 are accepted
-        (check down the mappings) or the string containing the math type can
-        also be used.
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            fastkperiod:  The time period of the fastk moving average. Positive
+                integers are accepted (default=None)
+            slowkperiod:  The time period of the slowk moving average. Positive
+                integers are accepted (default=None)
+            slowdperiod: The time period of the slowd moving average. Positive
+                integers are accepted (default=None)
+            slowkmatype:  Moving average type for the slowk moving average.
+                By default, fastmatype=0. Integers 0 - 8 are accepted
+                (check  down the mappings) or the string containing the math type can
+                also be used.
+            slowdmatype:  Moving average type for the slowd moving average.
+                By default, slowmatype=0. Integers 0 - 8 are accepted
+                (check down the mappings) or the string containing the math type can
+                also be used.
 
-        0 = Simple Moving Average (SMA),
-        1 = Exponential Moving Average (EMA),
-        2 = Weighted Moving Average (WMA),
-        3 = Double Exponential Moving Average (DEMA),
-        4 = Triple Exponential Moving Average (TEMA),
-        5 = Triangular Moving Average (TRIMA),
-        6 = T3 Moving Average,
-        7 = Kaufman Adaptive Moving Average (KAMA),
-        8 = MESA Adaptive Moving Average (MAMA)
+                * 0 = Simple Moving Average (SMA),
+                * 1 = Exponential Moving Average (EMA),
+                * 2 = Weighted Moving Average (WMA),
+                * 3 = Double Exponential Moving Average (DEMA),
+                * 4 = Triple Exponential Moving Average (TEMA),
+                * 5 = Triangular Moving Average (TRIMA),
+                * 6 = T3 Moving Average,
+                * 7 = Kaufman Adaptive Moving Average (KAMA),
+                * 8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "STOCH"
         return _FUNCTION_KEY, 'Technical Analysis: STOCH', 'Meta Data'
@@ -288,29 +288,29 @@ class TechIndicators(av):
         json objects as data and meta_data. It raises ValueError when problems
         arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        fastkperiod -- The time period of the fastk moving average. Positive
-        integers are accepted (default=None)
-        fastdperiod -- The time period of the fastd moving average. Positive
-        integers are accepted (default=None)
-        fastdmatype -- Moving average type for the fastdmatype moving average.
-        By default, fastmatype=0. Integers 0 - 8 are accepted
-        (check  down the mappings) or the string containing the math type can
-        also be used.
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            fastkperiod:  The time period of the fastk moving average. Positive
+                integers are accepted (default=None)
+            fastdperiod:  The time period of the fastd moving average. Positive
+                integers are accepted (default=None)
+            fastdmatype:  Moving average type for the fastdmatype moving average.
+                By default, fastmatype=0. Integers 0 - 8 are accepted
+                (check  down the mappings) or the string containing the math type can
+                also be used.
 
-        0 = Simple Moving Average (SMA),
-        1 = Exponential Moving Average (EMA),
-        2 = Weighted Moving Average (WMA),
-        3 = Double Exponential Moving Average (DEMA),
-        4 = Triple Exponential Moving Average (TEMA),
-        5 = Triangular Moving Average (TRIMA),
-        6 = T3 Moving Average,
-        7 = Kaufman Adaptive Moving Average (KAMA),
-        8 = MESA Adaptive Moving Average (MAMA)
+                * 0 = Simple Moving Average (SMA),
+                * 1 = Exponential Moving Average (EMA),
+                * 2 = Weighted Moving Average (WMA),
+                * 3 = Double Exponential Moving Average (DEMA),
+                * 4 = Triple Exponential Moving Average (TEMA),
+                * 5 = Triangular Moving Average (TRIMA),
+                * 6 = T3 Moving Average,
+                * 7 = Kaufman Adaptive Moving Average (KAMA),
+                * 8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "STOCHF"
         return _FUNCTION_KEY, 'Technical Analysis: STOCHF', 'Meta Data'
@@ -321,14 +321,14 @@ class TechIndicators(av):
         """ Return the relative strength index time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "RSI"
         return _FUNCTION_KEY, 'Technical Analysis: RSI', 'Meta Data'
@@ -341,32 +341,32 @@ class TechIndicators(av):
         json objects as data and meta_data. It raises ValueError when problems
         arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
-        fastkperiod -- The time period of the fastk moving average. Positive
-        integers are accepted (default=None)
-        fastdperiod -- The time period of the fastd moving average. Positive
-        integers are accepted (default=None)
-        fastdmatype -- Moving average type for the fastdmatype moving average.
-        By default, fastmatype=0. Integers 0 - 8 are accepted
-        (check  down the mappings) or the string containing the math type can
-        also be used.
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
+            fastkperiod:  The time period of the fastk moving average. Positive
+                integers are accepted (default=None)
+            fastdperiod:  The time period of the fastd moving average. Positive
+                integers are accepted (default=None)
+            fastdmatype:  Moving average type for the fastdmatype moving average.
+                By default, fastmatype=0. Integers 0 - 8 are accepted
+                (check  down the mappings) or the string containing the math type can
+                also be used.
 
-        0 = Simple Moving Average (SMA),
-        1 = Exponential Moving Average (EMA),
-        2 = Weighted Moving Average (WMA),
-        3 = Double Exponential Moving Average (DEMA),
-        4 = Triple Exponential Moving Average (TEMA),
-        5 = Triangular Moving Average (TRIMA),
-        6 = T3 Moving Average,
-        7 = Kaufman Adaptive Moving Average (KAMA),
-        8 = MESA Adaptive Moving Average (MAMA)
+                * 0 = Simple Moving Average (SMA),
+                * 1 = Exponential Moving Average (EMA),
+                * 2 = Weighted Moving Average (WMA),
+                * 3 = Double Exponential Moving Average (DEMA),
+                * 4 = Triple Exponential Moving Average (TEMA),
+                * 5 = Triangular Moving Average (TRIMA),
+                * 6 = T3 Moving Average,
+                * 7 = Kaufman Adaptive Moving Average (KAMA),
+                * 8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "STOCHRSI"
         return _FUNCTION_KEY, 'Technical Analysis: STOCHRSI', 'Meta Data'
@@ -377,11 +377,12 @@ class TechIndicators(av):
         """ Return the Williams' %R (WILLR) values in two json objects as data
         and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "WILLR"
         return _FUNCTION_KEY, 'Technical Analysis: WILLR', 'Meta Data'
@@ -392,11 +393,12 @@ class TechIndicators(av):
         """ Return  the average directional movement index values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "ADX"
         return _FUNCTION_KEY, 'Technical Analysis: ADX', 'Meta Data'
@@ -407,11 +409,12 @@ class TechIndicators(av):
         """ Return  the average directional movement index  rating in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "ADXR"
         return _FUNCTION_KEY, 'Technical Analysis: ADXR', 'Meta Data'
@@ -424,28 +427,28 @@ class TechIndicators(av):
         json objects as data and meta_data. It raises ValueError when problems
         arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min'
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
-        fastperiod -- Positive integers are accepted (default=None)
-        slowperiod -- Positive integers are accepted (default=None)
-        matype     -- Moving average type. By default, fastmatype=0.
-        Integers 0 - 8 are accepted (check  down the mappings) or the string
-        containing the math type can also be used.
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min'
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
+            fastperiod:  Positive integers are accepted (default=None)
+            slowperiod:  Positive integers are accepted (default=None)
+            matype    :  Moving average type. By default, fastmatype=0.
+                Integers 0 - 8 are accepted (check  down the mappings) or the string
+                containing the math type can also be used.
 
-        0 = Simple Moving Average (SMA),
-        1 = Exponential Moving Average (EMA),
-        2 = Weighted Moving Average (WMA),
-        3 = Double Exponential Moving Average (DEMA),
-        4 = Triple Exponential Moving Average (TEMA),
-        5 = Triangular Moving Average (TRIMA),
-        6 = T3 Moving Average,
-        7 = Kaufman Adaptive Moving Average (KAMA),
-        8 = MESA Adaptive Moving Average (MAMA)
+                * 0 = Simple Moving Average (SMA),
+                * 1 = Exponential Moving Average (EMA),
+                * 2 = Weighted Moving Average (WMA),
+                * 3 = Double Exponential Moving Average (DEMA),
+                * 4 = Triple Exponential Moving Average (TEMA),
+                * 5 = Triangular Moving Average (TRIMA),
+                * 6 = T3 Moving Average,
+                * 7 = Kaufman Adaptive Moving Average (KAMA),
+                * 8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "APO"
         return _FUNCTION_KEY, 'Technical Analysis: APO', 'Meta Data'
@@ -458,28 +461,28 @@ class TechIndicators(av):
         json objects as data and meta_data. It raises ValueError when problems
         arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min'
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
-        fastperiod -- Positive integers are accepted (default=None)
-        slowperiod -- Positive integers are accepted (default=None)
-        matype     -- Moving average type. By default, fastmatype=0.
-        Integers 0 - 8 are accepted (check  down the mappings) or the string
-        containing the math type can also be used.
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min'
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
+            fastperiod:  Positive integers are accepted (default=None)
+            slowperiod:  Positive integers are accepted (default=None)
+            matype    :  Moving average type. By default, fastmatype=0.
+                Integers 0 - 8 are accepted (check  down the mappings) or the string
+                containing the math type can also be used.
 
-        0 = Simple Moving Average (SMA),
-        1 = Exponential Moving Average (EMA),
-        2 = Weighted Moving Average (WMA),
-        3 = Double Exponential Moving Average (DEMA),
-        4 = Triple Exponential Moving Average (TEMA),
-        5 = Triangular Moving Average (TRIMA),
-        6 = T3 Moving Average,
-        7 = Kaufman Adaptive Moving Average (KAMA),
-        8 = MESA Adaptive Moving Average (MAMA)
+                * 0 = Simple Moving Average (SMA),
+                * 1 = Exponential Moving Average (EMA),
+                * 2 = Weighted Moving Average (WMA),
+                * 3 = Double Exponential Moving Average (DEMA),
+                * 4 = Triple Exponential Moving Average (TEMA),
+                * 5 = Triangular Moving Average (TRIMA),
+                * 6 = T3 Moving Average,
+                * 7 = Kaufman Adaptive Moving Average (KAMA),
+                * 8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "PPO"
         return _FUNCTION_KEY, 'Technical Analysis: PPO', 'Meta Data'
@@ -490,14 +493,14 @@ class TechIndicators(av):
         """ Return the momentum values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "MOM"
         return _FUNCTION_KEY, 'Technical Analysis: MOM', 'Meta Data'
@@ -508,11 +511,12 @@ class TechIndicators(av):
         """ Return the balance of power values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "BOP"
         return _FUNCTION_KEY, 'Technical Analysis: BOP', 'Meta Data'
@@ -523,11 +527,12 @@ class TechIndicators(av):
         """ Return the commodity channel index values  in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "CCI"
         return _FUNCTION_KEY, 'Technical Analysis: CCI', 'Meta Data'
@@ -538,14 +543,14 @@ class TechIndicators(av):
         """ Return the Chande momentum oscillator in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "CMO"
         return _FUNCTION_KEY, 'Technical Analysis: CMO', 'Meta Data'
@@ -556,14 +561,14 @@ class TechIndicators(av):
         """ Return the rate of change values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "ROC"
         return _FUNCTION_KEY, 'Technical Analysis: ROC', 'Meta Data'
@@ -574,14 +579,14 @@ class TechIndicators(av):
         """ Return the rate of change ratio values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "ROCR"
         return _FUNCTION_KEY, 'Technical Analysis: ROCR', 'Meta Data'
@@ -592,14 +597,14 @@ class TechIndicators(av):
         """ Return the aroon values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "AROON"
         return _FUNCTION_KEY, 'Technical Analysis: AROON', 'Meta Data'
@@ -610,14 +615,14 @@ class TechIndicators(av):
         """ Return the aroon oscillator values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "AROONOSC"
         return _FUNCTION_KEY, 'Technical Analysis: AROONOSC', 'Meta Data'
@@ -628,14 +633,14 @@ class TechIndicators(av):
         """ Return the money flow index values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "MFI"
         return _FUNCTION_KEY, 'Technical Analysis: MFI', 'Meta Data'
@@ -647,14 +652,14 @@ class TechIndicators(av):
         moving average in two json objects as data and meta_data.
         It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "TRIX"
         return _FUNCTION_KEY, 'Technical Analysis: TRIX', 'Meta Data'
@@ -666,17 +671,17 @@ class TechIndicators(av):
         """ Return the ultimate oscillaror values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        timeperiod1 -- The first time period indicator. Positive integers are
-        accepted. By default, timeperiod1=7
-        timeperiod2 -- The first time period indicator. Positive integers are
-        accepted. By default, timeperiod2=14
-        timeperiod3 -- The first time period indicator. Positive integers are
-        accepted. By default, timeperiod3=28
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            timeperiod1:  The first time period indicator. Positive integers are
+                accepted. By default, timeperiod1=7
+            timeperiod2:  The first time period indicator. Positive integers are
+                accepted. By default, timeperiod2=14
+            timeperiod3:  The first time period indicator. Positive integers are
+                accepted. By default, timeperiod3=28
         """
         _FUNCTION_KEY = "ULTOSC"
         return _FUNCTION_KEY, 'Technical Analysis: ULTOSC', 'Meta Data'
@@ -687,14 +692,14 @@ class TechIndicators(av):
         """ Return the directional movement index values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "DX"
         return _FUNCTION_KEY, 'Technical Analysis: DX', 'Meta Data'
@@ -705,11 +710,12 @@ class TechIndicators(av):
         """ Return the minus directional indicator values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "MINUS_DI"
         return _FUNCTION_KEY, 'Technical Analysis: MINUS_DI', 'Meta Data'
@@ -720,11 +726,12 @@ class TechIndicators(av):
         """ Return the plus directional indicator values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "PLUS_DI"
         return _FUNCTION_KEY, 'Technical Analysis: PLUS_DI', 'Meta Data'
@@ -735,11 +742,11 @@ class TechIndicators(av):
         """ Return the minus directional movement values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "MINUS_DM"
         return _FUNCTION_KEY, 'Technical Analysis: MINUS_DM', 'Meta Data'
@@ -750,11 +757,11 @@ class TechIndicators(av):
         """ Return the plus directional movement values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "PLUS_DM"
         return _FUNCTION_KEY, 'Technical Analysis: PLUS_DM', 'Meta Data'
@@ -767,30 +774,30 @@ class TechIndicators(av):
         json objects as data and meta_data. It raises ValueError when problems
         arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min'
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
-        nbdevup -- The standard deviation multiplier of the upper band. Positive
-        integers are accepted as default (default=2)
-        nbdevdn -- The standard deviation multiplier of the lower band. Positive
-        integers are accepted as default (default=2)
-        matype  -- Moving average type. By default, matype=0.
-        Integers 0 - 8 are accepted (check  down the mappings) or the string
-        containing the math type can also be used.
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min'
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
+            nbdevup:  The standard deviation multiplier of the upper band. Positive
+                integers are accepted as default (default=2)
+            nbdevdn:  The standard deviation multiplier of the lower band. Positive
+                integers are accepted as default (default=2)
+            matype :  Moving average type. By default, matype=0.
+                Integers 0 - 8 are accepted (check  down the mappings) or the string
+                containing the math type can also be used.
 
-        0 = Simple Moving Average (SMA),
-        1 = Exponential Moving Average (EMA),
-        2 = Weighted Moving Average (WMA),
-        3 = Double Exponential Moving Average (DEMA),
-        4 = Triple Exponential Moving Average (TEMA),
-        5 = Triangular Moving Average (TRIMA),
-        6 = T3 Moving Average,
-        7 = Kaufman Adaptive Moving Average (KAMA),
-        8 = MESA Adaptive Moving Average (MAMA)
+                * 0 = Simple Moving Average (SMA),
+                * 1 = Exponential Moving Average (EMA),
+                * 2 = Weighted Moving Average (WMA),
+                * 3 = Double Exponential Moving Average (DEMA),
+                * 4 = Triple Exponential Moving Average (TEMA),
+                * 5 = Triangular Moving Average (TRIMA),
+                * 6 = T3 Moving Average,
+                * 7 = Kaufman Adaptive Moving Average (KAMA),
+                * 8 = MESA Adaptive Moving Average (MAMA)
         """
         _FUNCTION_KEY = "BBANDS"
         return _FUNCTION_KEY, 'Technical Analysis: BBANDS', 'Meta Data'
@@ -801,14 +808,14 @@ class TechIndicators(av):
         """ Return the midpoint values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "MIDPOINT"
         return _FUNCTION_KEY, 'Technical Analysis: MIDPOINT', 'Meta Data'
@@ -819,12 +826,12 @@ class TechIndicators(av):
         """ Return the midprice values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "MIDPRICE"
         return _FUNCTION_KEY, 'Technical Analysis: MIDPRICE', 'Meta Data'
@@ -835,15 +842,15 @@ class TechIndicators(av):
         """ Return the midprice values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        acceleration -- The acceleration factor. Positive floats are accepted (
-        default 0.01)
-        maximum -- The acceleration factor maximum value. Positive floats
-        are accepted (default 0.20 )
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            acceleration:  The acceleration factor. Positive floats are accepted (
+                default 0.01)
+            maximum:  The acceleration factor maximum value. Positive floats
+                are accepted (default 0.20 )
         """
         _FUNCTION_KEY = "SAR"
         return _FUNCTION_KEY, 'Technical Analysis: SAR', 'Meta Data'
@@ -854,11 +861,11 @@ class TechIndicators(av):
         """ Return the true range values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "TRANGE"
         return _FUNCTION_KEY, 'Technical Analysis: TRANGE', 'Meta Data'
@@ -869,12 +876,12 @@ class TechIndicators(av):
         """ Return the average true range values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "ATR"
         return _FUNCTION_KEY, 'Technical Analysis: ATR', 'Meta Data'
@@ -885,12 +892,12 @@ class TechIndicators(av):
         """ Return the normalized average true range values in two json objects
         as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        time_period -- How many data points to average (default 20)
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "NATR"
         return _FUNCTION_KEY, 'Technical Analysis: NATR', 'Meta Data'
@@ -901,11 +908,11 @@ class TechIndicators(av):
         """ Return the Chaikin A/D line values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "AD"
         return _FUNCTION_KEY, 'Technical Analysis: Chaikin A/D', 'Meta Data'
@@ -918,13 +925,13 @@ class TechIndicators(av):
         json objects as data and meta_data. It raises ValueError when problems
         arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min'
-        fastperiod -- Positive integers are accepted (default=None)
-        slowperiod -- Positive integers are accepted (default=None)
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min'
+            fastperiod:  Positive integers are accepted (default=None)
+            slowperiod:  Positive integers are accepted (default=None)
         """
         _FUNCTION_KEY = "ADOSC"
         return _FUNCTION_KEY, 'Technical Analysis: ADOSC', 'Meta Data'
@@ -935,11 +942,11 @@ class TechIndicators(av):
         """ Return the on balance volume values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
         """
         _FUNCTION_KEY = "OBV"
         return _FUNCTION_KEY, 'Technical Analysis: OBV', 'Meta Data'
@@ -950,13 +957,13 @@ class TechIndicators(av):
         """ Return the Hilbert transform, instantaneous trendline values in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_TRENDLINE"
         return _FUNCTION_KEY, 'Technical Analysis: HT_TRENDLINE', 'Meta Data'
@@ -967,13 +974,13 @@ class TechIndicators(av):
         """ Return the Hilbert transform, sine wave values in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            series_type:  The desired price type in the time series. Four types
+            are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_SINE"
         return _FUNCTION_KEY, 'Technical Analysis: HT_SINE', 'Meta Data'
@@ -984,13 +991,13 @@ class TechIndicators(av):
         """ Return the Hilbert transform, trend vs cycle mode in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_TRENDMODE"
         return _FUNCTION_KEY, 'Technical Analysis: HT_TRENDMODE', 'Meta Data'
@@ -1001,13 +1008,13 @@ class TechIndicators(av):
         """ Return the Hilbert transform, dominant cycle period in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_DCPERIOD"
         return _FUNCTION_KEY, 'Technical Analysis: HT_DCPERIOD', 'Meta Data'
@@ -1018,13 +1025,13 @@ class TechIndicators(av):
         """ Return the Hilbert transform, dominant cycle phase in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_DCPHASE"
         return _FUNCTION_KEY, 'Technical Analysis: HT_DCPHASE', 'Meta Data'
@@ -1035,13 +1042,13 @@ class TechIndicators(av):
         """ Return the Hilbert transform, phasor components in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-        'weekly', 'monthly' (default '60min')
-        series_type -- The desired price type in the time series. Four types
-        are supported: 'close', 'open', 'high', 'low' (default 'close')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
+                'weekly', 'monthly' (default '60min')
+            series_type:  The desired price type in the time series. Four types
+                are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
         _FUNCTION_KEY = "HT_PHASOR"
         return _FUNCTION_KEY, 'Technical Analysis: HT_PHASOR', 'Meta Data'

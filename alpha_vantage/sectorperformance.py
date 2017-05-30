@@ -11,8 +11,8 @@ class SectorPerformances(av):
     def percentage_to_float(self, val):
         """ Transform a string of ther form f.f% into f.f/100
 
-        Keyword arguments:
-        val -- The string to convert
+        Keyword Arguments:
+            val: The string to convert
         """
         return float(val.strip('%'))/100
 
@@ -21,9 +21,11 @@ class SectorPerformances(av):
         """ Decorator in charge of giving the output its right format, either
         json or pandas (replacing the % for usable floats, range 0-1.0)
 
-        Keyword arguments:
-        func -- The function to be decorated
-        override -- Override the internal format of the call, default None
+        Keyword Arguments:
+            func: The function to be decorated
+            override: Override the internal format of the call, default None
+        Returns:
+            A decorator for the format sector api call
         """
         @wraps(func)
         def _format_wrapper(self, *args, **kwargs):
@@ -62,6 +64,12 @@ class SectorPerformances(av):
     @_output_format_sector
     @av._call_api_on_func
     def get_sector(self):
+        """This API returns the realtime and historical sector performances
+        calculated from S&P500 incumbents.
+
+        Returns:
+            A pandas or a dictionary with the results from the api call
+        """
         _FUNCTION_KEY = "SECTOR"
         # The keys for the json output
         _DATA_KEYS = ["Rank A: Real-Time Performance",

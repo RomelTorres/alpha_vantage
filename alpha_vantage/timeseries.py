@@ -10,15 +10,15 @@ class TimesSeries(av):
         """ Return intraday time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        interval -- time interval between two conscutive values,
-        supported values are '1min', '5min', '15min', '30min', '60min'
-        (default '15min')
-        outputsize -- The size of the call, supported values are
-        'compact' and 'full; the first returns the last 100 points in the
-        data series, and 'full' returns the full-length intraday times
-        series, commonly above 1MB (default 'compact')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min'
+                (default '15min')
+            outputsize:  The size of the call, supported values are
+                'compact' and 'full; the first returns the last 100 points in the
+                data series, and 'full' returns the full-length intraday times
+                series, commonly above 1MB (default 'compact')
         """
         _FUNCTION_KEY = "TIME_SERIES_INTRADAY"
         return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'
@@ -29,12 +29,12 @@ class TimesSeries(av):
         """ Return daily time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
-        outputsize -- The size of the call, supported values are
-        'compact' and 'full; the first returns the last 100 points in the
-        data series, and 'full' returns the full-length intraday times
-        series, commonly above 1MB (default 'compact')
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            outputsize:  The size of the call, supported values are
+                'compact' and 'full; the first returns the last 100 points in the
+                data series, and 'full' returns the full-length intraday times
+                series, commonly above 1MB (default 'compact')
         """
         _FUNCTION_KEY = "TIME_SERIES_DAILY"
         return _FUNCTION_KEY, 'Time Series (Daily)', 'Meta Data'
@@ -45,8 +45,8 @@ class TimesSeries(av):
         """ Return weekly time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
 
         """
         _FUNCTION_KEY = "TIME_SERIES_WEEKLY"
@@ -58,8 +58,8 @@ class TimesSeries(av):
         """ Return monthly time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
 
-        Keyword arguments:
-        symbol -- the symbol for the equity we want to get its data
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
 
         """
         _FUNCTION_KEY = "TIME_SERIES_MONTHLY"

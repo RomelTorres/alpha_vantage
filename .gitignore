@@ -106,6 +106,7 @@ celerybeat-schedule
 .venv
 venv/
 ENV/
+alpha_vantage_env/
 
 # Spyder project settings
 .spyderproject
@@ -132,5 +133,10 @@ tags
 
 ### Do not include the README.rst ###
 README.rst
+
+# sphinx build folder
+_build
+
+
 
 # End of https://www.gitignore.io/api/vim,linux,python

@@ -8,14 +8,14 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
 
 setup(
     name='alpha_vantage',
-    version='0.2.1',
+    version='1.0.0',
     author='Romel J. Torres',
     author_email='romel.torres@gmail.com',
     license='MIT',
     description='Python module to get stock data from the Alpha Vantage Api',
     long_description=long_description,
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 2 - Beta',
         'Intended Audience :: Developers',
         'Topic :: Office/Business :: Financial :: Investment',
         'License :: OSI Approved :: MIT License',
