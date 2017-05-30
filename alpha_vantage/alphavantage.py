@@ -13,8 +13,8 @@ import re
 
 
 class AlphaVantage:
-    """This class is in charge of creating a base class for implementing the
-    decorators for the api calls
+    """ Base class where the decorators and base function for the other
+    classes of this python wrapper will inherit from.
     """
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
     _ALPHA_VANTAGE_MATH_MAP = ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA', 'T3',
@@ -23,11 +23,11 @@ class AlphaVantage:
     def __init__(self, key=None, retries=5, output_format='json'):
         """ Initialize the class
 
-        Keyword arguments:
-        key -- Alpha Vantage api key
-        retries -- Maximum amount of retries in case of faulty connection or
-        server not able to answer the call.
-        output_format -- Either 'json' or 'pandas'
+        Keyword Arguments:
+            key:  Alpha Vantage api key
+            retries:  Maximum amount of retries in case of faulty connection or
+                server not able to answer the call.
+            output_format:  Either 'json' or 'pandas'
         """
         if key is None:
             raise ValueError('Get a free key from the alphavantage website')
@@ -39,8 +39,8 @@ class AlphaVantage:
         """ Decorator for retrying api calls (in case of errors from the api
         side in bringing the data)
 
-        Keyword arguments:
-        func -- The function to be retried
+        Keyword Arguments:
+            func:  The function to be retried
         """
         @wraps(func)
         def _retry_wrapper(self, *args, **kwargs):
@@ -58,8 +58,8 @@ class AlphaVantage:
         function, it works by taking the arguments given to the function
         and building the url to call the api on it
 
-        Keyword arguments:
-        func -- The function to be decorated
+        Keyword Arguments:
+            func:  The function to be decorated
         """
 
         # Argument Handling
@@ -119,9 +119,9 @@ class AlphaVantage:
         """ Decorator in charge of giving the output its right format, either
         json or pandas
 
-        Keyword arguments:
-        func -- The function to be decorated
-        override -- Override the internal format of the call, default None
+        Keyword Arguments:
+            func:  The function to be decorated
+            override:  Override the internal format of the call, default None
         """
         @wraps(func)
         def _format_wrapper(self, *args, **kwargs):
@@ -156,19 +156,19 @@ class AlphaVantage:
         raises ValueError if an integer greater than the supported math types
         is given.
 
-        Keyword arguments
-        matype -- The math type of the alpha vantage api. It accepts integers
-        or a string representing the math type.
+        Keyword Arguments:
+            matype:  The math type of the alpha vantage api. It accepts integers
+                or a string representing the math type.
 
-        0 = Simple Moving Average (SMA),
-        1 = Exponential Moving Average (EMA),
-        2 = Weighted Moving Average (WMA),
-        3 = Double Exponential Moving Average (DEMA),
-        4 = Triple Exponential Moving Average (TEMA),
-        5 = Triangular Moving Average (TRIMA),
-        6 = T3 Moving Average,
-        7 = Kaufman Adaptive Moving Average (KAMA),
-        8 = MESA Adaptive Moving Average (MAMA)
+                * 0 = Simple Moving Average (SMA),
+                * 1 = Exponential Moving Average (EMA),
+                * 2 = Weighted Moving Average (WMA),
+                * 3 = Double Exponential Moving Average (DEMA),
+                * 4 = Triple Exponential Moving Average (TEMA),
+                * 5 = Triangular Moving Average (TRIMA),
+                * 6 = T3 Moving Average,
+                * 7 = Kaufman Adaptive Moving Average (KAMA),
+                * 8 = MESA Adaptive Moving Average (MAMA)
         """
         # Check if it is an integer or a string
         try:
@@ -184,11 +184,11 @@ class AlphaVantage:
         """ Handle the return call from the  api and return a data and meta_data
         object. It raises a ValueError on problems
 
-        Keyword arguments:
-        url -- The url of the service
-        data_key -- The key for getting the data from the jso object
-        meta_data_key -- The key for getting the meta data information out of
-        the json object
+        Keyword Arguments:
+            url:  The url of the service
+            data_key:  The key for getting the data from the jso object
+            meta_data_key:  The key for getting the meta data information out of
+                the json object
         """
         response = urlopen(url)
         url_response = response.read()
