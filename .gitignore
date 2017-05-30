@@ -134,4 +134,9 @@ tags
 ### Do not include the README.rst ###
 README.rst
 
+# sphinx build folder
+_build
+
+
+
 # End of https://www.gitignore.io/api/vim,linux,python
