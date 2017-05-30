@@ -15,7 +15,7 @@ setup(
     description='Python module to get stock data from the Alpha Vantage Api',
     long_description=long_description,
     classifiers=[
-        'Development Status :: 2 - Beta',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Topic :: Office/Business :: Financial :: Investment',
         'License :: OSI Approved :: MIT License',
