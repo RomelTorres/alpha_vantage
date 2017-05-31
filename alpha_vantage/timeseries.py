@@ -41,6 +41,24 @@ class TimesSeries(av):
 
     @av._output_format
     @av._call_api_on_func
+    def get_daily_adjusted(self, symbol, outputsize='compact'):
+        """ Return daily adjusted (date, daily open, daily high, daily low,
+        daily close, daily split/dividend-adjusted close, daily volume)
+        time series in two json objects as data and
+        meta_data. It raises ValueError when problems arise
+
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            outputsize:  The size of the call, supported values are
+                'compact' and 'full; the first returns the last 100 points in the
+                data series, and 'full' returns the full-length intraday times
+                series, commonly above 1MB (default 'compact')
+        """
+        _FUNCTION_KEY = "TIME_SERIES_DAILY_ADJUSTED"
+        return _FUNCTION_KEY, 'Time Series (Daily)', 'Meta Data'
+
+    @av._output_format
+    @av._call_api_on_func
     def get_weekly(self, symbol):
         """ Return weekly time series in two json objects as data and
         meta_data. It raises ValueError when problems arise

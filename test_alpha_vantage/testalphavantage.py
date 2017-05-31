@@ -72,6 +72,18 @@ class TestAlphaVantage(unittest.TestCase):
         self._assert_result_is_format(ts.get_daily, output_format='pandas',
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
 
+    def test_get_daily_adjusted_is_format(self):
+        """Result must be a dictionary containning the json data
+        """
+        # Test dictionary as output
+        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_format(ts.get_daily_adjusted,
+                                      symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+        # Test panda as output
+        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        self._assert_result_is_format(ts.get_daily_adjusted, output_format='pandas',
+                                      symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+
     def test_get_weekly_is_format(self):
         """Result must be a dictionary containning the json data
         """
