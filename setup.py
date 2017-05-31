@@ -8,10 +8,10 @@ try:
         long_description = f.read()
 except IOError:
     long_description = 'Python module to get stock data from the Alpha Vantage Api'
-    
+
 setup(
     name='alpha_vantage',
-    version='1.0.0',
+    version='1.0.1',
     author='Romel J. Torres',
     author_email='romel.torres@gmail.com',
     license='MIT',
