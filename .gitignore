@@ -134,6 +134,8 @@ tags
 ### Do not include the README.rst ###
 README.rst
 
+# sphinx build folder
+_build
 
 
 
