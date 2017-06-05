@@ -3,8 +3,10 @@ from ..alpha_vantage.alphavantage import AlphaVantage
 from ..alpha_vantage.timeseries import TimesSeries
 from ..alpha_vantage.techindicators import TechIndicators
 from ..alpha_vantage.sectorperformance import SectorPerformances
+from nose.tools import assert_true, assert_false
 from simplejson import loads, dumps
 from pandas import DataFrame as df
+
 import unittest
 import timeit
 import os
@@ -47,6 +49,15 @@ class TestAlphaVantage(unittest.TestCase):
             self.fail(msg='A None api key must raise an error')
         except ValueError:
             self.assertTrue(True)
+
+    def test_exchange_supported(self):
+        """ Check that the function returns false when asked for an  unsupported
+        exchange.
+        """
+        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
+        assert_true(av.is_exchange_supported('ETR') is not None)
+        assert_true(av.is_exchange_supported('Nonsense') is None)
+
 
     def test_get_intraday_is_format(self):
         """Result must be a dictionary containning the json data

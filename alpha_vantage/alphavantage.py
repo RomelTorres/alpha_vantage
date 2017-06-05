@@ -19,6 +19,30 @@ class AlphaVantage:
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
     _ALPHA_VANTAGE_MATH_MAP = ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA', 'T3',
                                'KAMA', 'MAMA']
+    _EXCHANGE_SUPPORTED = { 'ASX': 'Australian Securities Exchange',
+                            'BOM': 'Bombay Stock Exchange',
+                            'BIT': 'Borsa Italiana Milan Stock Exchange',
+                            'TSE': 'Canadian/Toronto Securities Exchange',
+                            'FRA': 'Deutsche Boerse Frankfurt Stock Exchange',
+                            'ETR': 'Deutsche Boerse Frankfurt Stock Exchange',
+                            'AMS': 'Euronext Amsterdam',
+                            'EBR': 'Euronext Brussels',
+                            'ELI': 'Euronext Lisbon',
+                            'EPA': 'Euronext Paris',
+                            'LON': 'London Stock Exchange',
+                            'MCX': 'Moscow Exchange',
+                            'NASDAQ': 'NASDAQ Exchange',
+                            'CPH': 'NASDAQ OMX Copenhagen',
+                            'HEL': 'NASDAQ OMX Helsinki',
+                            'ICE': 'NASDAQ OMX Iceland',
+                            'STO': 'NASDAQ OMX Stockholm',
+                            'NSE': 'National Stock Exchange of India',
+                            'NYSE': 'New York Stock Exchange',
+                            'SGX': 'Singapore Exchange',
+                            'SHA': 'Shanghai Stock Exchange',
+                            'SHE': 'Shenzhen Stock Exchange',
+                            'TPE': 'Taiwan Stock Exchange',
+                            'TYO': 'Tokyo Stock Exchange'}
 
     def __init__(self, key=None, retries=5, output_format='json'):
         """ Initialize the class
@@ -201,3 +225,17 @@ class AlphaVantage:
                 raise ValueError('Error getting data from api, no return'
                                  ' message from the api url (possibly wrong symbol/param)')
         return json_response
+
+    def is_exchange_supported(self, exchange_name):
+        """
+            Get if a specific global exchange type is supported by this library
+
+            Keyword Arguments:
+                exchange_name: The exchange type to check for
+            Returns:
+                The description of the given key or None
+        """
+        try:
+            return AlphaVantage._EXCHANGE_SUPPORTED[exchange_name]
+        except KeyError:
+            return None

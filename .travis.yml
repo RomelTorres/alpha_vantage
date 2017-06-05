@@ -12,7 +12,7 @@ python:
 install:
     - pip install simplejson
     - pip install pandas==0.19.2
-    - pip install coverage
+    - pip install --user codecov
 script:
     - nosetests --with-coverage
 
