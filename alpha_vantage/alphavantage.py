@@ -151,8 +151,10 @@ class AlphaVantage:
         def _format_wrapper(self, *args, **kwargs):
             json_response, data_key, meta_data_key = func(self, *args, **kwargs)
             data = json_response[data_key]
-            #TODO: Fix orientation in a better way
-            meta_data = json_response[meta_data_key]
+            if meta_data_key is not None:
+                meta_data = json_response[meta_data_key]
+            else:
+                meta_data = None
             # Allow to override the output parameter in the call
             if override is None:
                 output_format = self.output_format.lower()
