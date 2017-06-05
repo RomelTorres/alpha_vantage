@@ -11,7 +11,7 @@ except IOError:
 
 setup(
     name='alpha_vantage',
-    version='1.0.2',
+    version='1.1.0',
     author='Romel J. Torres',
     author_email='romel.torres@gmail.com',
     license='MIT',
@@ -25,6 +25,7 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     url='https://github.com/RomelTorres/alpha_vantage',
     install_requires=[

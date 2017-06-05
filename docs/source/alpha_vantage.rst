@@ -12,6 +12,14 @@ alpha\_vantage\.alphavantage module
     :undoc-members:
     :show-inheritance:
 
+alpha\_vantage\.globalstockquotes module
+----------------------------------------
+
+.. automodule:: alpha_vantage.globalstockquotes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alpha\_vantage\.sectorperformance module
 ----------------------------------------
 

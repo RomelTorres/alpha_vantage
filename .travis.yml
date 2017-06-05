@@ -8,11 +8,12 @@ python:
     - '2.7'
     - '3.4'
     - '3.5'
+    - '3.6'
 
 install:
     - pip install simplejson
     - pip install pandas==0.19.2
-    - pip install coverage
+    - pip install codecov
 script:
     - nosetests --with-coverage
 
