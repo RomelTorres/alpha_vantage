@@ -9,13 +9,14 @@ python:
     - '3.4'
     - '3.5'
     - '3.6'
+before_install:
+    - pip install codecov
 
 install:
     - pip install simplejson
     - pip install pandas==0.19.2
-    - pip install codecov
 script:
-    - nosetests --with-coverage
+    nosetests
 
 after_sucess:
     codecov
