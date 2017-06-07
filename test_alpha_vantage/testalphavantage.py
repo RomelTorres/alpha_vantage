@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from ..alpha_vantage.alphavantage import AlphaVantage
-from ..alpha_vantage.timeseries import TimesSeries
+from ..alpha_vantage.timeseries import TimeSeries
 from ..alpha_vantage.techindicators import TechIndicators
 from ..alpha_vantage.sectorperformance import SectorPerformances
 from ..alpha_vantage.globalstockquotes import GlobalStockQuotes
@@ -66,11 +66,11 @@ class TestAlphaVantage(unittest.TestCase):
         """Result must be a dictionary containning the json data
         """
         # Test dictionary as output
-        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST)
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST)
         self._assert_result_is_format(ts.get_intraday,
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
         # Test panda as output
-        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
         self._assert_result_is_format(ts.get_intraday, output_format='pandas',
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
 
@@ -78,11 +78,11 @@ class TestAlphaVantage(unittest.TestCase):
         """Result must be a dictionary containning the json data
         """
         # Test dictionary as output
-        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST)
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST)
         self._assert_result_is_format(ts.get_daily,
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
         # Test panda as output
-        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
         self._assert_result_is_format(ts.get_daily, output_format='pandas',
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
 
@@ -90,11 +90,11 @@ class TestAlphaVantage(unittest.TestCase):
         """Result must be a dictionary containning the json data
         """
         # Test dictionary as output
-        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST)
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST)
         self._assert_result_is_format(ts.get_daily_adjusted,
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
         # Test panda as output
-        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
         self._assert_result_is_format(ts.get_daily_adjusted, output_format='pandas',
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
 
@@ -102,11 +102,11 @@ class TestAlphaVantage(unittest.TestCase):
         """Result must be a dictionary containning the json data
         """
         # Test dictionary as output
-        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST)
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST)
         self._assert_result_is_format(ts.get_weekly,
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
         # Test panda as output
-        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
         self._assert_result_is_format(ts.get_weekly, output_format='pandas',
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
 
@@ -114,11 +114,11 @@ class TestAlphaVantage(unittest.TestCase):
         """Result must be a dictionary containning the json data
         """
         # Test dictionary as output
-        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST)
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST)
         self._assert_result_is_format(ts.get_monthly,
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
         # Test panda as output
-        ts = TimesSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
         self._assert_result_is_format(ts.get_monthly, output_format='pandas',
                                       symbol=TestAlphaVantage._API_EQ_NAME_TEST)
 

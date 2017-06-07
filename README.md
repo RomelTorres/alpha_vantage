@@ -26,8 +26,8 @@ pip install -e alpha_vantage
 ## Usage
 To get data in a python, simply import the library and call the object with your api key and get ready for some awesome free realtime finance data.
 ```python
-from alpha_vantage.timeseries import TimesSeries
-ts = TimesSeries(key='YOUR_API_KEY')
+from alpha_vantage.timeseries import TimeSeries
+ts = TimeSeries(key='YOUR_API_KEY')
 # Get json object with the intraday data and another with  the call's metadata
 data, meta_data = ts.get_intraday('GOOGL')
 ```
