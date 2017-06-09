@@ -68,12 +68,13 @@ class AlphaVantage:
         """
         @wraps(func)
         def _retry_wrapper(self, *args, **kwargs):
+            error_message = ""
             for retry in range(self.retries + 1):
                 try:
                     return func(self, *args, **kwargs)
                 except ValueError as err:
-                    pass
-            raise ValueError(err)
+                    error_message = str(err)
+            raise ValueError(str(error_message))
         return _retry_wrapper
 
     @classmethod
@@ -221,7 +222,7 @@ class AlphaVantage:
         json_response = loads(url_response)
         if 'Error Message' in json_response or not json_response:
             if json_response:
-                raise ValueError('ERROR getting data form api',
+                raise ValueError('ERROR getting data from api',
                                  json_response['Error Message'])
             else:
                 raise ValueError('Error getting data from api, no return'

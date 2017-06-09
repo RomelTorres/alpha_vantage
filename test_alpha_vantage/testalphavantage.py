@@ -61,7 +61,6 @@ class TestAlphaVantage(unittest.TestCase):
         assert_true(av.is_exchange_supported('ETR') is not None)
         assert_true(av.is_exchange_supported('Nonsense') is None)
 
-
     def test_get_intraday_is_format(self):
         """Result must be a dictionary containning the json data
         """
