@@ -9,7 +9,7 @@
 *Python module to get stock data from the Alpha Vantage API*
 
 Alpha Vantage delivers a free API for real time financial data and most used finance indicators in a simple json or pandas format. This module implements a python interface to the free API provided by Alpha
-Vantage (http://www.alphavantage.co/). It requires a free API, that can be requested on http://www.alphavantage.co/support/#api-key.
+Vantage (http://www.alphavantage.co/). It requires a free API, that can be requested on http://www.alphavantage.co/support/#api-key. You can have a look at all the api calls available in their documentation http://www.alphavantage.co/documentation
 
 ## Install
 To install the package use:
@@ -95,7 +95,7 @@ Finally if you want to get data from other stock exchange, you can do it as foll
 ```python
 from alpha_vantage.globalstockquotes import GlobalStockQuotes
 from pprint import pprint
-gsq = GlobalStockQuotes(key='486U')
+gsq = GlobalStockQuotes(key='YOUR_API_KEY')
 data, meta_data = gsq.get_global_quote(symbol="ETR:DB1")
 pprint(data)
 ```
@@ -127,5 +127,4 @@ nosetests
 ```
 
 ## Documentation
-To find out more about the available api calls, visit the alpha-vantage documentation at http://www.alphavantage.co/documentation/ and to find out
-about what this wrapper can do, please visit its own documentation at https://alpha-vantage.readthedocs.io/en/latest/
+The code documentation can be found at https://alpha-vantage.readthedocs.io/en/latest/
