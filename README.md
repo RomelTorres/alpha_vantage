@@ -34,22 +34,22 @@ data, meta_data = ts.get_intraday('GOOGL')
 Internally there is a retries counter, that can be used to minimize connection errors (in case that the api is not able to respond in time), the default is set to
 5 but can be increased or decreased whenever needed.
 ```python
-ts = TimesSeries(key='YOUR_API_KEY',retries='YOUR_RETRIES')
+ts = TimeSeries(key='YOUR_API_KEY',retries='YOUR_RETRIES')
 ```
 Finally the library supports giving its results as json dictionaries (default) or as pandas dataframe, simply pass the parameter output_format='pandas' to change
 the format of the output for all the api calls.
 ```python
-ts = TimesSeries(key='YOUR_API_KEY',output_format='pandas')
+ts = TimeSeries(key='YOUR_API_KEY',output_format='pandas')
 ```
 
 ## Plotting
 Using pandas support we can plot the intra-minute value for 'MSFT' stock quite easily:
 
 ```python
-from alpha_vantage.timeseries import TimesSeries
+from alpha_vantage.timeseries import TimeSeries
 import matplotlib.pyplot as plt
 
-ts = TimesSeries(key='YOUR_API_KEY', output_format='pandas')
+ts = TimeSeries(key='YOUR_API_KEY', output_format='pandas')
 data, meta_data = ts.get_intraday(symbol='MSFT',interval='1min', outputsize='full')
 data['close'].plot()
 plt.title('Intraday Times Series for the MSFT stock (1 min)')
