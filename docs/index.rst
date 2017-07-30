@@ -38,28 +38,15 @@ This is a simple code snippet to get global quotes from the
 
 .. code:: python
 
-    from alpha_vantage.globalstockquotes import GlobalStockQuotes
-    from pprint import pprint
-    gsq = GlobalStockQuotes(key='486U')
-    data, meta_data = gsq.get_global_quote(symbol="ETR:DB1")
-    pprint(data)
+from alpha_vantage.timeseries import TimeSeries
+import matplotlib.pyplot as plt
 
-Return as output
-::
-    {'01. Symbol': 'DB1',
-     '02. Exchange Name': 'ETR',
-     '03. Latest Price': '93.6100',
-     '04. Open': '92.1400',
-     '05. High': '93.6100',
-     '06. Low': '91.9600',
-     '07. Previous Close': '91.8300',
-     '08. Price Change': '1.7800',
-     '09. Price Change Percentage': '1.94%',
-     '10. Volume (Current Trading Day)': '0.0',
-     '11. 52-week Price Range': '64.50 - 94.58',
-     '12. Market Cap': '18.07B',
-     '13. PE Ratio': '21.76',
-     '14. Last Updated': 'Jun 2, 5:35PM GMT+2'}
+ts = TimeSeries(key='YOUR_API_KEY', output_format='pandas')
+data, meta_data = ts.get_intraday(symbol='MSFT',interval='1min', outputsize='full')
+data['close'].plot()
+plt.title('Intraday Times Series for the MSFT stock (1 min)')
+plt.show()
+
 
 Code & Issue Tracker
 ====================

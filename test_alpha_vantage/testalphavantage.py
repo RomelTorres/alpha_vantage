@@ -3,7 +3,6 @@ from ..alpha_vantage.alphavantage import AlphaVantage
 from ..alpha_vantage.timeseries import TimeSeries
 from ..alpha_vantage.techindicators import TechIndicators
 from ..alpha_vantage.sectorperformance import SectorPerformances
-from ..alpha_vantage.globalstockquotes import GlobalStockQuotes
 from nose.tools import assert_true, assert_false
 from simplejson import loads, dumps
 from pandas import DataFrame as df
