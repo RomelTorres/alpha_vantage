@@ -90,33 +90,6 @@ plt.show()
 Giving us as output:
 ![alt text](images/docs_sp_rt_example.png?raw=True "Real Time Sector Performance")
 
-Finally if you want to get data from other stock exchange, you can do it as follows
-(note that for this call only a dictionary will be returned, since it is not a times series):
-```python
-from alpha_vantage.globalstockquotes import GlobalStockQuotes
-from pprint import pprint
-gsq = GlobalStockQuotes(key='YOUR_API_KEY')
-data, meta_data = gsq.get_global_quote(symbol="ETR:DB1")
-pprint(data)
-```
-Giving as output
-```python
-{'01. Symbol': 'DB1',
- '02. Exchange Name': 'ETR',
- '03. Latest Price': '93.6100',
- '04. Open': '92.1400',
- '05. High': '93.6100',
- '06. Low': '91.9600',
- '07. Previous Close': '91.8300',
- '08. Price Change': '1.7800',
- '09. Price Change Percentage': '1.94%',
- '10. Volume (Current Trading Day)': '0.0',
- '11. 52-week Price Range': '64.50 - 94.58',
- '12. Market Cap': '18.07B',
- '13. PE Ratio': '21.76',
- '14. Last Updated': 'Jun 2, 5:35PM GMT+2'}
-```
-
 ## Tests
 
 In order to run the tests you have to first export your API key so that the test can use it to run.
