@@ -3,7 +3,6 @@ from ..alpha_vantage.alphavantage import AlphaVantage
 from ..alpha_vantage.timeseries import TimeSeries
 from ..alpha_vantage.techindicators import TechIndicators
 from ..alpha_vantage.sectorperformance import SectorPerformances
-from ..alpha_vantage.globalstockquotes import GlobalStockQuotes
 from nose.tools import assert_true, assert_false
 from simplejson import loads, dumps
 from pandas import DataFrame as df
@@ -754,18 +753,3 @@ class TestAlphaVantage(unittest.TestCase):
         # Test panda as output
         sp = SectorPerformances(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
         self._assert_result_is_format(sp.get_sector, output_format='pandas')
-
-    def test_get_global_quote(self):
-        """Result must be a dictionary containning the json data
-        """
-        # Test dictionary as output
-        gsq = GlobalStockQuotes(key=TestAlphaVantage._API_KEY_TEST)
-        self._assert_result_is_format(gsq.get_global_quote, symbol="ETR:DB1")
-        # Test dictionary as output even if pandas given
-        gsq = GlobalStockQuotes(key=TestAlphaVantage._API_KEY_TEST,
-        output_format='pandas')
-        self._assert_result_is_format(gsq.get_global_quote, symbol="ETR:DB1")
-        # Test that the call without the exchange name, returns the
-        gsq = GlobalStockQuotes(key=TestAlphaVantage._API_KEY_TEST)
-        self._assert_result_is_format(gsq.get_global_quote,
-        symbol=TestAlphaVantage._API_EQ_NAME_TEST)
