@@ -10,7 +10,7 @@ from pandas import DataFrame as df
 import unittest
 import timeit
 import os
-
+import time
 
 class TestAlphaVantage(unittest.TestCase):
     """
@@ -30,6 +30,8 @@ class TestAlphaVantage(unittest.TestCase):
         stime = timeit.default_timer()
         data, meta_data = func(**args)
         elapsed = timeit.default_timer() - stime
+        #TODO: WORKaround to not call the api that often when testing
+        time.sleep(0.2)
         print('Function: {} - Format: {} - Took: {}'.format(func.__name__,
                                                             output_format, elapsed))
         if output_format == 'json':
