@@ -31,7 +31,7 @@ class TestAlphaVantage(unittest.TestCase):
         data, meta_data = func(**args)
         elapsed = timeit.default_timer() - stime
         #TODO: WORKaround to not call the api that often when testing
-        time.sleep(0.2)
+        time.sleep(0.3)
         print('Function: {} - Format: {} - Took: {}'.format(func.__name__,
                                                             output_format, elapsed))
         if output_format == 'json':
