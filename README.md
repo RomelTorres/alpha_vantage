@@ -101,3 +101,10 @@ nosetests
 
 ## Documentation
 The code documentation can be found at https://alpha-vantage.readthedocs.io/en/latest/
+
+## TODOS:
+* Separate tests between unittests and integration test.
+* Should support for csv also be added?
+
+## Star if you like it.
+If you like or use this project, consider showing your support by staring it.

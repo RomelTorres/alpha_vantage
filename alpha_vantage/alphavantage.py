@@ -44,7 +44,7 @@ class AlphaVantage:
                             'TPE': 'Taiwan Stock Exchange',
                             'TYO': 'Tokyo Stock Exchange'}
 
-    def __init__(self, key=None, retries=5, output_format='json'):
+    def __init__(self, key=None, retries=5, output_format='json', treat_info_as_error=True):
         """ Initialize the class
 
         Keyword Arguments:
@@ -54,10 +54,11 @@ class AlphaVantage:
             output_format:  Either 'json' or 'pandas'
         """
         if key is None:
-            raise ValueError('Get a free key from the alphavantage website')
+            raise ValueError('Get a free key from the alphavantage website: https://www.alphavantage.co/support/#api-key')
         self.key = key
         self.retries = retries
         self.output_format = output_format
+        self.treat_info_as_error = treat_info_as_error
 
     def _retry(func):
         """ Decorator for retrying api calls (in case of errors from the api
@@ -220,13 +221,14 @@ class AlphaVantage:
         response = urlopen(url)
         url_response = response.read()
         json_response = loads(url_response)
-        if 'Error Message' in json_response or not json_response:
-            if json_response:
-                raise ValueError('ERROR getting data from api',
-                                 json_response['Error Message'])
-            else:
-                raise ValueError('Error getting data from api, no return'
-                                 ' message from the api url (possibly wrong symbol/param)')
+        
+        if not json_response:
+            raise ValueError('Error getting data from the api, no return was given.')
+        elif "Error Message" in json_response:
+            raise ValueError(json_response["Error Message"])
+        elif "Information" in json_response and self.treat_info_as_error:
+            raise ValueError(json_response["Information"])
+        
         return json_response
 
     def is_exchange_supported(self, exchange_name):
