@@ -11,7 +11,7 @@ except IOError:
 
 setup(
     name='alpha_vantage',
-    version='1.2.1',
+    version='1.3.1',
     author='Romel J. Torres',
     author_email='romel.torres@gmail.com',
     license='MIT',
@@ -35,7 +35,8 @@ setup(
     ],
     keywords=['stocks', 'market', 'finance', 'alpha_vantage', 'quotes',
               'shares'],
-    packages=find_packages(exclude=['helpers', 'test_alpha_vantage', 'images']),
+    packages=find_packages(
+        exclude=['helpers', 'test_alpha_vantage', 'images']),
     package_data={
         'alpha_vantage': [],
     }

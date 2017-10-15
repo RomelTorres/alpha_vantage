@@ -5,7 +5,7 @@ except ImportError:
     # Python 2.* import
     from urllib2 import urlopen
 
-from simplejson import loads
+from json import loads
 from functools import wraps
 import inspect
 import pandas
@@ -19,30 +19,7 @@ class AlphaVantage:
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
     _ALPHA_VANTAGE_MATH_MAP = ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA', 'T3',
                                'KAMA', 'MAMA']
-    _EXCHANGE_SUPPORTED = { 'ASX': 'Australian Securities Exchange',
-                            'BOM': 'Bombay Stock Exchange',
-                            'BIT': 'Borsa Italiana Milan Stock Exchange',
-                            'TSE': 'Canadian/Toronto Securities Exchange',
-                            'FRA': 'Deutsche Boerse Frankfurt Stock Exchange',
-                            'ETR': 'Deutsche Boerse Frankfurt Stock Exchange',
-                            'AMS': 'Euronext Amsterdam',
-                            'EBR': 'Euronext Brussels',
-                            'ELI': 'Euronext Lisbon',
-                            'EPA': 'Euronext Paris',
-                            'LON': 'London Stock Exchange',
-                            'MCX': 'Moscow Exchange',
-                            'NASDAQ': 'NASDAQ Exchange',
-                            'CPH': 'NASDAQ OMX Copenhagen',
-                            'HEL': 'NASDAQ OMX Helsinki',
-                            'ICE': 'NASDAQ OMX Iceland',
-                            'STO': 'NASDAQ OMX Stockholm',
-                            'NSE': 'National Stock Exchange of India',
-                            'NYSE': 'New York Stock Exchange',
-                            'SGX': 'Singapore Exchange',
-                            'SHA': 'Shanghai Stock Exchange',
-                            'SHE': 'Shenzhen Stock Exchange',
-                            'TPE': 'Taiwan Stock Exchange',
-                            'TYO': 'Tokyo Stock Exchange'}
+    _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = "https://www.alphavantage.co/digital_currency_list/"
 
     def __init__(self, key=None, retries=5, output_format='json', treat_info_as_error=True):
         """ Initialize the class
@@ -54,7 +31,8 @@ class AlphaVantage:
             output_format:  Either 'json' or 'pandas'
         """
         if key is None:
-            raise ValueError('Get a free key from the alphavantage website: https://www.alphavantage.co/support/#api-key')
+            raise ValueError(
+                'Get a free key from the alphavantage website: https://www.alphavantage.co/support/#api-key')
         self.key = key
         self.retries = retries
         self.output_format = output_format
@@ -94,7 +72,8 @@ class AlphaVantage:
             # Asumme most of the cases have a mixed between args and named
             # args
             positional_count = len(argspec.args) - len(argspec.defaults)
-            defaults = dict(zip(argspec.args[positional_count:], argspec.defaults))
+            defaults = dict(
+                zip(argspec.args[positional_count:], argspec.defaults))
         except TypeError:
             if argspec.args:
                 # No defaults
@@ -119,7 +98,8 @@ class AlphaVantage:
             # Form the base url, the original function called must return
             # the function name defined in the alpha vantage api and the data
             # key for it and for its meta data.
-            function_name, data_key, meta_data_key = func(self, *args, **kwargs)
+            function_name, data_key, meta_data_key = func(
+                self, *args, **kwargs)
             url = "{}function={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
                                          function_name)
             for idx, arg_name in enumerate(argspec.args[1:]):
@@ -151,7 +131,8 @@ class AlphaVantage:
         """
         @wraps(func)
         def _format_wrapper(self, *args, **kwargs):
-            json_response, data_key, meta_data_key = func(self, *args, **kwargs)
+            json_response, data_key, meta_data_key = func(
+                self, *args, **kwargs)
             data = json_response[data_key]
             if meta_data_key is not None:
                 meta_data = json_response[meta_data_key]
@@ -221,26 +202,13 @@ class AlphaVantage:
         response = urlopen(url)
         url_response = response.read()
         json_response = loads(url_response)
-        
+
         if not json_response:
-            raise ValueError('Error getting data from the api, no return was given.')
+            raise ValueError(
+                'Error getting data from the api, no return was given.')
         elif "Error Message" in json_response:
             raise ValueError(json_response["Error Message"])
         elif "Information" in json_response and self.treat_info_as_error:
             raise ValueError(json_response["Information"])
-        
+
         return json_response
-
-    def is_exchange_supported(self, exchange_name):
-        """
-            Get if a specific global exchange type is supported by this library
-
-            Keyword Arguments:
-                exchange_name: The exchange type to check for
-            Returns:
-                The description of the given key or None
-        """
-        try:
-            return AlphaVantage._EXCHANGE_SUPPORTED[exchange_name]
-        except KeyError:
-            return None
