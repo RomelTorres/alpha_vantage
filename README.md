@@ -109,6 +109,11 @@ plt.show()
 Giving us as output:
 ![alt text](images/docs_cripto_btc.png?raw=True "Crypto Currenci daily (BTC)")
 
+## Examples
+
+I have added a repository with examples in a python notebook to better see the
+usage of the library: https://github.com/RomelTorres/av_example
+
 
 ## Tests
 
@@ -124,7 +129,6 @@ The code documentation can be found at https://alpha-vantage.readthedocs.io/en/l
 
 ## TODOS:
 * Separate tests between unittests and integration test.
-* Should support for csv also be added?
 
 ## Star if you like it.
 If you like or use this project, consider showing your support by staring it.
