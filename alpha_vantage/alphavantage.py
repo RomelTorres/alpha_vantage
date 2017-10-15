@@ -1,11 +1,12 @@
 try:
     # Python 3 import
     from urllib.request import urlopen
+    from json import loads
 except ImportError:
     # Python 2.* import
     from urllib2 import urlopen
+    from simplejson import loads
 
-from json import loads
 from functools import wraps
 import inspect
 import pandas
