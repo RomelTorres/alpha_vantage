@@ -9,6 +9,6 @@ if __name__ == '__main__':
     parent = path.abspath(path.dirname(path.dirname(__file__)))
     readmemd_path = path.join(parent, 'README.md')
     readmerst_path = path.join(parent, 'README.rst')
-    output = pypandoc.convert_file(readmemd_path,'rst')
+    output = pypandoc.convert_file(readmemd_path, 'rst')
     with codecs.open(readmerst_path, 'w+', encoding='utf8') as f:
         f.write(output)

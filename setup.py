@@ -11,7 +11,7 @@ except IOError:
 
 setup(
     name='alpha_vantage',
-    version='1.3.0',
+    version='1.3.1',
     author='Romel J. Torres',
     author_email='romel.torres@gmail.com',
     license='MIT',

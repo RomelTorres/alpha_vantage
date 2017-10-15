@@ -6,7 +6,7 @@
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/RomelTorres/alpha_vantage.svg)](http://isitmaintained.com/project/RomelTorres/alpha_vantage "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/RomelTorres/alpha_vantage.svg)](http://isitmaintained.com/project/RomelTorres/alpha_vantage "Percentage of issues still open")
 
-*Python module to get stock data from the Alpha Vantage API*
+*Python module to get stock data/cryptocurrencies from the Alpha Vantage API*
 
 Alpha Vantage delivers a free API for real time financial data and most used finance indicators in a simple json or pandas format. This module implements a python interface to the free API provided by Alpha
 Vantage (http://www.alphavantage.co/). It requires a free API, that can be requested on http://www.alphavantage.co/support/#api-key. You can have a look at all the api calls available in their documentation http://www.alphavantage.co/documentation
@@ -87,8 +87,28 @@ plt.tight_layout()
 plt.grid()
 plt.show()
 ```
+
 Giving us as output:
 ![alt text](images/docs_sp_rt_example.png?raw=True "Real Time Sector Performance")
+
+Finally, we can also plot crypto currencies prices like BTC:
+
+```python
+from alpha_vantage.cryptocurrencies import CryptoCurrencies
+import matplotlib.pyplot as plt
+
+cc = CryptoCurrencies(key='YOUR_API_KEY', output_format='pandas')
+data, meta_data = cc.get_digital_currency_intraday(symbol='BTC', market='CNY')
+data['. price (USD)'].plot()
+plt.tight_layout()
+plt.title('Intraday value for bitcoin (BTC)')
+plt.grid()
+plt.show()
+```
+
+Giving us as output:
+![alt text](images/docs_cripto_btc.png?raw=True "Crypto Currenci daily (BTC)")
+
 
 ## Tests
 

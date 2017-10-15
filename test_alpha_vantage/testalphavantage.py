@@ -4,7 +4,6 @@ from ..alpha_vantage.timeseries import TimeSeries
 from ..alpha_vantage.techindicators import TechIndicators
 from ..alpha_vantage.sectorperformance import SectorPerformances
 from ..alpha_vantage.cryptocurrencies import CryptoCurrencies
-from nose.tools import assert_true
 from pandas import DataFrame as df
 
 import unittest
@@ -32,7 +31,7 @@ class TestAlphaVantage(unittest.TestCase):
         data, meta_data = func(**args)
         elapsed = timeit.default_timer() - stime
         # TODO: WORKaround to not call the api that often when testing
-        time.sleep(0.3)
+        time.sleep(0.4)
         print('Function: {} - Format: {} - Took: {}'.format(func.__name__,
                                                             output_format, elapsed))
         if output_format == 'json':
@@ -56,14 +55,6 @@ class TestAlphaVantage(unittest.TestCase):
             self.fail(msg='A None api key must raise an error')
         except ValueError:
             self.assertTrue(True)
-
-    def test_exchange_supported(self):
-        """ Check that the function returns false when asked for an  unsupported
-        exchange.
-        """
-        av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
-        assert_true(av.is_exchange_supported('ETR') is not None)
-        assert_true(av.is_exchange_supported('Nonsense') is None)
 
     def test_get_intraday_is_format(self):
         """Result must be a dictionary containning the json data
