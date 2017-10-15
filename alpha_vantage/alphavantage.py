@@ -1,16 +1,19 @@
 try:
     # Python 3 import
     from urllib.request import urlopen
-    from json import loads
 except ImportError:
     # Python 2.* import
     from urllib2 import urlopen
-    from simplejson import loads
-
+import sys
 from functools import wraps
 import inspect
 import pandas
 import re
+# Avoid compability issues
+if sys.version_info.major == 3 and sys.version_info.minor == 6:
+    from json import loads
+else:
+    from simplejson import loads
 
 
 class AlphaVantage:
