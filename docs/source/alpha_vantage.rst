@@ -12,10 +12,10 @@ alpha\_vantage\.alphavantage module
     :undoc-members:
     :show-inheritance:
 
-alpha\_vantage\.globalstockquotes module
+alpha\_vantage\.cryptocurrencies module
 ----------------------------------------
 
-.. automodule:: alpha_vantage.globalstockquotes
+.. automodule:: alpha_vantage.cryptocurrencies
     :members:
     :undoc-members:
     :show-inheritance:
