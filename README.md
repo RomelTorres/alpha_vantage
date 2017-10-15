@@ -89,6 +89,7 @@ plt.show()
 ```
 
 Giving us as output:
+
 ![alt text](images/docs_sp_rt_example.png?raw=True "Real Time Sector Performance")
 
 Finally, we can also plot crypto currencies prices like BTC:
