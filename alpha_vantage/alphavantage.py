@@ -19,6 +19,7 @@ class AlphaVantage:
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
     _ALPHA_VANTAGE_MATH_MAP = ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA', 'T3',
                                'KAMA', 'MAMA']
+    _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = "https://www.alphavantage.co/digital_currency_list/"
 
     def __init__(self, key=None, retries=5, output_format='json', treat_info_as_error=True):
         """ Initialize the class
