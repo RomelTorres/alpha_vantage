@@ -867,3 +867,13 @@ class TestAlphaVantage(unittest.TestCase):
                                       output_format='pandas',
                                       symbol='BTC',
                                       market='CNY')
+
+    def test_issue_21(self):
+        """
+        Test that the index of the given data frame is named 'Date'
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST,
+                        output_format='pandas')
+        data, meta_data = ts.get_intraday(
+            symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+        assert data.index.name == 'Date'

@@ -152,7 +152,9 @@ class AlphaVantage:
                 return data, meta_data
             elif output_format == 'pandas':
                 data_pandas = pandas.DataFrame.from_dict(data,
-                                                         orient='index', dtype=float)
+                                                         orient='index',
+                                                         dtype=float)
+                data_pandas.index.name = 'Date'
                 # Rename columns to have a nicer name
                 col_names = [re.sub(r'\d+.', '', name).strip(' ')
                              for name in list(data_pandas)]
