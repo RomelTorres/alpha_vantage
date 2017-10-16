@@ -43,6 +43,7 @@ ts = TimeSeries(key='YOUR_API_KEY',output_format='pandas')
 ```
 
 ## Plotting
+### Time Series
 Using pandas support we can plot the intra-minute value for 'MSFT' stock quite easily:
 
 ```python
@@ -58,6 +59,7 @@ plt.show()
 Giving us as output:
 ![alt text](images/docs_ts_msft_example.png?raw=True "MSFT minute value plot example")
 
+### Technical indicators
 The same way we can get pandas to plot technical indicators like Bolliger Bands®
 
 ```python
@@ -73,6 +75,7 @@ plt.show()
 Giving us as output:
 ![alt text](images/docs_ti_msft_example.png?raw=True "MSFT minute value plot example")
 
+### Sector Performance
 We can also plot sector performance just as easy:
 
 ```python
@@ -92,7 +95,9 @@ Giving us as output:
 
 ![alt text](images/docs_sp_rt_example.png?raw=True "Real Time Sector Performance")
 
-Finally, we can also plot crypto currencies prices like BTC:
+### Crypto currencies.
+
+We can also plot crypto currencies prices like BTC:
 
 ```python
 from alpha_vantage.cryptocurrencies import CryptoCurrencies
@@ -109,6 +114,27 @@ plt.show()
 
 Giving us as output:
 ![alt text](images/docs_cripto_btc.png?raw=True "Crypto Currenci daily (BTC)")
+
+### Foreign Exchange (FX)
+
+```python
+cc = ForeignExchange(key=os.environ['API_KEY'])
+# There is no metadata in this call
+data, _ = cc.get_currency_exchange_rate(from_currency='BTC',to_currency='USD')
+print(data)
+```
+Giving us as output:
+```
+{
+    '1. From_Currency Code': 'BTC',
+    '2. From_Currency Name': 'Bitcoin',
+    '3. To_Currency Code': 'USD',
+    '4. To_Currency Name': 'United States Dollar',
+    '5. Exchange Rate': '5566.80500105',
+    '6. Last Refreshed': '2017-10-15 15:13:08',
+    '7. Time Zone': 'UTC'
+m}
+```
 
 ## Examples
 
