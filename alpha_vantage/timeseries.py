@@ -72,6 +72,20 @@ class TimeSeries(av):
 
     @av._output_format
     @av._call_api_on_func
+    def get_weekly_adjusted(self, symbol):
+        """  weekly adjusted time series (last trading day of each week,
+        weekly open, weekly high, weekly low, weekly close, weekly adjusted
+        close, weekly volume, weekly dividend) of the equity specified,
+        covering up to 20 years of historical data.
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+
+        """
+        _FUNCTION_KEY = "TIME_SERIES_WEEKLY_ADJUSTED"
+        return _FUNCTION_KEY, 'Weekly Adjusted Time Series', 'Meta Data'
+
+    @av._output_format
+    @av._call_api_on_func
     def get_monthly(self, symbol):
         """ Return monthly time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
@@ -82,3 +96,16 @@ class TimeSeries(av):
         """
         _FUNCTION_KEY = "TIME_SERIES_MONTHLY"
         return _FUNCTION_KEY, 'Monthly Time Series', 'Meta Data'
+
+    @av._output_format
+    @av._call_api_on_func
+    def get_monthly_adjusted(self, symbol):
+        """ Return monthly time series in two json objects as data and
+        meta_data. It raises ValueError when problems arise
+
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+
+        """
+        _FUNCTION_KEY = "TIME_SERIES_MONTHLY_ADJUSTED"
+        return _FUNCTION_KEY, 'Monthly Adjusted Time Series', 'Meta Data'
