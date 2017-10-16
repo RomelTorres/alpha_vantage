@@ -4,6 +4,8 @@ from ..alpha_vantage.timeseries import TimeSeries
 from ..alpha_vantage.techindicators import TechIndicators
 from ..alpha_vantage.sectorperformance import SectorPerformances
 from ..alpha_vantage.cryptocurrencies import CryptoCurrencies
+from ..alpha_vantage.foreignexchange import ForeignExchange
+
 from pandas import DataFrame as df
 
 import unittest
@@ -31,9 +33,10 @@ class TestAlphaVantage(unittest.TestCase):
         data, meta_data = func(**args)
         elapsed = timeit.default_timer() - stime
         # TODO: WORKaround to not call the api that often when testing
-        time.sleep(0.4)
+        time.sleep(1.5)
         print('Function: {} - Format: {} - Took: {}'.format(func.__name__,
-                                                            output_format, elapsed))
+                                                            output_format,
+                                                            elapsed))
         if output_format == 'json':
             self.assertIsInstance(
                 data, dict, 'Result Data must be a dictionary')
@@ -798,7 +801,7 @@ class TestAlphaVantage(unittest.TestCase):
     def test_get_currency_exchange_rate(self):
         """Test that we get a dictionary containning json data
         """
-        cc = CryptoCurrencies(key=TestAlphaVantage._API_KEY_TEST)
+        cc = ForeignExchange(key=TestAlphaVantage._API_KEY_TEST)
         self._assert_result_is_format(cc.get_currency_exchange_rate,
                                       output_format='json',
                                       from_currency='BTC',
@@ -867,3 +870,13 @@ class TestAlphaVantage(unittest.TestCase):
                                       output_format='pandas',
                                       symbol='BTC',
                                       market='CNY')
+
+    def test_issue_21(self):
+        """
+        Test that the index of the given data frame is named 'Date'
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST,
+                        output_format='pandas')
+        data, meta_data = ts.get_intraday(
+            symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+        assert data.index.name == 'Date'
