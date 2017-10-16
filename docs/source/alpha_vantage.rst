@@ -20,6 +20,14 @@ alpha\_vantage\.cryptocurrencies module
     :undoc-members:
     :show-inheritance:
 
+alpha\_vantage\.foreignexchange module
+----------------------------------------
+
+.. automodule:: alpha_vantage.foreignexchange
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 alpha\_vantage\.sectorperformance module
 ----------------------------------------
 
