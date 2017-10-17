@@ -21,6 +21,12 @@ class TestAlphaVantage(unittest.TestCase):
     _API_KEY_TEST = os.environ['API_KEY']
     _API_EQ_NAME_TEST = 'MSFT'
 
+    def setUp(self):
+        """
+        Wait some time before running each call again.
+        """
+        time.sleep(0.5)
+
     def _assert_result_is_format(self, func, output_format='json',  **args):
         """Check that the data and meta data object are dictionaries
 
