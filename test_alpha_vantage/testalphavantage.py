@@ -21,6 +21,12 @@ class TestAlphaVantage(unittest.TestCase):
     _API_KEY_TEST = os.environ['API_KEY']
     _API_EQ_NAME_TEST = 'MSFT'
 
+    def setUp(self):
+        """
+        Wait some time before running each call again.
+        """
+        time.sleep(0.6)
+
     def _assert_result_is_format(self, func, output_format='json',  **args):
         """Check that the data and meta data object are dictionaries
 
@@ -32,8 +38,6 @@ class TestAlphaVantage(unittest.TestCase):
         stime = timeit.default_timer()
         data, meta_data = func(**args)
         elapsed = timeit.default_timer() - stime
-        # TODO: WORKaround to not call the api that often when testing
-        time.sleep(1.5)
         print('Function: {} - Format: {} - Took: {}'.format(func.__name__,
                                                             output_format,
                                                             elapsed))
