@@ -25,7 +25,7 @@ class TestAlphaVantage(unittest.TestCase):
         """
         Wait some time before running each call again.
         """
-        time.sleep(0.5)
+        time.sleep(0.6)
 
     def _assert_result_is_format(self, func, output_format='json',  **args):
         """Check that the data and meta data object are dictionaries
