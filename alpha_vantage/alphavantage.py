@@ -140,7 +140,6 @@ class AlphaVantage:
                 url = '{}&apikey={}&datatype={}'.format(url, self.key, oformat)
             else:
                 url = '{}&apikey={}'.format(url, self.key)
-            print(url)
             return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
@@ -155,31 +154,34 @@ class AlphaVantage:
         """
         @wraps(func)
         def _format_wrapper(self, *args, **kwargs):
-            json_response, data_key, meta_data_key = func(
+            call_response, data_key, meta_data_key = func(
                 self, *args, **kwargs)
-            data = json_response[data_key]
-            if meta_data_key is not None:
-                meta_data = json_response[meta_data_key]
-            else:
-                meta_data = None
-            # Allow to override the output parameter in the call
-            if override is None:
-                output_format = self.output_format.lower()
-            elif 'json' or 'pandas' in override.lower():
-                output_format = override.lower()
-            # Choose output format
-            if output_format == 'json':
-                return data, meta_data
-            elif output_format == 'pandas':
-                data_pandas = pandas.DataFrame.from_dict(data,
-                                                         orient='index',
-                                                         dtype=float)
-                data_pandas.index.name = 'Date'
-                # Rename columns to have a nicer name
-                col_names = [re.sub(r'\d+.', '', name).strip(' ')
-                             for name in list(data_pandas)]
-                data_pandas.columns = col_names
-                return data_pandas, meta_data
+            if 'json' or 'pandas' in self.output_format.lower():
+                data = call_response[data_key]
+                if meta_data_key is not None:
+                    meta_data = call_response[meta_data_key]
+                else:
+                    meta_data = None
+                # Allow to override the output parameter in the call
+                if override is None:
+                    output_format = self.output_format.lower()
+                elif 'json' or 'pandas' in override.lower():
+                    output_format = override.lower()
+                # Choose output format
+                if output_format == 'json':
+                    return data, meta_data
+                elif output_format == 'pandas':
+                    data_pandas = pandas.DataFrame.from_dict(data,
+                                                             orient='index',
+                                                             dtype=float)
+                    data_pandas.index.name = 'Date'
+                    # Rename columns to have a nicer name
+                    col_names = [re.sub(r'\d+.', '', name).strip(' ')
+                                 for name in list(data_pandas)]
+                    data_pandas.columns = col_names
+                    return data_pandas, meta_data
+            elif 'csv' in self.output_format.lower():
+                return call_response, None
             else:
                 raise ValueError('Format: {} is not supported'.format(
                     self.output_format))
