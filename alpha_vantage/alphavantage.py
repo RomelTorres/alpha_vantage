@@ -26,13 +26,15 @@ class AlphaVantage:
                                'KAMA', 'MAMA']
     _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = "https://www.alphavantage.co/digital_currency_list/"
 
-    def __init__(self, key=None, retries=5, output_format='json', treat_info_as_error=True):
+    def __init__(self, key=None, retries=5, output_format='json',
+                 treat_info_as_error=True):
         """ Initialize the class
 
         Keyword Arguments:
             key:  Alpha Vantage api key
             retries:  Maximum amount of retries in case of faulty connection or
                 server not able to answer the call.
+            treat_info_as_error: Treat information from the api as errors
             output_format:  Either 'json', 'pandas' os 'csv'
         """
         if key is None:
@@ -42,6 +44,9 @@ class AlphaVantage:
         self.retries = retries
         self.output_format = output_format
         self.treat_info_as_error = treat_info_as_error
+        # Not all the calls accept a data type appended at the end, this
+        # variable will be overriden by those functions not needing it.
+        self._append_type = True
 
     def _retry(func):
         """ Decorator for retrying api calls (in case of errors from the api
@@ -131,7 +136,10 @@ class AlphaVantage:
                 raise ValueError("Output format: {} not recognized, only json,"
                                  "pandas and csv are supported".format(
                                      self.output_format.lower()))
-            url = '{}&apikey={}&datatype={}'.format(url, self.key, oformat)
+            if self._append_type:
+                url = '{}&apikey={}&datatype={}'.format(url, self.key, oformat)
+            else:
+                url = '{}&apikey={}'.format(url, self.key)
             print(url)
             return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper

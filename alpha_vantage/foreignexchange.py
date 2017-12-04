@@ -5,6 +5,13 @@ class ForeignExchange(av):
     """Realtime currency exchange rates for physical and digital currencies.
     """
 
+    def __init__(self, *args, **kwargs):
+        """
+        Inherit AlphaVantage base class with its default arguments
+        """
+        super(ForeignExchange, self).__init__(*args, **kwargs)
+        self._append_type = False
+
     @av._output_format
     @av._call_api_on_func
     def get_currency_exchange_rate(self, from_currency, to_currency):

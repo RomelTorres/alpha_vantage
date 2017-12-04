@@ -2,6 +2,7 @@ from .alphavantage import AlphaVantage as av
 
 
 class TimeSeries(av):
+
     """This class implements all the api calls to times series
     """
     @av._output_format

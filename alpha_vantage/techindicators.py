@@ -5,6 +5,13 @@ class TechIndicators(av):
     """This class implements all the technical indicator api calls
     """
 
+    def __init__(self, *args, **kwargs):
+        """
+        Inherit AlphaVantage base class with its default arguments
+        """
+        super(TechIndicators, self).__init__(*args, **kwargs)
+        self._append_type = False
+
     @av._output_format
     @av._call_api_on_func
     def get_sma(self, symbol, interval='60min', time_period=20, series_type='close'):
@@ -431,7 +438,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min'
+                'weekly', 'monthly' (default '60min)'
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
             fastperiod:  Positive integers are accepted (default=None)
