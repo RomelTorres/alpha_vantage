@@ -32,7 +32,7 @@ class AlphaVantage:
             key:  Alpha Vantage api key
             retries:  Maximum amount of retries in case of faulty connection or
                 server not able to answer the call.
-            output_format:  Either 'json' or 'pandas'
+            output_format:  Either 'json', 'pandas' os 'csv'
         """
         if key is None:
             raise ValueError(
@@ -120,7 +120,16 @@ class AlphaVantage:
                     # None (in other words, this will call the api with its
                     # internal defined parameter)
                     url = '{}&{}={}'.format(url, arg_name, arg_value)
-            url = '{}&apikey={}'.format(url, self.key)
+            # Allow the output format to be json or csv (supported by
+            # alphavantage api). Pandas is simply json converted.
+            if 'json' or 'csv' in self.output_format.lower():
+                oformat = self.output_format.lower()
+            elif 'pandas' in self.output_format.lower():
+                oformat = 'json'
+            else:
+                raise ValueError("Output format: {} not recognized, only json, pandas and csv are supported".format(
+                    self.output_format.lower()))
+            url = '{}&datatype={}&apikey={}'.format(url, oformat, self.key)
             return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
