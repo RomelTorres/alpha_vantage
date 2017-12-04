@@ -8,6 +8,7 @@ import sys
 from functools import wraps
 import inspect
 import pandas
+import csv
 import re
 # Avoid compability issues
 if sys.version_info.major == 3 and sys.version_info.minor == 6:
@@ -127,9 +128,11 @@ class AlphaVantage:
             elif 'pandas' in self.output_format.lower():
                 oformat = 'json'
             else:
-                raise ValueError("Output format: {} not recognized, only json, pandas and csv are supported".format(
-                    self.output_format.lower()))
-            url = '{}&datatype={}&apikey={}'.format(url, oformat, self.key)
+                raise ValueError("Output format: {} not recognized, only json,"
+                                 "pandas and csv are supported".format(
+                                     self.output_format.lower()))
+            url = '{}&apikey={}&datatype={}'.format(url, self.key, oformat)
+            print(url)
             return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
@@ -216,14 +219,19 @@ class AlphaVantage:
         """
         response = urlopen(url)
         url_response = response.read()
-        json_response = loads(url_response)
-
-        if not json_response:
-            raise ValueError(
-                'Error getting data from the api, no return was given.')
-        elif "Error Message" in json_response:
-            raise ValueError(json_response["Error Message"])
-        elif "Information" in json_response and self.treat_info_as_error:
-            raise ValueError(json_response["Information"])
-
-        return json_response
+        if 'json' or 'pandas' in self.output_format.lower():
+            json_response = loads(url_response)
+            if not json_response:
+                raise ValueError(
+                    'Error getting data from the api, no return was given.')
+            elif "Error Message" in json_response:
+                raise ValueError(json_response["Error Message"])
+            elif "Information" in json_response and self.treat_info_as_error:
+                raise ValueError(json_response["Information"])
+            return json_response
+        else:
+            csv_response = csv.reader(url_response)
+            if not csv_response:
+                raise ValueError(
+                    'Error getting data from the api, no return was given.')
+            return csv_response
