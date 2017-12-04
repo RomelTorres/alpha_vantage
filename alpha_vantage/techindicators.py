@@ -14,7 +14,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_sma(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_sma(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return simple moving average time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
 
@@ -22,7 +22,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -32,7 +32,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_ema(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_ema(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return exponential moving average time series in two json objects
         as data and meta_data. It raises ValueError when problems arise
 
@@ -40,7 +40,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -50,7 +50,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_wma(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_wma(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return weighted moving average time series in two json objects
         as data and meta_data. It raises ValueError when problems arise
 
@@ -58,7 +58,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -68,7 +68,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_dema(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_dema(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return double exponential moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -76,7 +76,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -86,7 +86,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_tema(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_tema(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return triple exponential moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -94,7 +94,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -104,7 +104,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_trima(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_trima(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return triangular moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -112,7 +112,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -122,7 +122,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_kama(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_kama(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return Kaufman adaptative moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -130,7 +130,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -140,7 +140,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_mama(self, symbol, interval='60min', time_period=20, series_type='close',
+    def get_mama(self, symbol, interval='daily', time_period=20, series_type='close',
                  fastlimit=None, slowlimit=None):
         """ Return MESA adaptative moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
@@ -149,7 +149,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -163,7 +163,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_t3(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_t3(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return triple exponential moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -171,7 +171,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -181,7 +181,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_macd(self, symbol, interval='60min', series_type='close',
+    def get_macd(self, symbol, interval='daily', series_type='close',
                  fastperiod=None, slowperiod=None, signalperiod=None):
         """ Return the moving average convergence/divergence time series in two
         json objects as data and meta_data. It raises ValueError when problems
@@ -191,7 +191,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min'
+                'weekly', 'monthly' (default 'daily'
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
             fastperiod:  Positive integers are accepted (default=None)
@@ -203,7 +203,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_macdext(self, symbol, interval='60min', series_type='close',
+    def get_macdext(self, symbol, interval='daily', series_type='close',
                     fastperiod=None, slowperiod=None, signalperiod=None, fastmatype=None,
                     slowmatype=None, signalmatype=None):
         """ Return the moving average convergence/divergence time series in two
@@ -214,7 +214,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
             fastperiod:  Positive integers are accepted (default=None)
@@ -248,7 +248,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_stoch(self, symbol, interval='60min', fastkperiod=None,
+    def get_stoch(self, symbol, interval='daily', fastkperiod=None,
                   slowkperiod=None, slowdperiod=None, slowkmatype=None, slowdmatype=None):
         """ Return the stochatic oscillator values in two
         json objects as data and meta_data. It raises ValueError when problems
@@ -258,7 +258,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             fastkperiod:  The time period of the fastk moving average. Positive
                 integers are accepted (default=None)
             slowkperiod:  The time period of the slowk moving average. Positive
@@ -289,7 +289,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_stochf(self, symbol, interval='60min', fastkperiod=None,
+    def get_stochf(self, symbol, interval='daily', fastkperiod=None,
                    fastdperiod=None, fastdmatype=None):
         """ Return the stochatic oscillator values in two
         json objects as data and meta_data. It raises ValueError when problems
@@ -299,7 +299,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             fastkperiod:  The time period of the fastk moving average. Positive
                 integers are accepted (default=None)
             fastdperiod:  The time period of the fastd moving average. Positive
@@ -324,7 +324,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_rsi(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_rsi(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return the relative strength index time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -332,7 +332,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -342,7 +342,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_stochrsi(self, symbol, interval='60min', time_period=20,
+    def get_stochrsi(self, symbol, interval='daily', time_period=20,
                      series_type='close', fastkperiod=None, fastdperiod=None, fastdmatype=None):
         """ Return the stochatic relative strength index in two
         json objects as data and meta_data. It raises ValueError when problems
@@ -352,7 +352,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -380,7 +380,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_willr(self, symbol, interval='60min', time_period=20):
+    def get_willr(self, symbol, interval='daily', time_period=20):
         """ Return the Williams' %R (WILLR) values in two json objects as data
         and meta_data. It raises ValueError when problems arise
 
@@ -388,7 +388,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "WILLR"
@@ -396,7 +396,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_adx(self, symbol, interval='60min', time_period=20):
+    def get_adx(self, symbol, interval='daily', time_period=20):
         """ Return  the average directional movement index values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -404,7 +404,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "ADX"
@@ -412,7 +412,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_adxr(self, symbol, interval='60min', time_period=20):
+    def get_adxr(self, symbol, interval='daily', time_period=20):
         """ Return  the average directional movement index  rating in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -420,7 +420,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "ADXR"
@@ -428,7 +428,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_apo(self, symbol, interval='60min', series_type='close',
+    def get_apo(self, symbol, interval='daily', series_type='close',
                 fastperiod=None, slowperiod=None, matype=None):
         """ Return the absolute price oscillator values in two
         json objects as data and meta_data. It raises ValueError when problems
@@ -462,7 +462,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_ppo(self, symbol, interval='60min', series_type='close',
+    def get_ppo(self, symbol, interval='daily', series_type='close',
                 fastperiod=None, slowperiod=None, matype=None):
         """ Return the percentage price oscillator values in two
         json objects as data and meta_data. It raises ValueError when problems
@@ -472,7 +472,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min'
+                'weekly', 'monthly' (default 'daily'
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
             fastperiod:  Positive integers are accepted (default=None)
@@ -496,7 +496,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_mom(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_mom(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return the momentum values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -504,7 +504,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -514,7 +514,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_bop(self, symbol, interval='60min', time_period=20):
+    def get_bop(self, symbol, interval='daily', time_period=20):
         """ Return the balance of power values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -522,7 +522,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "BOP"
@@ -530,7 +530,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_cci(self, symbol, interval='60min', time_period=20):
+    def get_cci(self, symbol, interval='daily', time_period=20):
         """ Return the commodity channel index values  in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -538,7 +538,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "CCI"
@@ -546,7 +546,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_cmo(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_cmo(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return the Chande momentum oscillator in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -554,7 +554,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -564,7 +564,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_roc(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_roc(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return the rate of change values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -572,7 +572,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -582,7 +582,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_rocr(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_rocr(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return the rate of change ratio values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -590,7 +590,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -600,7 +600,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_aroon(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_aroon(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return the aroon values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -608,7 +608,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -618,7 +618,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_aroonosc(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_aroonosc(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return the aroon oscillator values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -626,7 +626,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -636,7 +636,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_mfi(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_mfi(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return the money flow index values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -644,7 +644,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -654,7 +654,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_trix(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_trix(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return the1-day rate of change of a triple smooth exponential
         moving average in two json objects as data and meta_data.
         It raises ValueError when problems arise
@@ -663,7 +663,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -673,7 +673,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_ultsoc(self, symbol, interval='60min', timeperiod1=None,
+    def get_ultsoc(self, symbol, interval='daily', timeperiod1=None,
                    timeperiod2=None, timeperiod3=None):
         """ Return the ultimate oscillaror values in two json objects as
         data and meta_data. It raises ValueError when problems arise
@@ -682,7 +682,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             timeperiod1:  The first time period indicator. Positive integers are
                 accepted. By default, timeperiod1=7
             timeperiod2:  The first time period indicator. Positive integers are
@@ -695,7 +695,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_dx(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_dx(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return the directional movement index values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
@@ -703,7 +703,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -713,7 +713,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_minus_di(self, symbol, interval='60min', time_period=20):
+    def get_minus_di(self, symbol, interval='daily', time_period=20):
         """ Return the minus directional indicator values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -721,7 +721,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "MINUS_DI"
@@ -729,7 +729,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_plus_di(self, symbol, interval='60min', time_period=20):
+    def get_plus_di(self, symbol, interval='daily', time_period=20):
         """ Return the plus directional indicator values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -737,7 +737,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "PLUS_DI"
@@ -745,7 +745,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_minus_dm(self, symbol, interval='60min', time_period=20):
+    def get_minus_dm(self, symbol, interval='daily', time_period=20):
         """ Return the minus directional movement values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -753,14 +753,14 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
         """
         _FUNCTION_KEY = "MINUS_DM"
         return _FUNCTION_KEY, 'Technical Analysis: MINUS_DM', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
-    def get_plus_dm(self, symbol, interval='60min', time_period=20):
+    def get_plus_dm(self, symbol, interval='daily', time_period=20):
         """ Return the plus directional movement values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -768,14 +768,14 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
         """
         _FUNCTION_KEY = "PLUS_DM"
         return _FUNCTION_KEY, 'Technical Analysis: PLUS_DM', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
-    def get_bbands(self, symbol, interval='60min', time_period=20,  series_type='close',
+    def get_bbands(self, symbol, interval='daily', time_period=20,  series_type='close',
                    nbdevup=None, nbdevdn=None, matype=None):
         """ Return the bollinger bands values in two
         json objects as data and meta_data. It raises ValueError when problems
@@ -785,7 +785,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min'
+                'weekly', 'monthly' (default 'daily'
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
             nbdevup:  The standard deviation multiplier of the upper band. Positive
@@ -811,7 +811,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_midpoint(self, symbol, interval='60min', time_period=20, series_type='close'):
+    def get_midpoint(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return the midpoint values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
@@ -819,7 +819,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
@@ -829,7 +829,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_midprice(self, symbol, interval='60min', time_period=20):
+    def get_midprice(self, symbol, interval='daily', time_period=20):
         """ Return the midprice values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
@@ -837,7 +837,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "MIDPRICE"
@@ -845,7 +845,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_sar(self, symbol, interval='60min', acceleration=None, maximum=None):
+    def get_sar(self, symbol, interval='daily', acceleration=None, maximum=None):
         """ Return the midprice values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
@@ -853,7 +853,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             acceleration:  The acceleration factor. Positive floats are accepted (
                 default 0.01)
             maximum:  The acceleration factor maximum value. Positive floats
@@ -864,7 +864,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_trange(self, symbol, interval='60min'):
+    def get_trange(self, symbol, interval='daily'):
         """ Return the true range values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -872,14 +872,14 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
         """
         _FUNCTION_KEY = "TRANGE"
         return _FUNCTION_KEY, 'Technical Analysis: TRANGE', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
-    def get_atr(self, symbol, interval='60min', time_period=20):
+    def get_atr(self, symbol, interval='daily', time_period=20):
         """ Return the average true range values in two json objects as
         data and meta_data. It raises ValueError when problems arise
 
@@ -887,7 +887,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "ATR"
@@ -895,7 +895,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_natr(self, symbol, interval='60min', time_period=20):
+    def get_natr(self, symbol, interval='daily', time_period=20):
         """ Return the normalized average true range values in two json objects
         as data and meta_data. It raises ValueError when problems arise
 
@@ -903,7 +903,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             time_period:  How many data points to average (default 20)
         """
         _FUNCTION_KEY = "NATR"
@@ -911,7 +911,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_ad(self, symbol, interval='60min'):
+    def get_ad(self, symbol, interval='daily'):
         """ Return the Chaikin A/D line values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -919,14 +919,14 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
         """
         _FUNCTION_KEY = "AD"
         return _FUNCTION_KEY, 'Technical Analysis: Chaikin A/D', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
-    def get_adosc(self, symbol, interval='60min', fastperiod=None,
+    def get_adosc(self, symbol, interval='daily', fastperiod=None,
                   slowperiod=None):
         """ Return the Chaikin A/D oscillator values in two
         json objects as data and meta_data. It raises ValueError when problems
@@ -936,7 +936,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min'
+                'weekly', 'monthly' (default 'daily'
             fastperiod:  Positive integers are accepted (default=None)
             slowperiod:  Positive integers are accepted (default=None)
         """
@@ -945,7 +945,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_obv(self, symbol, interval='60min'):
+    def get_obv(self, symbol, interval='daily'):
         """ Return the on balance volume values in two json
         objects as data and meta_data. It raises ValueError when problems arise
 
@@ -953,14 +953,14 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
         """
         _FUNCTION_KEY = "OBV"
         return _FUNCTION_KEY, 'Technical Analysis: OBV', 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
-    def get_ht_trendline(self, symbol, interval='60min', series_type='close'):
+    def get_ht_trendline(self, symbol, interval='daily', series_type='close'):
         """ Return the Hilbert transform, instantaneous trendline values in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
@@ -968,7 +968,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
@@ -977,7 +977,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_ht_sine(self, symbol, interval='60min', series_type='close'):
+    def get_ht_sine(self, symbol, interval='daily', series_type='close'):
         """ Return the Hilbert transform, sine wave values in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
@@ -985,7 +985,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             series_type:  The desired price type in the time series. Four types
             are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
@@ -994,7 +994,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_ht_trendmode(self, symbol, interval='60min', series_type='close'):
+    def get_ht_trendmode(self, symbol, interval='daily', series_type='close'):
         """ Return the Hilbert transform, trend vs cycle mode in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
@@ -1002,7 +1002,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
@@ -1011,7 +1011,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_ht_dcperiod(self, symbol, interval='60min', series_type='close'):
+    def get_ht_dcperiod(self, symbol, interval='daily', series_type='close'):
         """ Return the Hilbert transform, dominant cycle period in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
@@ -1019,7 +1019,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
@@ -1028,7 +1028,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_ht_dcphase(self, symbol, interval='60min', series_type='close'):
+    def get_ht_dcphase(self, symbol, interval='daily', series_type='close'):
         """ Return the Hilbert transform, dominant cycle phase in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
@@ -1036,7 +1036,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
@@ -1045,7 +1045,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_ht_phasor(self, symbol, interval='60min', series_type='close'):
+    def get_ht_phasor(self, symbol, interval='daily', series_type='close'):
         """ Return the Hilbert transform, phasor components in two
         json objects as data and meta_data. It raises ValueError when problems arise
 
@@ -1053,7 +1053,7 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default '60min')
+                'weekly', 'monthly' (default 'daily')
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
         """
