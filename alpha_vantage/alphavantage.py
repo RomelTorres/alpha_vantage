@@ -17,7 +17,7 @@ else:
     from simplejson import loads
 
 
-class AlphaVantage:
+class AlphaVantage(object):
     """ Base class where the decorators and base function for the other
     classes of this python wrapper will inherit from.
     """
