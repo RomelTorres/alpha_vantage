@@ -9,6 +9,16 @@ class SectorPerformances(av):
     """This class implements all the sector performance api calls
     """
 
+    def __init__(self, *args, **kwargs):
+        """
+        Inherit AlphaVantage base class with its default arguments
+        """
+        super(SectorPerformances, self).__init__(*args, **kwargs)
+        self._append_type = False
+        if self.output_format.lower() == 'csv':
+            raise ValueError("Output format {} is not comatible with the {}".format(
+                self.output_format.lower(), self.__name__))
+
     def percentage_to_float(self, val):
         """ Transform a string of ther form f.f% into f.f/100
 

@@ -8,6 +8,7 @@ import sys
 from functools import wraps
 import inspect
 import pandas
+import csv
 import re
 # Avoid compability issues
 if sys.version_info.major == 3 and sys.version_info.minor == 6:
@@ -25,14 +26,16 @@ class AlphaVantage:
                                'KAMA', 'MAMA']
     _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = "https://www.alphavantage.co/digital_currency_list/"
 
-    def __init__(self, key=None, retries=5, output_format='json', treat_info_as_error=True):
+    def __init__(self, key=None, retries=5, output_format='json',
+                 treat_info_as_error=True):
         """ Initialize the class
 
         Keyword Arguments:
             key:  Alpha Vantage api key
             retries:  Maximum amount of retries in case of faulty connection or
                 server not able to answer the call.
-            output_format:  Either 'json' or 'pandas'
+            treat_info_as_error: Treat information from the api as errors
+            output_format:  Either 'json', 'pandas' os 'csv'
         """
         if key is None:
             raise ValueError(
@@ -41,6 +44,9 @@ class AlphaVantage:
         self.retries = retries
         self.output_format = output_format
         self.treat_info_as_error = treat_info_as_error
+        # Not all the calls accept a data type appended at the end, this
+        # variable will be overriden by those functions not needing it.
+        self._append_type = True
 
     def _retry(func):
         """ Decorator for retrying api calls (in case of errors from the api
@@ -120,7 +126,21 @@ class AlphaVantage:
                     # None (in other words, this will call the api with its
                     # internal defined parameter)
                     url = '{}&{}={}'.format(url, arg_name, arg_value)
-            url = '{}&apikey={}'.format(url, self.key)
+            # Allow the output format to be json or csv (supported by
+            # alphavantage api). Pandas is simply json converted.
+            if 'json' or 'csv' in self.output_format.lower():
+                oformat = self.output_format.lower()
+            elif 'pandas' in self.output_format.lower():
+                oformat = 'json'
+            else:
+                raise ValueError("Output format: {} not recognized, only json,"
+                                 "pandas and csv are supported".format(
+                                     self.output_format.lower()))
+            if self._append_type:
+                url = '{}&apikey={}&datatype={}'.format(url, self.key, oformat)
+            else:
+                url = '{}&apikey={}'.format(url, self.key)
+            print(url)
             return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
@@ -135,31 +155,34 @@ class AlphaVantage:
         """
         @wraps(func)
         def _format_wrapper(self, *args, **kwargs):
-            json_response, data_key, meta_data_key = func(
+            call_response, data_key, meta_data_key = func(
                 self, *args, **kwargs)
-            data = json_response[data_key]
-            if meta_data_key is not None:
-                meta_data = json_response[meta_data_key]
-            else:
-                meta_data = None
-            # Allow to override the output parameter in the call
-            if override is None:
-                output_format = self.output_format.lower()
-            elif 'json' or 'pandas' in override.lower():
-                output_format = override.lower()
-            # Choose output format
-            if output_format == 'json':
-                return data, meta_data
-            elif output_format == 'pandas':
-                data_pandas = pandas.DataFrame.from_dict(data,
-                                                         orient='index',
-                                                         dtype=float)
-                data_pandas.index.name = 'Date'
-                # Rename columns to have a nicer name
-                col_names = [re.sub(r'\d+.', '', name).strip(' ')
-                             for name in list(data_pandas)]
-                data_pandas.columns = col_names
-                return data_pandas, meta_data
+            if 'json' in self.output_format.lower() or 'pandas' in self.output_format.lower():
+                data = call_response[data_key]
+                if meta_data_key is not None:
+                    meta_data = call_response[meta_data_key]
+                else:
+                    meta_data = None
+                # Allow to override the output parameter in the call
+                if override is None:
+                    output_format = self.output_format.lower()
+                elif 'json' or 'pandas' in override.lower():
+                    output_format = override.lower()
+                # Choose output format
+                if output_format == 'json':
+                    return data, meta_data
+                elif output_format == 'pandas':
+                    data_pandas = pandas.DataFrame.from_dict(data,
+                                                             orient='index',
+                                                             dtype=float)
+                    data_pandas.index.name = 'Date'
+                    # Rename columns to have a nicer name
+                    col_names = [re.sub(r'\d+.', '', name).strip(' ')
+                                 for name in list(data_pandas)]
+                    data_pandas.columns = col_names
+                    return data_pandas, meta_data
+            elif 'csv' in self.output_format.lower():
+                return call_response, None
             else:
                 raise ValueError('Format: {} is not supported'.format(
                     self.output_format))
@@ -207,14 +230,19 @@ class AlphaVantage:
         """
         response = urlopen(url)
         url_response = response.read()
-        json_response = loads(url_response)
-
-        if not json_response:
-            raise ValueError(
-                'Error getting data from the api, no return was given.')
-        elif "Error Message" in json_response:
-            raise ValueError(json_response["Error Message"])
-        elif "Information" in json_response and self.treat_info_as_error:
-            raise ValueError(json_response["Information"])
-
-        return json_response
+        if 'json' in self.output_format.lower() or 'pandas' in self.output_format.lower():
+            json_response = loads(url_response)
+            if not json_response:
+                raise ValueError(
+                    'Error getting data from the api, no return was given.')
+            elif "Error Message" in json_response:
+                raise ValueError(json_response["Error Message"])
+            elif "Information" in json_response and self.treat_info_as_error:
+                raise ValueError(json_response["Information"])
+            return json_response
+        else:
+            csv_response = csv.reader(url_response)
+            if not csv_response:
+                raise ValueError(
+                    'Error getting data from the api, no return was given.')
+            return csv_response
