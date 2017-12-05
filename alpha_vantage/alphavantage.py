@@ -140,6 +140,7 @@ class AlphaVantage:
                 url = '{}&apikey={}&datatype={}'.format(url, self.key, oformat)
             else:
                 url = '{}&apikey={}'.format(url, self.key)
+            print(url)
             return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
@@ -156,7 +157,7 @@ class AlphaVantage:
         def _format_wrapper(self, *args, **kwargs):
             call_response, data_key, meta_data_key = func(
                 self, *args, **kwargs)
-            if 'json' or 'pandas' in self.output_format.lower():
+            if 'json' in self.output_format.lower() or 'pandas' in self.output_format.lower():
                 data = call_response[data_key]
                 if meta_data_key is not None:
                     meta_data = call_response[meta_data_key]
@@ -229,7 +230,7 @@ class AlphaVantage:
         """
         response = urlopen(url)
         url_response = response.read()
-        if 'json' or 'pandas' in self.output_format.lower():
+        if 'json' in self.output_format.lower() or 'pandas' in self.output_format.lower():
             json_response = loads(url_response)
             if not json_response:
                 raise ValueError(
