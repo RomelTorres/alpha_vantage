@@ -11,7 +11,7 @@ except IOError:
 
 setup(
     name='alpha_vantage',
-    version='1.4.0',
+    version='1.5.0',
     author='Romel J. Torres',
     author_email='romel.torres@gmail.com',
     license='MIT',
@@ -30,9 +30,14 @@ setup(
     url='https://github.com/RomelTorres/alpha_vantage',
     install_requires=[
         'simplejson',
-        'pandas',
-        'nose'
     ],
+    test_requires=[
+        'nose',
+        'simplejson'
+    ],
+    extras_requires={
+        'pandas': ['pandas'],
+    },
     keywords=['stocks', 'market', 'finance', 'alpha_vantage', 'quotes',
               'shares'],
     packages=find_packages(

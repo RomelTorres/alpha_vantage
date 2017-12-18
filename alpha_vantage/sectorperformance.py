@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 from .alphavantage import AlphaVantage as av
 from functools import wraps
-import pandas
+try:
+    import pandas
+except ImportError:
+    pass
 import re
 
 

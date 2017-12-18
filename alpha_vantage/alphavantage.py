@@ -7,7 +7,12 @@ except ImportError:
 import sys
 from functools import wraps
 import inspect
-import pandas
+# Pandas became an optional dependency, but we still want to track it
+try:
+    import pandas
+    _PANDAS_FOUND = True
+except ImportError:
+    _PANDAS_FOUND = False
 import csv
 import re
 # Avoid compability issues
@@ -43,6 +48,10 @@ class AlphaVantage(object):
         self.key = key
         self.retries = retries
         self.output_format = output_format
+        if self.output_format is 'pandas' and not _PANDAS_FOUND:
+            raise ValueError("The pandas library was not found, therefore can "
+                             "not be used as an output format, please install "
+                             "manually")
         self.treat_info_as_error = treat_info_as_error
         # Not all the calls accept a data type appended at the end, this
         # variable will be overriden by those functions not needing it.
