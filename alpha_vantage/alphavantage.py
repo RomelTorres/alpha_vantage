@@ -4,7 +4,6 @@ try:
 except ImportError:
     # Python 2.* import
     import urllib2
-    #from urllib2 import urlopen
 import sys
 from functools import wraps
 import inspect
@@ -28,9 +27,10 @@ class AlphaVantage(object):
     classes of this python wrapper will inherit from.
     """
     _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
-    _ALPHA_VANTAGE_MATH_MAP = ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA', 'T3',
-                               'KAMA', 'MAMA']
-    _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = "https://www.alphavantage.co/digital_currency_list/"
+    _ALPHA_VANTAGE_MATH_MAP = ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA',
+                               'T3', 'KAMA', 'MAMA']
+    _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = \
+        "https://www.alphavantage.co/digital_currency_list/"
 
     def __init__(self, key=None, retries=5, output_format='json',
                  treat_info_as_error=True):
@@ -45,7 +45,8 @@ class AlphaVantage(object):
         """
         if key is None:
             raise ValueError(
-                'Get a free key from the alphavantage website: https://www.alphavantage.co/support/#api-key')
+                'Get a free key from the alphavantage website:'
+                ' https://www.alphavantage.co/support/#api-key')
         self.key = key
         self.retries = retries
         self.output_format = output_format
@@ -166,7 +167,8 @@ class AlphaVantage(object):
         def _format_wrapper(self, *args, **kwargs):
             call_response, data_key, meta_data_key = func(
                 self, *args, **kwargs)
-            if 'json' in self.output_format.lower() or 'pandas' in self.output_format.lower():
+            if 'json' in self.output_format.lower() or 'pandas' \
+                    in self.output_format.lower():
                 data = call_response[data_key]
                 if meta_data_key is not None:
                     meta_data = call_response[meta_data_key]
@@ -204,8 +206,8 @@ class AlphaVantage(object):
         is given.
 
         Keyword Arguments:
-            matype:  The math type of the alpha vantage api. It accepts integers
-                or a string representing the math type.
+            matype:  The math type of the alpha vantage api. It accepts
+            integers or a string representing the math type.
 
                 * 0 = Simple Moving Average (SMA),
                 * 1 = Exponential Moving Average (EMA),
@@ -234,8 +236,8 @@ class AlphaVantage(object):
         Keyword Arguments:
             url:  The url of the service
             data_key:  The key for getting the data from the jso object
-            meta_data_key:  The key for getting the meta data information out of
-                the json object
+            meta_data_key:  The key for getting the meta data information out
+            of the json object
         """
         # In order to keep supporting python 2.7, we have to do this.
         if sys.version_info.major == 3:
@@ -243,7 +245,8 @@ class AlphaVantage(object):
         else:
             response = urllib2.urlopen(url)
         url_response = response.read()
-        if 'json' in self.output_format.lower() or 'pandas' in self.output_format.lower():
+        if 'json' in self.output_format.lower() or 'pandas' in \
+                self.output_format.lower():
             json_response = loads(url_response)
             if not json_response:
                 raise ValueError(
