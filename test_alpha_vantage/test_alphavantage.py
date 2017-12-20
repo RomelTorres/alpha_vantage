@@ -132,3 +132,48 @@ class TestAlphaVantage(unittest.TestCase):
                                  time_period=10, series_type='close')
             self.assertIsInstance(
                 data, dict, 'Result Data must be a dictionary')
+
+    @unittest.skipIf(sys.version_info.major == 2, "Test valid for python 3")
+    @mock.patch('urllib.request.urlopen')
+    def test_sector_perfomance_python3(self, mock_urlopen):
+        """ Test that api call returns a json file as requested
+        """
+        sp = SectorPerformances(key=TestAlphaVantage._API_KEY_TEST)
+        url = "https://www.alphavantage.co/query?function=SECTOR&apikey=test"
+        path_file = self.get_file_from_url(url)
+        with open(path_file) as f:
+            mock_urlopen.return_value = f
+            data, _ = sp.get_sector()
+            self.assertIsInstance(
+                data, dict, 'Result Data must be a dictionary')
+
+    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 3")
+    @mock.patch('urllib2.urlopen')
+    def test_sector_perfomance_python2(self, mock_urlopen):
+        """ Test that api call returns a json file as requested
+        """
+        sp = SectorPerformances(key=TestAlphaVantage._API_KEY_TEST)
+        url = "https://www.alphavantage.co/query?function=SECTOR&apikey=test"
+        path_file = self.get_file_from_url(url)
+        with open(path_file) as f:
+            mock_urlopen.return_value = f
+            data, _ = sp.get_sector()
+            self.assertIsInstance(
+                data, dict, 'Result Data must be a dictionary')
+
+# https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=demo
+
+    @unittest.skipIf(sys.version_info.major == 2, "Test valid for python 3")
+    @mock.patch('urllib.request.urlopen')
+    def test_foreign_exchange_python3(self, mock_urlopen):
+        """ Test that api call returns a json file as requested
+        """
+        fe = ForeignExchange(key=TestAlphaVantage._API_KEY_TEST)
+        url = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=BTC&to_currency=CNY&apikey=test"
+        path_file = self.get_file_from_url(url)
+        with open(path_file) as f:
+            mock_urlopen.return_value = f
+            data, _ = fe.get_currency_exchange_rate(
+                from_currency='BTC', to_currency='CNY')
+            self.assertIsInstance(
+                data, dict, 'Result Data must be a dictionary')
