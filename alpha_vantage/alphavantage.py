@@ -1,9 +1,10 @@
 try:
     # Python 3 import
-    from urllib.request import urlopen
+    import urllib
 except ImportError:
     # Python 2.* import
-    from urllib2 import urlopen
+    import urllib2
+    #from urllib2 import urlopen
 import sys
 from functools import wraps
 import inspect
@@ -236,7 +237,11 @@ class AlphaVantage(object):
             meta_data_key:  The key for getting the meta data information out of
                 the json object
         """
-        response = urlopen(url)
+        # In order to keep supporting python 2.7, we have to do this.
+        if sys.version_info.major == 3:
+            response = urllib.request.urlopen(url)
+        else:
+            response = urllib2.urlopen(url)
         url_response = response.read()
         if 'json' in self.output_format.lower() or 'pandas' in self.output_format.lower():
             json_response = loads(url_response)
