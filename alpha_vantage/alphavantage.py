@@ -1,9 +1,4 @@
-try:
-    # Python 3 import
-    import urllib
-except ImportError:
-    # Python 2.* import
-    import urllib2
+import urllib
 import sys
 from functools import wraps
 import inspect
@@ -243,7 +238,7 @@ class AlphaVantage(object):
         if sys.version_info.major == 3:
             response = urllib.request.urlopen(url)
         else:
-            response = urllib2.urlopen(url)
+            response = urllib.urlopen(url)
         url_response = response.read()
         if 'json' in self.output_format.lower() or 'pandas' in \
                 self.output_format.lower():

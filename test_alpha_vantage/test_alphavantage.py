@@ -9,12 +9,7 @@ import unittest
 import mock
 import sys
 from os import path
-try:
-    # Python 3 import
-    from urllib.request import urlopen
-except ImportError:
-    # Python 2.* import
-    from urllib2 import urlopen
+import urllib
 
 
 class TestAlphaVantage(unittest.TestCase):
