@@ -55,7 +55,7 @@ class TestAlphaVantage(unittest.TestCase):
                 data, dict, 'Result Data must be a dictionary')
 
     @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 2.7")
-    @mock.patch('urllib2.urlopen')
+    @mock.patch('urllib.urlopen')
     def test_handle_api_call_python2(self, mock_urlopen):
         """ Test that api call returns a json file as requested
         """
@@ -83,8 +83,8 @@ class TestAlphaVantage(unittest.TestCase):
             self.assertIsInstance(
                 data, dict, 'Result Data must be a dictionary')
 
-    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 3")
-    @mock.patch('urllib2.urlopen')
+    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python  2.7")
+    @mock.patch('urllib.urlopen')
     def test_time_series_intraday_python2(self, mock_urlopen):
         """ Test that api call returns a json file as requested
         """
@@ -113,8 +113,8 @@ class TestAlphaVantage(unittest.TestCase):
             self.assertIsInstance(
                 data, dict, 'Result Data must be a dictionary')
 
-    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 3")
-    @mock.patch('urllib2.urlopen')
+    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 2.7")
+    @mock.patch('urllib.urlopen')
     def test_technical_indicator_sma_python2(self, mock_urlopen):
         """ Test that api call returns a json file as requested
         """
@@ -142,8 +142,8 @@ class TestAlphaVantage(unittest.TestCase):
             self.assertIsInstance(
                 data, dict, 'Result Data must be a dictionary')
 
-    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 3")
-    @mock.patch('urllib2.urlopen')
+    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 2.7")
+    @mock.patch('urllib.urlopen')
     def test_sector_perfomance_python2(self, mock_urlopen):
         """ Test that api call returns a json file as requested
         """
@@ -171,8 +171,8 @@ class TestAlphaVantage(unittest.TestCase):
             self.assertIsInstance(
                 data, dict, 'Result Data must be a dictionary')
 
-    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 3")
-    @mock.patch('urllib2.urlopen')
+    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python  2.7")
+    @mock.patch('urllib.urlopen')
     def test_foreign_exchange_python2(self, mock_urlopen):
         """ Test that api call returns a json file as requested
         """
@@ -201,8 +201,8 @@ class TestAlphaVantage(unittest.TestCase):
             self.assertIsInstance(
                 data, dict, 'Result Data must be a dictionary')
 
-    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 3")
-    @mock.patch('urllib2.urlopen')
+    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python  2.7")
+    @mock.patch('urllib.urlopen')
     def test_crypto_currencies_python2(self, mock_urlopen):
         """ Test that api call returns a json file as requested
         """
