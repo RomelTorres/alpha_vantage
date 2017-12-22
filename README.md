@@ -155,7 +155,8 @@ nosetests
 The code documentation can be found at https://alpha-vantage.readthedocs.io/en/latest/
 
 ## TODOS:
-* Separate tests between unittests and integration test.
+* Prepare for release 1.6.0
+* Update documentation on how to install with pandas support ```pip install alpha_vantage[pandas]``` has to be tested and reproduced properly.
 
 ## Star if you like it.
 If you like or use this project, consider showing your support by staring it.
