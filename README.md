@@ -159,7 +159,10 @@ nosetests
 The code documentation can be found at https://alpha-vantage.readthedocs.io/en/latest/
 
 ## Contributing
-Contributing is always welcome, since sometimes I am busy. Just contact me on how est you can contribute.  
+Contributing is always welcome, since sometimes I am busy. Just contact me on how est you can contribute.
+
+## TODOs:
+* The integration tests are not being run at the moment within travis, gotta fix them to run.
 
 ## Star if you like it.
 If you like or use this project, consider showing your support by staring it.
