@@ -16,7 +16,6 @@ install:
     - pip install simplejson
     - pip install pandas==0.19.2
 script:
-
     nosetests --nocapture test_alpha_vantage/test_alphavantage.py
 allow_failure:
   script:

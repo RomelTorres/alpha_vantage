@@ -16,6 +16,10 @@ To install the package use:
 ```shell
 pip install alpha_vantage
 ```
+Since version 1.6.0 pandas was taken out as a hard dependency, so if you want to have pandas support install pandas too:
+```shell
+pip install alpha_vantage, pandas
+```
 
 If you want to install from source, then use:
 ```shell
@@ -36,8 +40,8 @@ Internally there is a retries counter, that can be used to minimize connection e
 ```python
 ts = TimeSeries(key='YOUR_API_KEY',retries='YOUR_RETRIES')
 ```
-Finally the library supports giving its results as json dictionaries (default) or as pandas dataframe, simply pass the parameter output_format='pandas' to change
-the format of the output for all the api calls.
+Finally the library supports giving its results as json dictionaries (default), pandas dataframe (if installed) or csv, simply pass the parameter output_format='pandas' to change the format of the output for all the api calls in the given class. Please note that some API calls do not support the csv format (namely ```ForeignExchange, SectorPerformances and TechIndicators```) because the API endpoint does not support the format on their calls either.
+
 ```python
 ts = TimeSeries(key='YOUR_API_KEY',output_format='pandas')
 ```
@@ -154,9 +158,9 @@ nosetests
 ## Documentation
 The code documentation can be found at https://alpha-vantage.readthedocs.io/en/latest/
 
-## TODOS:
-* Prepare for release 1.6.0
-* Update documentation on how to install with pandas support ```pip install alpha_vantage[pandas]``` has to be tested and reproduced properly.
+## Contributing
+Contributing is always welcome, since sometimes I am busy. Just contact me on how est you can contribute.  
 
 ## Star if you like it.
 If you like or use this project, consider showing your support by staring it.
+From Venezuela with Love...
