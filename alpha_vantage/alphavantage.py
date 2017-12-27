@@ -182,11 +182,8 @@ class AlphaVantage(object):
                                                              orient='index',
                                                              dtype=float)
                     data_pandas.index.name = 'date'
-                    # Rename columns to have a nicer name
-                    col_names = [re.sub(r'\d+.', '', name).strip(' ')
-                                 for name in list(data_pandas)]
-                    data_pandas.columns = col_names
-                    # Set Date as an actual column so a new numerical index will be created
+                    # Set Date as an actual column so a new numerical index
+                    # will be created
                     data_pandas.reset_index(level=0, inplace=True)
                     return data_pandas, meta_data
             elif 'csv' in self.output_format.lower():
