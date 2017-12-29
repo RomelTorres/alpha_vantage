@@ -28,7 +28,7 @@ class AlphaVantage(object):
         "https://www.alphavantage.co/digital_currency_list/"
 
     def __init__(self, key=None, retries=5, output_format='json',
-                 treat_info_as_error=True):
+                 treat_info_as_error=True, indexing_type='date'):
         """ Initialize the class
 
         Keyword Arguments:
@@ -37,6 +37,10 @@ class AlphaVantage(object):
                 server not able to answer the call.
             treat_info_as_error: Treat information from the api as errors
             output_format:  Either 'json', 'pandas' os 'csv'
+            indexing_type: Either 'date' to use the default date given by the
+            alpha vantage api call or 'integer' if you just want an integer
+            indexing on your dataframe. Only valid, when the output_format is
+            'pandas'.
         """
         if key is None:
             raise ValueError(
@@ -53,6 +57,7 @@ class AlphaVantage(object):
         # Not all the calls accept a data type appended at the end, this
         # variable will be overriden by those functions not needing it.
         self._append_type = True
+        self.indexing_type = indexing_type
 
     def _retry(func):
         """ Decorator for retrying api calls (in case of errors from the api
