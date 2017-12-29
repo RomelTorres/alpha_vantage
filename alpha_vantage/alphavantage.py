@@ -187,9 +187,10 @@ class AlphaVantage(object):
                                                              orient='index',
                                                              dtype=float)
                     data_pandas.index.name = 'date'
-                    # Set Date as an actual column so a new numerical index
-                    # will be created
-                    data_pandas.reset_index(level=0, inplace=True)
+                    if 'integer' in self.indexing_type:
+                        # Set Date as an actual column so a new numerical index
+                        # will be created, but only when specified by the user.
+                        data_pandas.reset_index(level=0, inplace=True)
                     return data_pandas, meta_data
             elif 'csv' in self.output_format.lower():
                 return call_response, None
