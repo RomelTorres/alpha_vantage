@@ -191,6 +191,8 @@ Contributing is always welcome, since sometimes I am busy. Just contact me on ho
 
 ## TODOs:
 * The integration tests are not being run at the moment within travis, gotta fix them to run.
+* Add test for csv calls as well.
+* Add tests for incompatible parameter raise errors.
 
 ## Star if you like it.
 If you like or use this project, consider showing your support by staring it.
