@@ -40,12 +40,36 @@ Internally there is a retries counter, that can be used to minimize connection e
 ```python
 ts = TimeSeries(key='YOUR_API_KEY',retries='YOUR_RETRIES')
 ```
-Finally the library supports giving its results as json dictionaries (default), pandas dataframe (if installed) or csv, simply pass the parameter output_format='pandas' to change the format of the output for all the api calls in the given class. Please note that some API calls do not support the csv format (namely ```ForeignExchange, SectorPerformances and TechIndicators```) because the API endpoint does not support the format on their calls either.
+The library supports giving its results as json dictionaries (default), pandas dataframe (if installed) or csv, simply pass the parameter output_format='pandas' to change the format of the output for all the api calls in the given class. Please note that some API calls do not support the csv format (namely ```ForeignExchange, SectorPerformances and TechIndicators```) because the API endpoint does not support the format on their calls either.
 
 ```python
 ts = TimeSeries(key='YOUR_API_KEY',output_format='pandas')
 ```
 
+The pandas data frame given by the call, can have either a date string indexing or an integer indexing (by default the indexing is 'data'),
+depending on your needs, you can use both.
+
+```python
+ # For the default date string index behavior
+ts = TimeSeries(key='YOUR_API_KEY',output_format='pandas', indexing_type='date')
+# For the default integer index behavior
+ts = TimeSeries(key='YOUR_API_KEY',output_format='pandas', indexing_type='integer')
+```
+
+## Data frame structure
+The data frame structure is given by the call on alpha vantage rest API. The column names of the data frames
+are the ones given by their data structure. For example, the following call:
+```python
+from alpha_vantage.timeseries import TimeSeries
+from pprint import pprint
+ts = TimeSeries(key='YOUR_API_KEY', output_format='pandas')
+data, meta_data = ts.get_intraday(symbol='MSFT',interval='1min', outputsize='full')
+pprint(data.head(2))
+```
+Would result on:
+![alt text](images/docs_data_frame_header.png?raw=True "Data Header format.")
+
+The headers from the data are specified from Alpha Vantage (in previous versions, the numbers in the headers were removed, but long term is better to have the data exactly as Alpha Vantage produces it.)
 ## Plotting
 ### Time Series
 Using pandas support we can plot the intra-minute value for 'MSFT' stock quite easily:
@@ -121,11 +145,15 @@ Giving us as output:
 
 ### Foreign Exchange (FX)
 
+The foreign exchange is just metadata, thus only available as json format (using the 'csv' or 'pandas' format will raise an Error)
+
 ```python
-cc = ForeignExchange(key=os.environ['API_KEY'])
+import alpha_vantage.foreignexchange import ForeignExchange
+from pprint import pprint
+cc = ForeignExchange(key='YOUR_API_KEY')
 # There is no metadata in this call
 data, _ = cc.get_currency_exchange_rate(from_currency='BTC',to_currency='USD')
-print(data)
+pprint(data)
 ```
 Giving us as output:
 ```
@@ -137,7 +165,7 @@ Giving us as output:
     '5. Exchange Rate': '5566.80500105',
     '6. Last Refreshed': '2017-10-15 15:13:08',
     '7. Time Zone': 'UTC'
-m}
+}
 ```
 
 ## Examples
@@ -148,7 +176,7 @@ usage of the library: https://github.com/RomelTorres/av_example
 
 ## Tests
 
-In order to run the tests you have to first export your API key so that the test can use it to run.
+In order to run the tests you have to first export your API key so that the test can use it to run, also the test require pandas, mock and nose.
 ```shell
 export API_KEY=YOUR_API_KEY
 cd alpha_vantage
@@ -163,6 +191,8 @@ Contributing is always welcome, since sometimes I am busy. Just contact me on ho
 
 ## TODOs:
 * The integration tests are not being run at the moment within travis, gotta fix them to run.
+* Add test for csv calls as well.
+* Add tests for incompatible parameter raise errors.
 
 ## Star if you like it.
 If you like or use this project, consider showing your support by staring it.
