@@ -99,6 +99,22 @@ class TestAlphaVantage(unittest.TestCase):
             self.assertIsInstance(
                 data, df, 'Result Data must be a pandas data frame')
 
+    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 2")
+    @mock.patch('urllib.urlopen')
+    def test_time_series_intraday_pandas_python2(self, mock_urlopen):
+        """ Test that api call returns a json file as requested
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST,
+                        output_format='pandas')
+        url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=1min&apikey=test"
+        path_file = self.get_file_from_url(url)
+        with open(path_file) as f:
+            mock_urlopen.return_value = f
+            data, _ = ts.get_intraday(
+                "MSFT", interval='1min', outputsize='full')
+            self.assertIsInstance(
+                data, df, 'Result Data must be a pandas data frame')
+
     @unittest.skipIf(sys.version_info.major == 2, "Test valid for python 3")
     @mock.patch('urllib.request.urlopen')
     def test_time_series_intraday_date_indexing_python3(self, mock_urlopen):
@@ -113,6 +129,51 @@ class TestAlphaVantage(unittest.TestCase):
             data, _ = ts.get_intraday(
                 "MSFT", interval='1min', outputsize='full')
             assert type(data.index[0]) == str
+
+    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 2")
+    @mock.patch('urllib.urlopen')
+    def test_time_series_intraday_date_indexing_python2(self, mock_urlopen):
+        """ Test that api call returns a pandas data frame with a date as index
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST,
+                        output_format='pandas', indexing_type='date')
+        url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=1min&apikey=test"
+        path_file = self.get_file_from_url(url)
+        with open(path_file) as f:
+            mock_urlopen.return_value = f
+            data, _ = ts.get_intraday(
+                "MSFT", interval='1min', outputsize='full')
+            assert type(data.index[0]) == str
+
+    @unittest.skipIf(sys.version_info.major == 2, "Test valid for python 3")
+    @mock.patch('urllib.request.urlopen')
+    def test_time_series_intraday_date_integer_python3(self, mock_urlopen):
+        """ Test that api call returns a pandas data frame with an integer as index
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST,
+                        output_format='pandas', indexing_type='integer')
+        url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=1min&apikey=test"
+        path_file = self.get_file_from_url(url)
+        with open(path_file) as f:
+            mock_urlopen.return_value = f
+            data, _ = ts.get_intraday(
+                "MSFT", interval='1min', outputsize='full')
+            assert type(data.index[0]) == int
+
+    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 2")
+    @mock.patch('urllib.urlopen')
+    def test_time_series_intraday_date_integer_python2(self, mock_urlopen):
+        """ Test that api call returns a pandas data frame with an integer as index
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST,
+                        output_format='pandas', indexing_type='integer')
+        url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=1min&apikey=test"
+        path_file = self.get_file_from_url(url)
+        with open(path_file) as f:
+            mock_urlopen.return_value = f
+            data, _ = ts.get_intraday(
+                "MSFT", interval='1min', outputsize='full')
+            assert type(data.index[0]) == int
 
     @unittest.skipIf(sys.version_info.major == 3, "Test valid for python  2.7")
     @mock.patch('urllib.urlopen')
