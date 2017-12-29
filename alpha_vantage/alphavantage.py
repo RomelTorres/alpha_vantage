@@ -37,10 +37,10 @@ class AlphaVantage(object):
                 server not able to answer the call.
             treat_info_as_error: Treat information from the api as errors
             output_format:  Either 'json', 'pandas' os 'csv'
-            indexing_type: Either 'date' to use the default date given by the
-            alpha vantage api call or 'integer' if you just want an integer
-            indexing on your dataframe. Only valid, when the output_format is
-            'pandas'.
+            indexing_type: Either 'date' to use the default date string given
+            by the alpha vantage api call or 'integer' if you just want an
+            integer indexing on your dataframe. Only valid, when the
+            output_format is 'pandas'.
         """
         if key is None:
             raise ValueError(
