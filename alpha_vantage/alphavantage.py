@@ -9,7 +9,7 @@ try:
 except ImportError:
     _PANDAS_FOUND = False
 import csv
-import re
+
 # Avoid compability issues
 if sys.version_info.major == 3 and sys.version_info.minor == 6:
     from json import loads
