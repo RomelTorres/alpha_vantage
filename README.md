@@ -145,11 +145,15 @@ Giving us as output:
 
 ### Foreign Exchange (FX)
 
+The foreign exchange is just metadata, thus only available as json format (using the 'csv' or 'pandas' format will raise an Error)
+
 ```python
-cc = ForeignExchange(key=os.environ['API_KEY'])
+import alpha_vantage.foreignexchange import ForeignExchange
+from pprint import pprint
+cc = ForeignExchange(key='YOUR_API_KEY')
 # There is no metadata in this call
 data, _ = cc.get_currency_exchange_rate(from_currency='BTC',to_currency='USD')
-print(data)
+pprint(data)
 ```
 Giving us as output:
 ```
