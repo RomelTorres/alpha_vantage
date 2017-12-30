@@ -24,7 +24,7 @@ class TestAlphaVantage(unittest.TestCase):
             formed using the orginal url
         """
         tmp = url
-        for ch in [':', '/', '.', '?', '=', '&']:
+        for ch in [':', '/', '.', '?', '=', '&', ',']:
             if ch in tmp:
                 tmp = tmp.replace(ch, '_')
         path_dir = path.join(path.dirname(
@@ -401,3 +401,61 @@ class TestAlphaVantage(unittest.TestCase):
                 symbol='BTC', market='CNY')
             self.assertIsInstance(
                 data, df, 'Result Data must be a pandas data frame')
+
+    @unittest.skipIf(sys.version_info.major == 2, "Test valid for python 3")
+    @mock.patch('urllib.request.urlopen')
+    def test_batch_quotes_python3(self, mock_urlopen):
+        """ Test that api call returns a json file as requested
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST)
+        url = "https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=MSFT,FB,AAPL&apikey=test"
+        path_file = self.get_file_from_url(url)
+        with open(path_file) as f:
+            mock_urlopen.return_value = f
+            data, _ = ts.get_batch_stock_quotes(symbols=('MSFT', 'FB', 'AAPL'))
+            self.assertIsInstance(
+                data, dict, 'Result Data must be a json dictionary')
+
+    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 2")
+    @mock.patch('urllib.urlopen')
+    def test_batch_quotes_python2(self, mock_urlopen):
+        """ Test that api call returns a json file as requested
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST)
+        url = "https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=MSFT,FB,AAPL&apikey=test"
+        path_file = self.get_file_from_url(url)
+        with open(path_file) as f:
+            mock_urlopen.return_value = f
+            data, _ = ts.get_batch_stock_quotes(symbols=('MSFT', 'FB', 'AAPL'))
+            self.assertIsInstance(
+                data, dict, 'Result Data must be a json dictionary')
+
+    @unittest.skipIf(sys.version_info.major == 2, "Test valid for python 3")
+    @mock.patch('urllib.request.urlopen')
+    def test_batch_quotes_pandas_python3(self, mock_urlopen):
+        """ Test that api call returns a json file as requested
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST,
+                        output_format='pandas')
+        url = "https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=MSFT,FB,AAPL&apikey=test"
+        path_file = self.get_file_from_url(url)
+        with open(path_file) as f:
+            mock_urlopen.return_value = f
+            data, _ = ts.get_batch_stock_quotes(symbols=('MSFT', 'FB', 'AAPL'))
+            self.assertIsInstance(
+                data, df, 'Result Data must be a pandas dataframe')
+
+    @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 2")
+    @mock.patch('urllib.urlopen')
+    def test_batch_quotes_pandas_python2(self, mock_urlopen):
+        """ Test that api call returns a json file as requested
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST,
+                        output_format='pandas')
+        url = "https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=MSFT,FB,AAPL&apikey=test"
+        path_file = self.get_file_from_url(url)
+        with open(path_file) as f:
+            mock_urlopen.return_value = f
+            data, _ = ts.get_batch_stock_quotes(symbols=('MSFT', 'FB', 'AAPL'))
+            self.assertIsInstance(
+                data, df, 'Result Data must be a pandas dataframe')
