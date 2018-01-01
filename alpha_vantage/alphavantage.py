@@ -136,6 +136,10 @@ class AlphaVantage(object):
                     # Discard argument in the url formation if it was set to
                     # None (in other words, this will call the api with its
                     # internal defined parameter)
+                    if isinstance(arg_value, tuple) or isinstance(arg_value, list):
+                        # If the argument is given as list, then we have to
+                        # format it, you gotta format it nicely
+                        arg_value = ','.join(arg_value)
                     url = '{}&{}={}'.format(url, arg_name, arg_value)
             # Allow the output format to be json or csv (supported by
             # alphavantage api). Pandas is simply json converted.
@@ -151,6 +155,7 @@ class AlphaVantage(object):
                 url = '{}&apikey={}&datatype={}'.format(url, self.key, oformat)
             else:
                 url = '{}&apikey={}'.format(url, self.key)
+            print(url)
             return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
