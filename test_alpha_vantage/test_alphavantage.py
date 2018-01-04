@@ -414,7 +414,7 @@ class TestAlphaVantage(unittest.TestCase):
             mock_urlopen.return_value = f
             data, _ = ts.get_batch_stock_quotes(symbols=('MSFT', 'FB', 'AAPL'))
             self.assertIsInstance(
-                data, dict, 'Result Data must be a json dictionary')
+                data[0], dict, 'Result Data must be a json dictionary')
 
     @unittest.skipIf(sys.version_info.major == 3, "Test valid for python 2")
     @mock.patch('urllib.urlopen')
@@ -428,7 +428,7 @@ class TestAlphaVantage(unittest.TestCase):
             mock_urlopen.return_value = f
             data, _ = ts.get_batch_stock_quotes(symbols=('MSFT', 'FB', 'AAPL'))
             self.assertIsInstance(
-                data, dict, 'Result Data must be a json dictionary')
+                data[0], dict, 'Result Data must be a json dictionary')
 
     @unittest.skipIf(sys.version_info.major == 2, "Test valid for python 3")
     @mock.patch('urllib.request.urlopen')

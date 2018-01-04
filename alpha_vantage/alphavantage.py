@@ -155,7 +155,6 @@ class AlphaVantage(object):
                 url = '{}&apikey={}&datatype={}'.format(url, self.key, oformat)
             else:
                 url = '{}&apikey={}'.format(url, self.key)
-            print(url)
             return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
@@ -188,9 +187,20 @@ class AlphaVantage(object):
                 if output_format == 'json':
                     return data, meta_data
                 elif output_format == 'pandas':
-                    data_pandas = pandas.DataFrame.from_dict(data,
-                                                             orient='index',
-                                                             dtype=float)
+                    if isinstance(data, list):
+                        # If the call returns a list, then we will append them
+                        # in the resulting data frame. If in the future
+                        # alphavantage decides to do more with returning arrays
+                        # this might become buggy. For now will do the trick.
+                        data_array = []
+                        for val in data:
+                            data_array.append([v for _, v in val.items()])
+                        data_pandas = pandas.DataFrame(data_array, columns=[
+                            k for k, _ in data[0].items()])
+                    else:
+                        data_pandas = pandas.DataFrame.from_dict(data,
+                                                                 orient='index',
+                                                                 dtype=float)
                     data_pandas.index.name = 'date'
                     if 'integer' in self.indexing_type:
                         # Set Date as an actual column so a new numerical index
