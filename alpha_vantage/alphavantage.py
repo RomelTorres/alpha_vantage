@@ -136,6 +136,10 @@ class AlphaVantage(object):
                     # Discard argument in the url formation if it was set to
                     # None (in other words, this will call the api with its
                     # internal defined parameter)
+                    if isinstance(arg_value, tuple) or isinstance(arg_value, list):
+                        # If the argument is given as list, then we have to
+                        # format it, you gotta format it nicely
+                        arg_value = ','.join(arg_value)
                     url = '{}&{}={}'.format(url, arg_name, arg_value)
             # Allow the output format to be json or csv (supported by
             # alphavantage api). Pandas is simply json converted.
@@ -183,9 +187,20 @@ class AlphaVantage(object):
                 if output_format == 'json':
                     return data, meta_data
                 elif output_format == 'pandas':
-                    data_pandas = pandas.DataFrame.from_dict(data,
-                                                             orient='index',
-                                                             dtype=float)
+                    if isinstance(data, list):
+                        # If the call returns a list, then we will append them
+                        # in the resulting data frame. If in the future
+                        # alphavantage decides to do more with returning arrays
+                        # this might become buggy. For now will do the trick.
+                        data_array = []
+                        for val in data:
+                            data_array.append([v for _, v in val.items()])
+                        data_pandas = pandas.DataFrame(data_array, columns=[
+                            k for k, _ in data[0].items()])
+                    else:
+                        data_pandas = pandas.DataFrame.from_dict(data,
+                                                                 orient='index',
+                                                                 dtype=float)
                     data_pandas.index.name = 'date'
                     if 'integer' in self.indexing_type:
                         # Set Date as an actual column so a new numerical index
