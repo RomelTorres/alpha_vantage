@@ -9,7 +9,7 @@ try:
 except ImportError:
     _PANDAS_FOUND = False
 import csv
-import re
+
 # Avoid compability issues
 if sys.version_info.major == 3 and sys.version_info.minor == 6:
     from json import loads
@@ -28,7 +28,7 @@ class AlphaVantage(object):
         "https://www.alphavantage.co/digital_currency_list/"
 
     def __init__(self, key=None, retries=5, output_format='json',
-                 treat_info_as_error=True):
+                 treat_info_as_error=True, indexing_type='date'):
         """ Initialize the class
 
         Keyword Arguments:
@@ -37,6 +37,10 @@ class AlphaVantage(object):
                 server not able to answer the call.
             treat_info_as_error: Treat information from the api as errors
             output_format:  Either 'json', 'pandas' os 'csv'
+            indexing_type: Either 'date' to use the default date string given
+            by the alpha vantage api call or 'integer' if you just want an
+            integer indexing on your dataframe. Only valid, when the
+            output_format is 'pandas'.
         """
         if key is None:
             raise ValueError(
@@ -53,6 +57,7 @@ class AlphaVantage(object):
         # Not all the calls accept a data type appended at the end, this
         # variable will be overriden by those functions not needing it.
         self._append_type = True
+        self.indexing_type = indexing_type
 
     def _retry(func):
         """ Decorator for retrying api calls (in case of errors from the api
@@ -131,6 +136,10 @@ class AlphaVantage(object):
                     # Discard argument in the url formation if it was set to
                     # None (in other words, this will call the api with its
                     # internal defined parameter)
+                    if isinstance(arg_value, tuple) or isinstance(arg_value, list):
+                        # If the argument is given as list, then we have to
+                        # format it, you gotta format it nicely
+                        arg_value = ','.join(arg_value)
                     url = '{}&{}={}'.format(url, arg_name, arg_value)
             # Allow the output format to be json or csv (supported by
             # alphavantage api). Pandas is simply json converted.
@@ -178,16 +187,25 @@ class AlphaVantage(object):
                 if output_format == 'json':
                     return data, meta_data
                 elif output_format == 'pandas':
-                    data_pandas = pandas.DataFrame.from_dict(data,
-                                                             orient='index',
-                                                             dtype=float)
+                    if isinstance(data, list):
+                        # If the call returns a list, then we will append them
+                        # in the resulting data frame. If in the future
+                        # alphavantage decides to do more with returning arrays
+                        # this might become buggy. For now will do the trick.
+                        data_array = []
+                        for val in data:
+                            data_array.append([v for _, v in val.items()])
+                        data_pandas = pandas.DataFrame(data_array, columns=[
+                            k for k, _ in data[0].items()])
+                    else:
+                        data_pandas = pandas.DataFrame.from_dict(data,
+                                                                 orient='index',
+                                                                 dtype=float)
                     data_pandas.index.name = 'date'
-                    # Rename columns to have a nicer name
-                    col_names = [re.sub(r'\d+.', '', name).strip(' ')
-                                 for name in list(data_pandas)]
-                    data_pandas.columns = col_names
-                    # Set Date as an actual column so a new numerical index will be created
-                    data_pandas.reset_index(level=0, inplace=True)
+                    if 'integer' in self.indexing_type:
+                        # Set Date as an actual column so a new numerical index
+                        # will be created, but only when specified by the user.
+                        data_pandas.reset_index(level=0, inplace=True)
                     return data_pandas, meta_data
             elif 'csv' in self.output_format.lower():
                 return call_response, None
