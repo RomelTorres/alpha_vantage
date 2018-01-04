@@ -11,6 +11,9 @@
 Alpha Vantage delivers a free API for real time financial data and most used finance indicators in a simple json or pandas format. This module implements a python interface to the free API provided by Alpha
 Vantage (http://www.alphavantage.co/). It requires a free API, that can be requested on http://www.alphavantage.co/support/#api-key. You can have a look at all the api calls available in their documentation http://www.alphavantage.co/documentation
 
+## News
+From version 1.8.0 onwards, the column names of the data frames have changed, they are now exactly what alphavantage gives back in their json response. You can see the examples in better detail in the following git repo:  https://github.com/RomelTorres/av_example
+
 ## Install
 To install the package use:
 ```shell
@@ -80,7 +83,7 @@ import matplotlib.pyplot as plt
 
 ts = TimeSeries(key='YOUR_API_KEY', output_format='pandas')
 data, meta_data = ts.get_intraday(symbol='MSFT',interval='1min', outputsize='full')
-data['close'].plot()
+data['4. close'].plot()
 plt.title('Intraday Times Series for the MSFT stock (1 min)')
 plt.show()
 ```
@@ -133,7 +136,7 @@ import matplotlib.pyplot as plt
 
 cc = CryptoCurrencies(key='YOUR_API_KEY', output_format='pandas')
 data, meta_data = cc.get_digital_currency_intraday(symbol='BTC', market='CNY')
-data['. price (USD)'].plot()
+data['1b. price (USD)'].plot()
 plt.tight_layout()
 plt.title('Intraday value for bitcoin (BTC)')
 plt.grid()
