@@ -272,7 +272,7 @@ class AlphaVantage(object):
                 raise ValueError(json_response["Information"])
             return json_response
         else:
-            csv_response = csv.reader(url_response)
+            csv_response = csv.reader(url_response.splitlines())
             if not csv_response:
                 raise ValueError(
                     'Error getting data from the api, no return was given.')
