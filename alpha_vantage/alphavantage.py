@@ -1,4 +1,4 @@
-import urllib
+import requests
 import sys
 from functools import wraps
 import inspect
@@ -143,7 +143,7 @@ class AlphaVantage(object):
                     url = '{}&{}={}'.format(url, arg_name, arg_value)
             # Allow the output format to be json or csv (supported by
             # alphavantage api). Pandas is simply json converted.
-            if 'json' or 'csv' in self.output_format.lower():
+            if 'json' in self.output_format.lower() or 'csv' in self.output_format.lower():
                 oformat = self.output_format.lower()
             elif 'pandas' in self.output_format.lower():
                 oformat = 'json'
@@ -254,19 +254,11 @@ class AlphaVantage(object):
             meta_data_key:  The key for getting the meta data information out
             of the json object
         """
-        # In order to keep supporting python 2.7, we have to do this.
-        if sys.version_info.major == 3:
-            response = urllib.request.urlopen(url)
-        else:
-            response = urllib.urlopen(url)
-        url_response = response.read()
+        response = requests.get(url)
         if 'json' in self.output_format.lower() or 'pandas' in \
                 self.output_format.lower():
-            json_response = loads(url_response)
-            if not json_response:
-                raise ValueError(
-                    'Error getting data from the api, no return was given.')
-            elif "Error Message" in json_response:
+            json_response = response.json()
+            if "Error Message" in json_response:
                 raise ValueError(json_response["Error Message"])
             elif "Information" in json_response and self.treat_info_as_error:
                 raise ValueError(json_response["Information"])

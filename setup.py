@@ -11,7 +11,7 @@ except IOError:
 
 setup(
     name='alpha_vantage',
-    version='1.8.0',
+    version='1.9.0',
     author='Romel J. Torres',
     author_email='romel.torres@gmail.com',
     license='MIT',
@@ -29,11 +29,11 @@ setup(
     ],
     url='https://github.com/RomelTorres/alpha_vantage',
     install_requires=[
-        'simplejson',
+        'requests',
     ],
     test_requires=[
         'nose',
-        'simplejson'
+        'requests_mock'
     ],
     extras_requires={
         'pandas': ['pandas'],
