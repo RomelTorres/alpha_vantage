@@ -96,7 +96,10 @@ class TestAlphaVantage(unittest.TestCase):
             mock_request.get(url, text=f.read())
             data, _ = ts.get_intraday(
                 "MSFT", interval='1min', outputsize='full')
-            assert type(data.index[0]) == str
+            if sys.version_info[0] == 3:
+                assert isinstance(data.index[0], str)
+            else:
+                assert isinstance(data.index[0], basestring)
 
     @requests_mock.Mocker()
     def test_time_series_intraday_date_integer(self, mock_request):
