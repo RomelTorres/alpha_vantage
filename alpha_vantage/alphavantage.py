@@ -1,4 +1,4 @@
-import urllib
+import requests
 import sys
 from functools import wraps
 import inspect
@@ -255,24 +255,22 @@ class AlphaVantage(object):
             of the json object
         """
         # In order to keep supporting python 2.7, we have to do this.
-        if sys.version_info.major == 3:
-            response = urllib.request.urlopen(url)
-        else:
-            response = urllib.urlopen(url)
-        url_response = response.read()
+        # if sys.version_info.major == 3:
+        #     response = urllib.request.urlopen(url)
+        # else:
+        #     response = urllib.urlopen(url)
+        response = requests.get(url)
+        #url_response = response.read()
         if 'json' in self.output_format.lower() or 'pandas' in \
                 self.output_format.lower():
-            json_response = loads(url_response)
-            if not json_response:
-                raise ValueError(
-                    'Error getting data from the api, no return was given.')
-            elif "Error Message" in json_response:
+            json_response = response.json()
+            if "Error Message" in json_response:
                 raise ValueError(json_response["Error Message"])
             elif "Information" in json_response and self.treat_info_as_error:
                 raise ValueError(json_response["Information"])
             return json_response
         else:
-            csv_response = csv.reader(url_response.splitlines())
+            csv_response = csv.reader(response.text.splitlines())
             if not csv_response:
                 raise ValueError(
                     'Error getting data from the api, no return was given.')
