@@ -12,14 +12,16 @@ Alpha Vantage delivers a free API for real time financial data and most used fin
 Vantage (http://www.alphavantage.co/). It requires a free API, that can be requested on http://www.alphavantage.co/support/#api-key. You can have a look at all the api calls available in their documentation http://www.alphavantage.co/documentation
 
 ## News
-From version 1.8.0 onwards, the column names of the data frames have changed, they are now exactly what alphavantage gives back in their json response. You can see the examples in better detail in the following git repo:  https://github.com/RomelTorres/av_example
+* From version 1.9.0 onwards, the urllib was substituted by pythons request library that is thread safe. If you have any error, post an issue.
+* From version 1.8.0 onwards, the column names of the data frames have changed, they are now exactly what alphavantage gives back in their json response. You can see the examples in better detail in the following git repo:  https://github.com/RomelTorres/av_example
+* From version 1.6.0, pandas was taken out as a hard dependency.
 
 ## Install
 To install the package use:
 ```shell
 pip install alpha_vantage
 ```
-Since version 1.6.0 pandas was taken out as a hard dependency, so if you want to have pandas support install pandas too:
+Or install with pandas support, simply install pandas too:
 ```shell
 pip install alpha_vantage, pandas
 ```
