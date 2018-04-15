@@ -28,7 +28,7 @@ class AlphaVantage(object):
         "https://www.alphavantage.co/digital_currency_list/"
 
     def __init__(self, key=None, retries=5, output_format='json',
-                 treat_info_as_error=True, indexing_type='date'):
+                 treat_info_as_error=True, indexing_type='date', proxy={}):
         """ Initialize the class
 
         Keyword Arguments:
@@ -58,6 +58,7 @@ class AlphaVantage(object):
         # variable will be overriden by those functions not needing it.
         self._append_type = True
         self.indexing_type = indexing_type
+        self.proxy = proxy
 
     def _retry(func):
         """ Decorator for retrying api calls (in case of errors from the api
@@ -214,6 +215,9 @@ class AlphaVantage(object):
                     self.output_format))
         return _format_wrapper
 
+    def set_proxy(self, proxy={}):
+        self.proxy = proxy
+
     def map_to_matype(self, matype):
         """ Convert to the alpha vantage math type integer. It returns an
         integer correspondant to the type of math to apply to a function. It
@@ -254,7 +258,7 @@ class AlphaVantage(object):
             meta_data_key:  The key for getting the meta data information out
             of the json object
         """
-        response = requests.get(url)
+        response = requests.get(url, proxies=self.proxy)
         if 'json' in self.output_format.lower() or 'pandas' in \
                 self.output_format.lower():
             json_response = response.json()
