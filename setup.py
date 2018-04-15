@@ -30,6 +30,7 @@ setup(
     url='https://github.com/RomelTorres/alpha_vantage',
     install_requires=[
         'requests',
+        'simplejson'
     ],
     test_requires=[
         'nose',
