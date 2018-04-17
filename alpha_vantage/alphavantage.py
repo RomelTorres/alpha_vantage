@@ -48,7 +48,7 @@ class AlphaVantage(object):
         if not key or not isinstance(key, str):
             raise ValueError('The AlphaVantage API key must be provided '
                              'either through the key parameter or '
-                             'through the environment varaible '
+                             'through the environment variable '
                              'ALPHAVANTAGE_API_KEY. Get a free key '
                              'from the alphavantage website: '
                              'https://www.alphavantage.co/support/#api-key')
