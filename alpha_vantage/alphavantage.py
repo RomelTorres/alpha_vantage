@@ -1,4 +1,5 @@
 import requests
+import os
 import sys
 from functools import wraps
 import inspect
@@ -43,9 +44,14 @@ class AlphaVantage(object):
             output_format is 'pandas'.
         """
         if key is None:
-            raise ValueError(
-                'Get a free key from the alphavantage website:'
-                ' https://www.alphavantage.co/support/#api-key')
+            key = os.getenv('ALPHAVANTAGE_API_KEY')
+        if not key or not isinstance(key, str):
+            raise ValueError('The AlphaVantage API key must be provided '
+                             'either through the key parameter or '
+                             'through the environment variable '
+                             'ALPHAVANTAGE_API_KEY. Get a free key '
+                             'from the alphavantage website: '
+                             'https://www.alphavantage.co/support/#api-key')
         self.key = key
         self.retries = retries
         self.output_format = output_format
