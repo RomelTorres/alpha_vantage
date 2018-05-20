@@ -1,6 +1,5 @@
 import requests
 import os
-import sys
 from functools import wraps
 import inspect
 # Pandas became an optional dependency, but we still want to track it
@@ -10,12 +9,6 @@ try:
 except ImportError:
     _PANDAS_FOUND = False
 import csv
-
-# Avoid compability issues
-if sys.version_info.major == 3 and sys.version_info.minor == 6:
-    from json import loads
-else:
-    from simplejson import loads
 
 
 class AlphaVantage(object):
