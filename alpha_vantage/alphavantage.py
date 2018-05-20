@@ -34,7 +34,9 @@ class AlphaVantage(object):
             indexing_type: Either 'date' to use the default date string given
             by the alpha vantage api call or 'integer' if you just want an
             integer indexing on your dataframe. Only valid, when the
-            output_format is 'pandas'.
+            output_format is 'pandas'
+            proxy: Dictionary mapping protocol or protocol and hostname to 
+            the URL of the proxy.
         """
         if key is None:
             key = os.getenv('ALPHAVANTAGE_API_KEY')
@@ -215,6 +217,12 @@ class AlphaVantage(object):
         return _format_wrapper
 
     def set_proxy(self, proxy=None):
+        """ Set a new proxy configuration
+
+        Keyword Arguments:
+            proxy: Dictionary mapping protocol or protocol and hostname to 
+            the URL of the proxy.
+        """
         self.proxy = proxy or {}
 
     def map_to_matype(self, matype):
