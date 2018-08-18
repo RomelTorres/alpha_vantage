@@ -123,6 +123,26 @@ class TestAlphaVantage(unittest.TestCase):
                                       from_currency='BTC',
                                       to_currency='USD')
 
+    def test_get_currency_exchange_intraday_json(self):
+        """Test that we get a dictionary containing json data
+        """
+        fe = ForeignExchange(key=TestAlphaVantage._API_KEY_TEST)
+        self._assert_result_is_format(fe.get_currency_exchange_intraday,
+                                      output_format='json',
+                                      from_symbol='EUR',
+                                      to_symbol='USD',
+                                      interval='1min')
+
+    def test_get_currency_exchange_intraday_pandas(self):
+        """Test that we get a dictionary containing pandas data
+        """
+        fe = ForeignExchange(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        self._assert_result_is_format(fe.get_currency_exchange_intraday,
+                                      output_format='pandas',
+                                      from_symbol='USD',
+                                      to_symbol='JPY',
+                                      interval='5min')
+
     def test_get_digital_currency_intraday(self):
         """Test that we get a dictionary containning json data
         """
