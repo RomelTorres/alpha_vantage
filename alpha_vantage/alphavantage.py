@@ -204,9 +204,8 @@ class AlphaVantage(object):
                                                                  orient='index',
                                                                  dtype=float)
                     data_pandas.index.name = 'date'
-                    data_pandas = data_pandas.reset_index()
-                    data_pandas['date'] = pandas.to_datetime(data_pandas['date'])
-                    data_pandas = data_pandas.set_index('date')
+
+                    data_pandas.set_index(pandas.to_datetime(data_pandas.index), inplace=True)
 
                     if 'integer' in self.indexing_type:
                         # Set Date as an actual column so a new numerical index

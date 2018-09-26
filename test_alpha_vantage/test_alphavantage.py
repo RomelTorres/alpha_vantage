@@ -4,7 +4,7 @@ from ..alpha_vantage.techindicators import TechIndicators
 from ..alpha_vantage.sectorperformance import SectorPerformances
 from ..alpha_vantage.cryptocurrencies import CryptoCurrencies
 from ..alpha_vantage.foreignexchange import ForeignExchange
-from pandas import DataFrame as df
+from pandas import DataFrame as df, Timestamp
 import unittest
 import sys
 from os import path
@@ -96,10 +96,7 @@ class TestAlphaVantage(unittest.TestCase):
             mock_request.get(url, text=f.read())
             data, _ = ts.get_intraday(
                 "MSFT", interval='1min', outputsize='full')
-            if sys.version_info[0] == 3:
-                assert isinstance(data.index[0], str)
-            else:
-                assert isinstance(data.index[0], basestring)
+            assert isinstance(data.index[0], Timestamp)
 
     @requests_mock.Mocker()
     def test_time_series_intraday_date_integer(self, mock_request):
