@@ -135,3 +135,4 @@ class TimeSeries(av):
         """
         _FUNCTION_KEY = "SYMBOL_SEARCH"
         return _FUNCTION_KEY, 'bestMatches', None
+        
