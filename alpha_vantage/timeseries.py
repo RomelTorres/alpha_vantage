@@ -122,3 +122,16 @@ class TimeSeries(av):
         """
         _FUNCTION_KEY = "BATCH_STOCK_QUOTES"
         return _FUNCTION_KEY, 'Stock Quotes', 'Meta Data'
+
+    @av._output_format
+    @av._call_api_on_func
+    def get_symbol_search(self, keywords):
+        """ Return best matching symbols and market information
+        based on keywords. It raises ValueError when problems arise
+
+        Keyword Arguments:
+            keywords: the keywords to query on
+
+        """
+        _FUNCTION_KEY = "SYMBOL_SEARCH"
+        return _FUNCTION_KEY, 'bestMatches', None
