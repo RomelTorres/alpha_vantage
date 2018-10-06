@@ -94,7 +94,7 @@ Giving us as output:
 ![alt text](images/docs_ts_msft_example.png?raw=True "MSFT minute value plot example")
 
 ### Technical indicators
-The same way we can get pandas to plot technical indicators like Bolliger Bands®
+The same way we can get pandas to plot technical indicators like Bollinger Bands®
 
 ```python
 from alpha_vantage.techindicators import TechIndicators
@@ -182,7 +182,7 @@ usage of the library: https://github.com/RomelTorres/av_example
 
 ## Tests
 
-In order to run the tests you have to first export your API key so that the test can use it to run, also the test require pandas, mock and nose.
+In order to run the tests you have to first export your API key so that the test can use it to run, also the tests require pandas, mock and nose.
 ```shell
 export API_KEY=YOUR_API_KEY
 cd alpha_vantage
@@ -201,6 +201,6 @@ Contributing is always welcome, since sometimes I am busy. Just contact me on ho
 * Add tests for incompatible parameter raise errors.
 
 ## Star if you like it.
-If you like or use this project, consider showing your support by staring it.
+If you like or use this project, consider showing your support by starring it.
 
 :venezuela:-:de:
