@@ -154,7 +154,7 @@ Giving us as output:
 The foreign exchange is just metadata, thus only available as json format (using the 'csv' or 'pandas' format will raise an Error)
 
 ```python
-import alpha_vantage.foreignexchange import ForeignExchange
+from alpha_vantage.foreignexchange import ForeignExchange
 from pprint import pprint
 cc = ForeignExchange(key='YOUR_API_KEY')
 # There is no metadata in this call
