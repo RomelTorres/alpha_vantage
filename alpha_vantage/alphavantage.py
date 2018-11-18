@@ -35,7 +35,7 @@ class AlphaVantage(object):
             by the alpha vantage api call or 'integer' if you just want an
             integer indexing on your dataframe. Only valid, when the
             output_format is 'pandas'
-            proxy: Dictionary mapping protocol or protocol and hostname to 
+            proxy: Dictionary mapping protocol or protocol and hostname to
             the URL of the proxy.
         """
         if key is None:
@@ -90,7 +90,7 @@ class AlphaVantage(object):
         """
 
         # Argument Handling
-        argspec = inspect.getargspec(func)
+        argspec = inspect.getfullargspec(func)
         try:
             # Asumme most of the cases have a mixed between args and named
             # args
@@ -220,7 +220,7 @@ class AlphaVantage(object):
         """ Set a new proxy configuration
 
         Keyword Arguments:
-            proxy: Dictionary mapping protocol or protocol and hostname to 
+            proxy: Dictionary mapping protocol or protocol and hostname to
             the URL of the proxy.
         """
         self.proxy = proxy or {}
