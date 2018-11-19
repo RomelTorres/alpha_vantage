@@ -2,6 +2,7 @@ import requests
 import os
 from functools import wraps
 import inspect
+import sys
 # Pandas became an optional dependency, but we still want to track it
 try:
     import pandas
@@ -90,7 +91,11 @@ class AlphaVantage(object):
         """
 
         # Argument Handling
-        argspec = inspect.getargspec(func)
+        if sys.version_info[0] < 3:
+            # Deprecated since version 3.0
+            argspec = inspect.getargspec(func)
+        else:
+            argspec = inspect.getfullargspec(func)
         try:
             # Asumme most of the cases have a mixed between args and named
             # args
