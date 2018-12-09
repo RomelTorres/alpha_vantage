@@ -278,6 +278,8 @@ class AlphaVantage(object):
                 raise ValueError(json_response["Error Message"])
             elif "Information" in json_response and self.treat_info_as_error:
                 raise ValueError(json_response["Information"])
+            elif "Note" in json_response and self.treat_info_as_error:
+                raise ValueError(json_response["Note"])
             return json_response
         else:
             csv_response = csv.reader(response.text.splitlines())
