@@ -57,7 +57,7 @@ class AlphaVantage(object):
                              "manually")
         self.treat_info_as_error = treat_info_as_error
         # Not all the calls accept a data type appended at the end, this
-        # variable will be overriden by those functions not needing it.
+        # variable will be overridden by those functions not needing it.
         self._append_type = True
         self.indexing_type = indexing_type
         self.proxy = proxy or {}
@@ -232,7 +232,7 @@ class AlphaVantage(object):
 
     def map_to_matype(self, matype):
         """ Convert to the alpha vantage math type integer. It returns an
-        integer correspondant to the type of math to apply to a function. It
+        integer correspondent to the type of math to apply to a function. It
         raises ValueError if an integer greater than the supported math types
         is given.
 
