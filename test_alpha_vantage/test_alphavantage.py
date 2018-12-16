@@ -21,7 +21,7 @@ class TestAlphaVantage(unittest.TestCase):
     def get_file_from_url(url):
         """
             Return the file name used for testing, found in the test data folder
-            formed using the orginal url
+            formed using the original url
         """
         tmp = url
         for ch in [':', '/', '.', '?', '=', '&', ',']:
