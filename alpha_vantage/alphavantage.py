@@ -22,7 +22,7 @@ class AlphaVantage(object):
     _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = \
         "https://www.alphavantage.co/digital_currency_list/"
 
-    def __init__(self, key=None, retries=5, output_format='json',
+    def __init__(self, key=None, output_format='json',
                  treat_info_as_error=True, indexing_type='date', proxy=None):
         """ Initialize the class
 
@@ -49,7 +49,6 @@ class AlphaVantage(object):
                              'from the alphavantage website: '
                              'https://www.alphavantage.co/support/#api-key')
         self.key = key
-        self.retries = retries
         self.output_format = output_format
         if self.output_format is 'pandas' and not _PANDAS_FOUND:
             raise ValueError("The pandas library was not found, therefore can "
@@ -61,24 +60,6 @@ class AlphaVantage(object):
         self._append_type = True
         self.indexing_type = indexing_type
         self.proxy = proxy or {}
-
-    def _retry(func):
-        """ Decorator for retrying api calls (in case of errors from the api
-        side in bringing the data)
-
-        Keyword Arguments:
-            func:  The function to be retried
-        """
-        @wraps(func)
-        def _retry_wrapper(self, *args, **kwargs):
-            error_message = ""
-            for retry in range(self.retries + 1):
-                try:
-                    return func(self, *args, **kwargs)
-                except ValueError as err:
-                    error_message = str(err)
-            raise ValueError(str(error_message))
-        return _retry_wrapper
 
     @classmethod
     def _call_api_on_func(cls, func):
@@ -259,7 +240,6 @@ class AlphaVantage(object):
             value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(matype)
         return value
 
-    @_retry
     def _handle_api_call(self, url):
         """ Handle the return call from the  api and return a data and meta_data
         object. It raises a ValueError on problems
