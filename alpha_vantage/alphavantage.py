@@ -189,11 +189,15 @@ class AlphaVantage(object):
                         data_pandas = pandas.DataFrame.from_dict(data,
                                                                  orient='index',
                                                                  dtype=float)
-                    data_pandas.index.name = 'date'
                     if 'integer' in self.indexing_type:
                         # Set Date as an actual column so a new numerical index
                         # will be created, but only when specified by the user.
                         data_pandas.reset_index(level=0, inplace=True)
+                        data_pandas.index.name = 'index'
+                    else:
+                        data_pandas.index.name = 'date'
+                        # convert to pandas._libs.tslibs.timestamps.Timestamp
+                        data_pandas.index = pandas.to_datetime(data_pandas.index)
                     return data_pandas, meta_data
             elif 'csv' in self.output_format.lower():
                 return call_response, None
