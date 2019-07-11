@@ -199,22 +199,6 @@ class TestAlphaVantage(unittest.TestCase):
                                       to_symbol='JPY',
                                       outputsize='full')
 
-    def test_get_digital_currency_intraday(self):
-        """Test that we get a dictionary containing json data
-        """
-        cc = CryptoCurrencies(key=TestAlphaVantage._API_KEY_TEST)
-        self._assert_result_is_format(cc.get_digital_currency_intraday,
-                                      output_format='json',
-                                      symbol='BTC',
-                                      market='CNY')
-        # Test panda as output
-        cc = CryptoCurrencies(
-            key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
-        self._assert_result_is_format(cc.get_digital_currency_intraday,
-                                      output_format='pandas',
-                                      symbol='BTC',
-                                      market='CNY')
-
     def test_get_digital_currency_weekly(self):
         """Test that we get a dictionary containing json data
         """
