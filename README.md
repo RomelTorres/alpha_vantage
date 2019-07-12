@@ -52,7 +52,7 @@ The library supports giving its results as json dictionaries (default), pandas d
 ts = TimeSeries(key='YOUR_API_KEY',output_format='pandas')
 ```
 
-The pandas data frame given by the call, can have either a date string indexing or an integer indexing (by default the indexing is 'data'),
+The pandas data frame given by the call, can have either a date string indexing or an integer indexing (by default the indexing is 'date'),
 depending on your needs, you can use both.
 
 ```python
