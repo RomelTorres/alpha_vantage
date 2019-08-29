@@ -675,7 +675,7 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_ultsoc(self, symbol, interval='daily', timeperiod1=None,
+    def get_ultosc(self, symbol, interval='daily', timeperiod1=None,
                    timeperiod2=None, timeperiod3=None):
         """ Return the ultimate oscillaror values in two json objects as
         data and meta_data. It raises ValueError when problems arise
