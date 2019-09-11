@@ -11,7 +11,7 @@ except ImportError:
 import csv
 
 # Avoid compability issues
-if sys.version_info.major == 3 and sys.version_info.minor == 6:
+if sys.version_info.major == 3 and sys.version_info.minor >= 6:
     from json import loads
 else:
     from simplejson import loads
@@ -91,7 +91,7 @@ class AlphaVantage(object):
         # Argument Handling
         argspec = inspect.getargspec(func)
         try:
-            # Asumme most of the cases have a mixed between args and named
+            # Assume most of the cases have a mixed between args and named
             # args
             positional_count = len(argspec.args) - len(argspec.defaults)
             defaults = dict(
@@ -174,7 +174,10 @@ class AlphaVantage(object):
                 self, *args, **kwargs)
             if 'json' in self.output_format.lower() or 'pandas' \
                     in self.output_format.lower():
-                data = call_response[data_key]
+                try:
+                    data = call_response[data_key]
+                except Exception:
+                    raise Exception(call_response)
                 if meta_data_key is not None:
                     meta_data = call_response[meta_data_key]
                 else:
