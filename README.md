@@ -9,7 +9,7 @@
 *Python module to get stock data/cryptocurrencies from the Alpha Vantage API*
 
 Alpha Vantage delivers a free API for real time financial data and most used finance indicators in a simple json or pandas format. This module implements a python interface to the free API provided by Alpha
-Vantage (http://www.alphavantage.co/). It requires a free API, that can be requested on http://www.alphavantage.co/support/#api-key. You can have a look at all the api calls available in their documentation http://www.alphavantage.co/documentation
+Vantage (http://www.alphavantage.co/). It requires a free API key, that can be requested on http://www.alphavantage.co/support/#api-key. You can have a look at all the API calls available in their documentation http://www.alphavantage.co/documentation
 
 ## News
 
@@ -34,25 +34,25 @@ pip install -e alpha_vantage
 ```
 
 ## Usage
-To get data in a python, simply import the library and call the object with your api key and get ready for some awesome free realtime finance data.
+To get data from the API, simply import the library and call the object with your API key. Next, get ready for some awesome, free, realtime finance data. Your API key may also be stored in the environment variable ``ALPHAVANTAGE_API_KEY``.
 ```python
 from alpha_vantage.timeseries import TimeSeries
 ts = TimeSeries(key='YOUR_API_KEY')
 # Get json object with the intraday data and another with  the call's metadata
 data, meta_data = ts.get_intraday('GOOGL')
 ```
-Internally there is a retries counter, that can be used to minimize connection errors (in case that the api is not able to respond in time), the default is set to
+Internally there is a retries counter, that can be used to minimize connection errors (in case that the API is not able to respond in time), the default is set to
 5 but can be increased or decreased whenever needed.
 ```python
 ts = TimeSeries(key='YOUR_API_KEY',retries='YOUR_RETRIES')
 ```
-The library supports giving its results as json dictionaries (default), pandas dataframe (if installed) or csv, simply pass the parameter output_format='pandas' to change the format of the output for all the api calls in the given class. Please note that some API calls do not support the csv format (namely ```ForeignExchange, SectorPerformances and TechIndicators```) because the API endpoint does not support the format on their calls either.
+The library supports giving its results as json dictionaries (default), pandas dataframe (if installed) or csv, simply pass the parameter output_format='pandas' to change the format of the output for all the API calls in the given class. Please note that some API calls do not support the csv format (namely ```ForeignExchange, SectorPerformances and TechIndicators```) because the API endpoint does not support the format on their calls either.
 
 ```python
 ts = TimeSeries(key='YOUR_API_KEY',output_format='pandas')
 ```
 
-The pandas data frame given by the call, can have either a date string indexing or an integer indexing (by default the indexing is 'data'),
+The pandas data frame given by the call, can have either a date string indexing or an integer indexing (by default the indexing is 'date'),
 depending on your needs, you can use both.
 
 ```python
@@ -94,7 +94,7 @@ Giving us as output:
 ![alt text](images/docs_ts_msft_example.png?raw=True "MSFT minute value plot example")
 
 ### Technical indicators
-The same way we can get pandas to plot technical indicators like Bolliger Bands®
+The same way we can get pandas to plot technical indicators like Bollinger Bands®
 
 ```python
 from alpha_vantage.techindicators import TechIndicators
@@ -138,10 +138,10 @@ from alpha_vantage.cryptocurrencies import CryptoCurrencies
 import matplotlib.pyplot as plt
 
 cc = CryptoCurrencies(key='YOUR_API_KEY', output_format='pandas')
-data, meta_data = cc.get_digital_currency_intraday(symbol='BTC', market='CNY')
-data['1b. price (USD)'].plot()
+data, meta_data = cc.get_digital_currency_daily(symbol='BTC', market='CNY')
+data['4b. close (USD)'].plot()
 plt.tight_layout()
-plt.title('Intraday value for bitcoin (BTC)')
+plt.title('Daily close value for bitcoin (BTC)')
 plt.grid()
 plt.show()
 ```
@@ -154,7 +154,7 @@ Giving us as output:
 The foreign exchange is just metadata, thus only available as json format (using the 'csv' or 'pandas' format will raise an Error)
 
 ```python
-import alpha_vantage.foreignexchange import ForeignExchange
+from alpha_vantage.foreignexchange import ForeignExchange
 from pprint import pprint
 cc = ForeignExchange(key='YOUR_API_KEY')
 # There is no metadata in this call
@@ -182,7 +182,7 @@ usage of the library: https://github.com/RomelTorres/av_example
 
 ## Tests
 
-In order to run the tests you have to first export your API key so that the test can use it to run, also the test require pandas, mock and nose.
+In order to run the tests you have to first export your API key so that the test can use it to run, also the tests require pandas, mock and nose.
 ```shell
 export API_KEY=YOUR_API_KEY
 cd alpha_vantage
@@ -201,6 +201,6 @@ Contributing is always welcome, since sometimes I am busy. Just contact me on ho
 * Add tests for incompatible parameter raise errors.
 
 ## Star if you like it.
-If you like or use this project, consider showing your support by staring it.
+If you like or use this project, consider showing your support by starring it.
 
 :venezuela:-:de:
