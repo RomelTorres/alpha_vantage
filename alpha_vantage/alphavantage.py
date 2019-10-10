@@ -16,7 +16,7 @@ class AlphaVantage(object):
     """ Base class where the decorators and base function for the other
     classes of this python wrapper will inherit from.
     """
-    _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
+    _ALPHA_VANTAGE_API_URL = "https://www.alphavantage.co/query?"
     _ALPHA_VANTAGE_MATH_MAP = ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA',
                                'T3', 'KAMA', 'MAMA']
     _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = \
