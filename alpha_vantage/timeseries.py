@@ -34,7 +34,7 @@ class TimeSeries(av):
             symbol:  the symbol for the equity we want to get its data
             outputsize:  The size of the call, supported values are
                 'compact' and 'full; the first returns the last 100 points in the
-                data series, and 'full' returns the full-length intraday times
+                data series, and 'full' returns the full-length daily times
                 series, commonly above 1MB (default 'compact')
         """
         _FUNCTION_KEY = "TIME_SERIES_DAILY"
@@ -52,7 +52,7 @@ class TimeSeries(av):
             symbol:  the symbol for the equity we want to get its data
             outputsize:  The size of the call, supported values are
                 'compact' and 'full; the first returns the last 100 points in the
-                data series, and 'full' returns the full-length intraday times
+                data series, and 'full' returns the full-length daily times
                 series, commonly above 1MB (default 'compact')
         """
         _FUNCTION_KEY = "TIME_SERIES_DAILY_ADJUSTED"
