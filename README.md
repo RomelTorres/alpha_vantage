@@ -205,7 +205,7 @@ Contributing is always welcome, since sometimes I am busy. Just contact me on ho
 ## Contact:
 You can reach the Alpha Vantage team on any of the following platforms:
 * [Slack](https://alphavantage.herokuapp.com/)
-* [Twitter: @alpha_vantage](https://alphavantage.herokuapp.com/)
+* [Twitter: @alpha_vantage](https://twitter.com/alpha_vantage)
 * Email: support@alphavantage.co
 
 
