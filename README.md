@@ -200,6 +200,15 @@ Contributing is always welcome, since sometimes I am busy. Just contact me on ho
 * Add test for csv calls as well.
 * Add tests for incompatible parameter raise errors.
 
+
+
+## Contact:
+You can reach the Alpha Vantage team on any of the following platforms:
+* [Slack](https://alphavantage.herokuapp.com/)
+* [Twitter: @alpha_vantage](https://twitter.com/alpha_vantage)
+* Email: support@alphavantage.co
+
+
 ## Star if you like it.
 If you like or use this project, consider showing your support by starring it.
 
