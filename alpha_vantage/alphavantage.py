@@ -186,9 +186,21 @@ class AlphaVantage(object):
                         data_pandas = pandas.DataFrame(data_array, columns=[
                             k for k, _ in data[0].items()])
                     else:
-                        data_pandas = pandas.DataFrame.from_dict(data,
-                                                                 orient='index',
-                                                                 dtype=float)
+                        try:
+                            data_pandas = pandas.DataFrame.from_dict(data,
+                                                                     orient='index',
+                                                                     dtype='float')
+                        # This is for Global quotes or any other new Alpha Vantage
+                        # data that is added.
+                        # It will have to be updated so that we can get exactly
+                        # The dataframes we want moving forward
+                        except ValueError:
+                            data = {data_key: data}
+                            data_pandas = pandas.DataFrame.from_dict(data,
+                                                                     orient='index',
+                                                                     dtype='object')
+                            return data_pandas, meta_data
+
                     if 'integer' in self.indexing_type:
                         # Set Date as an actual column so a new numerical index
                         # will be created, but only when specified by the user.
@@ -197,7 +209,8 @@ class AlphaVantage(object):
                     else:
                         data_pandas.index.name = 'date'
                         # convert to pandas._libs.tslibs.timestamps.Timestamp
-                        data_pandas.index = pandas.to_datetime(data_pandas.index)
+                        data_pandas.index = pandas.to_datetime(
+                            data_pandas.index)
                     return data_pandas, meta_data
             elif 'csv' in self.output_format.lower():
                 return call_response, None
