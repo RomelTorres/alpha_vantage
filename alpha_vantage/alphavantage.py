@@ -16,7 +16,7 @@ class AlphaVantage(object):
     """ Base class where the decorators and base function for the other
     classes of this python wrapper will inherit from.
     """
-    _ALPHA_VANTAGE_API_URL = "http://www.alphavantage.co/query?"
+    _ALPHA_VANTAGE_API_URL = "https://www.alphavantage.co/query?"
     _ALPHA_VANTAGE_MATH_MAP = ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA',
                                'T3', 'KAMA', 'MAMA']
     _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = \
@@ -162,6 +162,7 @@ class AlphaVantage(object):
             if 'json' in self.output_format.lower() or 'pandas' \
                     in self.output_format.lower():
                 data = call_response[data_key]
+                
                 if meta_data_key is not None:
                     meta_data = call_response[meta_data_key]
                 else:
@@ -271,7 +272,10 @@ class AlphaVantage(object):
         if 'json' in self.output_format.lower() or 'pandas' in \
                 self.output_format.lower():
             json_response = response.json()
-            if "Error Message" in json_response:
+            if not json_response:
+                raise ValueError(
+                    'Error getting data from the api, no return was given.')
+            elif "Error Message" in json_response:
                 raise ValueError(json_response["Error Message"])
             elif "Information" in json_response and self.treat_info_as_error:
                 raise ValueError(json_response["Information"])

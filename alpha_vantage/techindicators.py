@@ -165,6 +165,20 @@ class TechIndicators(av):
 
     @av._output_format
     @av._call_api_on_func
+    def get_vwap(self, symbol, interval='5min'):
+        """ Returns the volume weighted average price (VWAP) for intraday time series.
+
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min' 
+                (default 5min)
+        """
+        _FUNCTION_KEY = "VWAP"
+        return _FUNCTION_KEY, 'Technical Analysis: VWAP', 'Meta Data'
+
+    @av._output_format
+    @av._call_api_on_func
     def get_t3(self, symbol, interval='daily', time_period=20, series_type='close'):
         """ Return triple exponential moving average time series in two json
         objects as data and meta_data. It raises ValueError when problems arise
