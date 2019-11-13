@@ -24,7 +24,7 @@ pip install alpha_vantage
 ```
 Or install with pandas support, simply install pandas too:
 ```shell
-pip install alpha_vantage, pandas
+pip install alpha_vantage pandas
 ```
 
 If you want to install from source, then use:
