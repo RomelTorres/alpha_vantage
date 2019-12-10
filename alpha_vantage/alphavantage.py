@@ -50,7 +50,7 @@ class AlphaVantage(object):
                              'https://www.alphavantage.co/support/#api-key')
         self.key = key
         self.output_format = output_format
-        if self.output_format is 'pandas' and not _PANDAS_FOUND:
+        if self.output_format == 'pandas' and not _PANDAS_FOUND:
             raise ValueError("The pandas library was not found, therefore can "
                              "not be used as an output format, please install "
                              "manually")
