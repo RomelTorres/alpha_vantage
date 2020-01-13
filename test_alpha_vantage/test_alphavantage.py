@@ -53,7 +53,6 @@ class TestAlphaVantage(unittest.TestCase):
             self.assertIsInstance(
                 data, dict, 'Result Data must be a dictionary')
 
-
     @requests_mock.Mocker()
     def test_time_series_intraday(self, mock_request):
         """ Test that api call returns a json file as requested
@@ -82,7 +81,6 @@ class TestAlphaVantage(unittest.TestCase):
                 "MSFT", interval='1min', outputsize='full')
             self.assertIsInstance(
                 data, df, 'Result Data must be a pandas data frame')
-
 
     @requests_mock.Mocker()
     def test_time_series_intraday_date_indexing(self, mock_request):
@@ -214,4 +212,3 @@ class TestAlphaVantage(unittest.TestCase):
             data, _ = ts.get_batch_stock_quotes(symbols=('MSFT', 'FB', 'AAPL'))
             self.assertIsInstance(
                 data, df, 'Result Data must be a pandas dataframe')
-
