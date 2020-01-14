@@ -19,6 +19,7 @@ class TestAlphaVantage(unittest.TestCase):
     """
     _API_KEY_TEST = os.environ['API_KEY']
     _API_EQ_NAME_TEST = 'MSFT'
+    _RAPIDAPI_KEY_TEST = os.getenv("RAPIDAPI_KEY")
 
     def setUp(self):
         """
@@ -61,6 +62,19 @@ class TestAlphaVantage(unittest.TestCase):
             self.fail(msg='A None api key must raise an error')
         except ValueError:
             self.assertTrue(True)
+
+    def test_rapidapi_key_with_get_daily(self):
+        """RapidAPI calls must return the same data as non-rapidapi calls
+        """
+        # Test rapidAPI calls are the same as regular ones
+        ts_rapidapi = TimeSeries(
+            key=TestAlphaVantage._RAPIDAPI_KEY_TEST, rapidapi=True)
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST)
+        rapidapi_data, rapidapi_metadata = ts_rapidapi.get_daily(
+            symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+        data, metadata = ts.get_daily(
+            symbol=TestAlphaVantage._API_EQ_NAME_TEST)
+        self.assertTrue(rapidapi_data == data)
 
     def test_get_daily_is_format(self):
         """Result must be a dictionary containing the json data
@@ -136,7 +150,8 @@ class TestAlphaVantage(unittest.TestCase):
     def test_get_currency_exchange_intraday_pandas(self):
         """Test that we get a dictionary containing pandas data
         """
-        fe = ForeignExchange(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        fe = ForeignExchange(
+            key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
         self._assert_result_is_format(fe.get_currency_exchange_intraday,
                                       output_format='pandas',
                                       from_symbol='USD',
@@ -155,7 +170,8 @@ class TestAlphaVantage(unittest.TestCase):
     def test_get_currency_exchange_daily_pandas(self):
         """Test that we get a dictionary containing pandas data
         """
-        fe = ForeignExchange(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        fe = ForeignExchange(
+            key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
         self._assert_result_is_format(fe.get_currency_exchange_daily,
                                       output_format='pandas',
                                       from_symbol='USD',
@@ -174,7 +190,8 @@ class TestAlphaVantage(unittest.TestCase):
     def test_get_currency_exchange_weekly_pandas(self):
         """Test that we get a dictionary containing pandas data
         """
-        fe = ForeignExchange(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        fe = ForeignExchange(
+            key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
         self._assert_result_is_format(fe.get_currency_exchange_weekly,
                                       output_format='pandas',
                                       from_symbol='USD',
@@ -192,7 +209,8 @@ class TestAlphaVantage(unittest.TestCase):
     def test_get_currency_exchange_monthly_pandas(self):
         """Test that we get a dictionary containing pandas data
         """
-        fe = ForeignExchange(key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
+        fe = ForeignExchange(
+            key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
         self._assert_result_is_format(fe.get_currency_exchange_monthly,
                                       output_format='pandas',
                                       from_symbol='USD',
