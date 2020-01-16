@@ -13,6 +13,8 @@ Vantage (http://www.alphavantage.co/). It requires a free API key, that can be r
 
 ## News
 
+* From version 2.1.3 onwards, [rapidAPI](https://rapidapi.com/alphavantage/api/alpha-vantage-alpha-vantage-default) key integration is now available.
+* From version 2.1.0 onwards, error logging of bad API calls has been made more apparent.
 * From version 1.9.0 onwards, the urllib was substituted by pythons request library that is thread safe. If you have any error, post an issue.
 * From version 1.8.0 onwards, the column names of the data frames have changed, they are now exactly what alphavantage gives back in their json response. You can see the examples in better detail in the following git repo:  https://github.com/RomelTorres/av_example
 * From version 1.6.0, pandas was taken out as a hard dependency.
@@ -41,6 +43,12 @@ ts = TimeSeries(key='YOUR_API_KEY')
 # Get json object with the intraday data and another with  the call's metadata
 data, meta_data = ts.get_intraday('GOOGL')
 ```
+You may also get a key from [rapidAPI](https://rapidapi.com/alphavantage/api/alpha-vantage-alpha-vantage-default). Use your rapidAPI key for the key variable, and set ```rapidapi=True```
+
+```python
+ts = TimeSeries(key='YOUR_API_KEY',rapidapi=True)
+```
+
 Internally there is a retries counter, that can be used to minimize connection errors (in case that the API is not able to respond in time), the default is set to
 5 but can be increased or decreased whenever needed.
 ```python
@@ -193,7 +201,7 @@ nosetests
 The code documentation can be found at https://alpha-vantage.readthedocs.io/en/latest/
 
 ## Contributing
-Contributing is always welcome, since sometimes I am busy. Just contact me on how best you can contribute.
+Contributing is always welcome. Just contact us on how best you can contribute, add an issue, or make a PR. 
 
 ## TODOs:
 * The integration tests are not being run at the moment within travis, gotta fix them to run.
