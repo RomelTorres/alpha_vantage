@@ -22,8 +22,10 @@ class AlphaVantage(object):
     _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = \
         "https://www.alphavantage.co/digital_currency_list/"
 
+    _RAPIDAPI_URL = "https://alpha-vantage.p.rapidapi.com/query?"
+
     def __init__(self, key=None, output_format='json',
-                 treat_info_as_error=True, indexing_type='date', proxy=None):
+                 treat_info_as_error=True, indexing_type='date', proxy=None, rapidapi=False):
         """ Initialize the class
 
         Keyword Arguments:
@@ -38,6 +40,8 @@ class AlphaVantage(object):
             output_format is 'pandas'
             proxy: Dictionary mapping protocol or protocol and hostname to 
             the URL of the proxy.
+            rapidapi: Boolean describing whether or not the API key is 
+            through the RapidAPI platform or not
         """
         if key is None:
             key = os.getenv('ALPHAVANTAGE_API_KEY')
@@ -48,9 +52,16 @@ class AlphaVantage(object):
                              'ALPHAVANTAGE_API_KEY. Get a free key '
                              'from the alphavantage website: '
                              'https://www.alphavantage.co/support/#api-key')
+        self.headers = {}
+        if rapidapi:
+            self.headers = {
+                'x-rapidapi-host': "alpha-vantage.p.rapidapi.com",
+                'x-rapidapi-key': key
+            }
+        self.rapidapi = rapidapi
         self.key = key
         self.output_format = output_format
-        if self.output_format is 'pandas' and not _PANDAS_FOUND:
+        if self.output_format == 'pandas' and not _PANDAS_FOUND:
             raise ValueError("The pandas library was not found, therefore can "
                              "not be used as an output format, please install "
                              "manually")
@@ -109,8 +120,8 @@ class AlphaVantage(object):
             # key for it and for its meta data.
             function_name, data_key, meta_data_key = func(
                 self, *args, **kwargs)
-            url = "{}function={}".format(AlphaVantage._ALPHA_VANTAGE_API_URL,
-                                         function_name)
+            base_url = AlphaVantage._RAPIDAPI_URL if self.rapidapi else AlphaVantage._ALPHA_VANTAGE_API_URL
+            url = "{}function={}".format(base_url, function_name)
             for idx, arg_name in enumerate(argspec.args[1:]):
                 try:
                     arg_value = args[idx]
@@ -139,10 +150,12 @@ class AlphaVantage(object):
                 raise ValueError("Output format: {} not recognized, only json,"
                                  "pandas and csv are supported".format(
                                      self.output_format.lower()))
+            apikey_parameter = "" if self.rapidapi else "&apikey={}".format(
+                self.key)
             if self._append_type:
-                url = '{}&apikey={}&datatype={}'.format(url, self.key, oformat)
+                url = '{}{}&datatype={}'.format(url, apikey_parameter, oformat)
             else:
-                url = '{}&apikey={}'.format(url, self.key)
+                url = '{}{}'.format(url, apikey_parameter)
             return self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
@@ -162,7 +175,7 @@ class AlphaVantage(object):
             if 'json' in self.output_format.lower() or 'pandas' \
                     in self.output_format.lower():
                 data = call_response[data_key]
-                
+
                 if meta_data_key is not None:
                     meta_data = call_response[meta_data_key]
                 else:
@@ -268,7 +281,7 @@ class AlphaVantage(object):
             meta_data_key:  The key for getting the meta data information out
             of the json object
         """
-        response = requests.get(url, proxies=self.proxy)
+        response = requests.get(url, proxies=self.proxy, headers=self.headers)
         if 'json' in self.output_format.lower() or 'pandas' in \
                 self.output_format.lower():
             json_response = response.json()
