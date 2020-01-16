@@ -54,6 +54,20 @@ class TestAlphaVantage(unittest.TestCase):
                 data, dict, 'Result Data must be a dictionary')
 
     @requests_mock.Mocker()
+    def test_rapidapi_key(self, mock_request):
+        """ Test that the rapidAPI key calls the rapidAPI endpoint
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST, rapidapi=True)
+        url = "https://alpha-vantage.p.rapidapi.com/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=1min&outputsize=full&datatype=json"
+        path_file = self.get_file_from_url("mock_time_series")
+        with open(path_file) as f:
+            mock_request.get(url, text=f.read())
+            data, _ = ts.get_intraday(
+                "MSFT", interval='1min', outputsize='full')
+            self.assertIsInstance(
+                data, dict, 'Result Data must be a dictionary')
+
+    @requests_mock.Mocker()
     def test_time_series_intraday(self, mock_request):
         """ Test that api call returns a json file as requested
         """
