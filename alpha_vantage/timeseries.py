@@ -113,18 +113,6 @@ class TimeSeries(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_batch_stock_quotes(self, symbols):
-        """ Return multiple stock quotes with a single request.
-        It raises ValueError when problems arise
-
-        Keyword Arguments:
-            symbols:  A tuple or list Sof symbols to query
-        """
-        _FUNCTION_KEY = "BATCH_STOCK_QUOTES"
-        return _FUNCTION_KEY, 'Stock Quotes', 'Meta Data'
-
-    @av._output_format
-    @av._call_api_on_func
     def get_quote_endpoint(self, symbol):
         """ Return the latest price and volume information for a
          security of your choice 
