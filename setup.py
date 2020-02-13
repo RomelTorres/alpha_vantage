@@ -29,9 +29,11 @@ setup(
     ],
     url='https://github.com/RomelTorres/alpha_vantage',
     install_requires=[
+        'aiohttp',
         'requests'
     ],
     test_requires=[
+        'aioresponses',
         'nose',
         'requests_mock'
     ],
