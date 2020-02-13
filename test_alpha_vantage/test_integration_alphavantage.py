@@ -7,9 +7,9 @@ from ..alpha_vantage.foreignexchange import ForeignExchange
 
 from pandas import DataFrame as df
 
+import os
 import unittest
 import timeit
-import os
 import time
 
 
