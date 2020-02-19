@@ -1,8 +1,6 @@
-import requests
-import os
+import aiohttp
 from functools import wraps
 import inspect
-import sys
 import re
 # Pandas became an optional dependency, but we still want to track it
 try:
@@ -11,67 +9,19 @@ try:
 except ImportError:
     _PANDAS_FOUND = False
 import csv
+from ..alphavantage import AlphaVantage as AlphaVantageBase
 
 
-class AlphaVantage(object):
-    """ Base class where the decorators and base function for the other
-    classes of this python wrapper will inherit from.
+class AlphaVantage(AlphaVantageBase):
     """
-    _ALPHA_VANTAGE_API_URL = "https://www.alphavantage.co/query?"
-    _ALPHA_VANTAGE_MATH_MAP = ['SMA', 'EMA', 'WMA', 'DEMA', 'TEMA', 'TRIMA',
-                               'T3', 'KAMA', 'MAMA']
-    _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = \
-        "https://www.alphavantage.co/digital_currency_list/"
+    Async version of the base class where the decorators and base function for
+    the other classes of this python wrapper will inherit from.
+    """
 
-    _RAPIDAPI_URL = "https://alpha-vantage.p.rapidapi.com/query?"
-
-    def __init__(self, key=None, output_format='json',
-                 treat_info_as_error=True, indexing_type='date', proxy=None, rapidapi=False):
-        """ Initialize the class
-
-        Keyword Arguments:
-            key:  Alpha Vantage api key
-            retries:  Maximum amount of retries in case of faulty connection or
-                server not able to answer the call.
-            treat_info_as_error: Treat information from the api as errors
-            output_format:  Either 'json', 'pandas' os 'csv'
-            indexing_type: Either 'date' to use the default date string given
-            by the alpha vantage api call or 'integer' if you just want an
-            integer indexing on your dataframe. Only valid, when the
-            output_format is 'pandas'
-            proxy: Dictionary mapping protocol or protocol and hostname to
-            the URL of the proxy.
-            rapidapi: Boolean describing whether or not the API key is
-            through the RapidAPI platform or not
-        """
-        if key is None:
-            key = os.getenv('ALPHAVANTAGE_API_KEY')
-        if not key or not isinstance(key, str):
-            raise ValueError('The AlphaVantage API key must be provided '
-                             'either through the key parameter or '
-                             'through the environment variable '
-                             'ALPHAVANTAGE_API_KEY. Get a free key '
-                             'from the alphavantage website: '
-                             'https://www.alphavantage.co/support/#api-key')
-        self.headers = {}
-        if rapidapi:
-            self.headers = {
-                'x-rapidapi-host': "alpha-vantage.p.rapidapi.com",
-                'x-rapidapi-key': key
-            }
-        self.rapidapi = rapidapi
-        self.key = key
-        self.output_format = output_format
-        if self.output_format == 'pandas' and not _PANDAS_FOUND:
-            raise ValueError("The pandas library was not found, therefore can "
-                             "not be used as an output format, please install "
-                             "manually")
-        self.treat_info_as_error = treat_info_as_error
-        # Not all the calls accept a data type appended at the end, this
-        # variable will be overridden by those functions not needing it.
-        self._append_type = True
-        self.indexing_type = indexing_type
-        self.proxy = proxy or {}
+    def __init__(self, *args, proxy=None, **kwargs):
+        super(AlphaVantage, self).__init__(*args, **kwargs)
+        self.session = None
+        self.proxy = proxy or ''
 
     @classmethod
     def _call_api_on_func(cls, func):
@@ -84,11 +34,7 @@ class AlphaVantage(object):
         """
 
         # Argument Handling
-        if sys.version_info[0] < 3:
-            # Deprecated since version 3.0
-            argspec = inspect.getargspec(func)
-        else:
-            argspec = inspect.getfullargspec(func)
+        argspec = inspect.getfullargspec(func)
         try:
             # Asumme most of the cases have a mixed between args and named
             # args
@@ -107,7 +53,7 @@ class AlphaVantage(object):
         # Actual decorating
 
         @wraps(func)
-        def _call_wrapper(self, *args, **kwargs):
+        async def _call_wrapper(self, *args, **kwargs):
             used_kwargs = kwargs.copy()
             # Get the used positional arguments given to the function
             used_kwargs.update(zip(argspec.args[positional_count:],
@@ -157,7 +103,7 @@ class AlphaVantage(object):
                 url = '{}{}&datatype={}'.format(url, apikey_parameter, oformat)
             else:
                 url = '{}{}'.format(url, apikey_parameter)
-            return self._handle_api_call(url), data_key, meta_data_key
+            return await self._handle_api_call(url), data_key, meta_data_key
         return _call_wrapper
 
     @classmethod
@@ -172,8 +118,8 @@ class AlphaVantage(object):
             A decorator for the format sector api call
         """
         @wraps(func)
-        def _format_wrapper(self, *args, **kwargs):
-            json_response, data_key, meta_data_key = func(
+        async def _format_wrapper(self, *args, **kwargs):
+            json_response, data_key, meta_data_key = await func(
                 self, *args, **kwargs)
             if isinstance(data_key, list):
                 # Replace the strings into percentage
@@ -214,8 +160,8 @@ class AlphaVantage(object):
             override:  Override the internal format of the call, default None
         """
         @wraps(func)
-        def _format_wrapper(self, *args, **kwargs):
-            call_response, data_key, meta_data_key = func(
+        async def _format_wrapper(self, *args, **kwargs):
+            call_response, data_key, meta_data_key = await func(
                 self, *args, **kwargs)
             if 'json' in self.output_format.lower() or 'pandas' \
                     in self.output_format.lower():
@@ -279,57 +225,28 @@ class AlphaVantage(object):
         return _format_wrapper
 
     def set_proxy(self, proxy=None):
-        """ Set a new proxy configuration
+        """
+        Set a new proxy configuration
 
         Keyword Arguments:
-            proxy: Dictionary mapping protocol or protocol and hostname to
-            the URL of the proxy.
+            proxy: String URL of the proxy.
         """
-        self.proxy = proxy or {}
+        self.proxy = proxy or ''
 
-    def map_to_matype(self, matype):
-        """ Convert to the alpha vantage math type integer. It returns an
-        integer correspondent to the type of math to apply to a function. It
-        raises ValueError if an integer greater than the supported math types
-        is given.
-
-        Keyword Arguments:
-            matype:  The math type of the alpha vantage api. It accepts
-            integers or a string representing the math type.
-
-                * 0 = Simple Moving Average (SMA),
-                * 1 = Exponential Moving Average (EMA),
-                * 2 = Weighted Moving Average (WMA),
-                * 3 = Double Exponential Moving Average (DEMA),
-                * 4 = Triple Exponential Moving Average (TEMA),
-                * 5 = Triangular Moving Average (TRIMA),
-                * 6 = T3 Moving Average,
-                * 7 = Kaufman Adaptive Moving Average (KAMA),
-                * 8 = MESA Adaptive Moving Average (MAMA)
+    async def _handle_api_call(self, url):
         """
-        # Check if it is an integer or a string
-        try:
-            value = int(matype)
-            if abs(value) > len(AlphaVantage._ALPHA_VANTAGE_MATH_MAP):
-                raise ValueError("The value {} is not supported".format(value))
-        except ValueError:
-            value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(matype)
-        return value
-
-    def _handle_api_call(self, url):
-        """ Handle the return call from the  api and return a data and meta_data
+        Handle the return call from the  api and return a data and meta_data
         object. It raises a ValueError on problems
 
         Keyword Arguments:
             url:  The url of the service
-            data_key:  The key for getting the data from the jso object
-            meta_data_key:  The key for getting the meta data information out
-            of the json object
         """
-        response = requests.get(url, proxies=self.proxy, headers=self.headers)
+        if not self.session:
+            self.session = aiohttp.ClientSession()
+        response = await self.session.get(url, proxy=self.proxy, headers=self.headers)
         if 'json' in self.output_format.lower() or 'pandas' in \
                 self.output_format.lower():
-            json_response = response.json()
+            json_response = await response.json()
             if not json_response:
                 raise ValueError(
                     'Error getting data from the api, no return was given.')
@@ -346,3 +263,10 @@ class AlphaVantage(object):
                 raise ValueError(
                     'Error getting data from the api, no return was given.')
             return csv_response
+
+    async def close(self):
+        """
+        Close the underlying aiohttp session
+        """
+        if self.session and not self.session.closed:
+            await self.session.close()

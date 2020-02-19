@@ -1,14 +1,15 @@
+#! /usr/bin/env python
 from ..alpha_vantage.alphavantage import AlphaVantage
 from ..alpha_vantage.timeseries import TimeSeries
 from ..alpha_vantage.techindicators import TechIndicators
 from ..alpha_vantage.sectorperformance import SectorPerformances
-from ..alpha_vantage.cryptocurrencies import CryptoCurrencies
 from ..alpha_vantage.foreignexchange import ForeignExchange
+
 from pandas import DataFrame as df, Timestamp
+
 import unittest
 import sys
 from os import path
-import requests
 import requests_mock
 
 
