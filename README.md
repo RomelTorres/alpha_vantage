@@ -13,6 +13,7 @@ Vantage (http://www.alphavantage.co/). It requires a free API key, that can be r
 
 ## News
 
+* From version 2.2.0 onwards, asyncio support now provided. See below for more information. 
 * From version 2.1.3 onwards, [rapidAPI](https://rapidapi.com/alphavantage/api/alpha-vantage-alpha-vantage-default) key integration is now available.
 * From version 2.1.0 onwards, error logging of bad API calls has been made more apparent.
 * From version 1.9.0 onwards, the urllib was substituted by pythons request library that is thread safe. If you have any error, post an issue.
@@ -182,6 +183,36 @@ Giving us as output:
 }
 ```
 
+### Asyncio support
+
+From version 2.2.0 on, asyncio support will now be available. This is only for python versions 3.5+. If you do not have 3.5+, the code will break.
+
+The syntax is simple, just mark your methods with the `async` keyword, and use the `await` keyword. 
+
+Here is an example of a for loop for getting multiple symbols asyncronously. This greatly improving the performance of a program with multiple API calls.
+
+```python
+import asyncio
+from alpha_vantage.async_support.timeseries import TimeSeries
+
+symbols = ['AAPL', 'GOOG', 'TSLA', 'MSFT']
+
+
+async def get_data(symbol):
+    ts = TimeSeries(key='YOUR_KEY_HERE')
+    data, _ = await ts.get_quote_endpoint(symbol)
+    await ts.close()
+    return data
+
+loop = asyncio.get_event_loop()
+tasks = [get_data(symbol) for symbol in symbols]
+group1 = asyncio.gather(*tasks)
+results = loop.run_until_complete(group1)
+loop.close()
+print(results)
+```
+
+
 ## Examples
 
 I have added a repository with examples in a python notebook to better see the
@@ -207,13 +238,16 @@ Contributing is always welcome. Just contact us on how best you can contribute, 
 * The integration tests are not being run at the moment within travis, gotta fix them to run.
 * Add test for csv calls as well.
 * Add tests for incompatible parameter raise errors.
+* Github actions & other items in the issues page. 
 
 
 
 ## Contact:
-You can reach the Alpha Vantage team on any of the following platforms:
+You can reach/follow the Alpha Vantage team on any of the following platforms:
 * [Slack](https://alphavantage.herokuapp.com/)
 * [Twitter: @alpha_vantage](https://twitter.com/alpha_vantage)
+* [Medium-Patrick](https://medium.com/@patrick.collins_58673)
+* [Medium-AlphaVantage](https://medium.com/alpha-vantage)
 * Email: support@alphavantage.co
 
 
