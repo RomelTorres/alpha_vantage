@@ -82,10 +82,9 @@ To find out more about the available api calls, visit the alpha-vantage
 documentation at http://www.alphavantage.co/documentation/
 
 
-
 .. |Build Status| image:: https://travis-ci.org/RomelTorres/alpha_vantage.png?branch=master
    :target: https://travis-ci.org/RomelTorres/alpha_vantage
-.. |PyPI version| image:: https://badge.fury.io/py/alpha_vantage.svg
+.. |PyPI version| image:: https://badge.fury.io/py/alpha-vantage.svg
    :target: https://badge.fury.io/py/alpha_vantage
 .. |Documentation Status| image:: https://readthedocs.org/projects/alpha-vantage/badge/?version=latest
    :target: http://alpha-vantage.readthedocs.io/en/latest/?badge=latest

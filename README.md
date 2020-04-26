@@ -159,7 +159,7 @@ Giving us as output:
 
 ### Foreign Exchange (FX)
 
-The foreign exchange is just metadata, thus only available as json format (using the 'csv' or 'pandas' format will raise an Error)
+The foreign exchange endpoint has no metadata, thus only available as json format and pandas (using the 'csv' format will raise an Error)
 
 ```python
 from alpha_vantage.foreignexchange import ForeignExchange
