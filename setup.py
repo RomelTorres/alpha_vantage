@@ -11,14 +11,14 @@ except IOError:
 
 setup(
     name='alpha_vantage',
-    version='2.1.3',
+    version='2.2.0',
     author='Romel J. Torres',
     author_email='romel.torres@gmail.com',
     license='MIT',
     description='Python module to get stock data from the Alpha Vantage Api',
     long_description=long_description,
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Topic :: Office/Business :: Financial :: Investment',
         'License :: OSI Approved :: MIT License',
@@ -26,12 +26,16 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8'
     ],
     url='https://github.com/RomelTorres/alpha_vantage',
     install_requires=[
+        'aiohttp',
         'requests'
     ],
     test_requires=[
+        'aioresponses',
         'nose',
         'requests_mock'
     ],

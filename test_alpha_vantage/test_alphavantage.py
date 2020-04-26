@@ -1,14 +1,15 @@
+#! /usr/bin/env python
 from ..alpha_vantage.alphavantage import AlphaVantage
 from ..alpha_vantage.timeseries import TimeSeries
 from ..alpha_vantage.techindicators import TechIndicators
 from ..alpha_vantage.sectorperformance import SectorPerformances
-from ..alpha_vantage.cryptocurrencies import CryptoCurrencies
 from ..alpha_vantage.foreignexchange import ForeignExchange
+
 from pandas import DataFrame as df, Timestamp
+
 import unittest
 import sys
 from os import path
-import requests
 import requests_mock
 
 
@@ -199,30 +200,3 @@ class TestAlphaVantage(unittest.TestCase):
                 from_currency='BTC', to_currency='CNY')
             self.assertIsInstance(
                 data, dict, 'Result Data must be a dictionary')
-
-    @requests_mock.Mocker()
-    def test_batch_quotes(self, mock_request):
-        """ Test that api call returns a json file as requested
-        """
-        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST)
-        url = "https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=MSFT,FB,AAPL&apikey=test"
-        path_file = self.get_file_from_url("mock_batch_quotes")
-        with open(path_file) as f:
-            mock_request.get(url, text=f.read())
-            data, _ = ts.get_batch_stock_quotes(symbols=('MSFT', 'FB', 'AAPL'))
-            self.assertIsInstance(
-                data[0], dict, 'Result Data must be a json dictionary')
-
-    @requests_mock.Mocker()
-    def test_batch_quotes_pandas(self, mock_request):
-        """ Test that api call returns a json file as requested
-        """
-        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST,
-                        output_format='pandas')
-        url = "https://www.alphavantage.co/query?function=BATCH_STOCK_QUOTES&symbols=MSFT,FB,AAPL&apikey=test&datatype=json"
-        path_file = self.get_file_from_url("mock_batch_quotes")
-        with open(path_file) as f:
-            mock_request.get(url, text=f.read())
-            data, _ = ts.get_batch_stock_quotes(symbols=('MSFT', 'FB', 'AAPL'))
-            self.assertIsInstance(
-                data, df, 'Result Data must be a pandas dataframe')
