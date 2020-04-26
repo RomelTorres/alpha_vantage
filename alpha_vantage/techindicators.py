@@ -801,7 +801,10 @@ class TechIndicators(av):
             symbol:  the symbol for the equity we want to get its data
             interval:  time interval between two conscutive values,
                 supported values are '1min', '5min', '15min', '30min', '60min', 'daily',
-                'weekly', 'monthly' (default 'daily'
+                'weekly', 'monthly' (default 'daily')
+            time_period:  Number of data points used to calculate each BBANDS value.
+                Positive integers are accepted (e.g., time_period=60, time_period=200)
+                (default=20)
             series_type:  The desired price type in the time series. Four types
                 are supported: 'close', 'open', 'high', 'low' (default 'close')
             nbdevup:  The standard deviation multiplier of the upper band. Positive
