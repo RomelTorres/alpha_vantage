@@ -23,7 +23,7 @@ class SectorPerformances(av):
                 self.output_format.lower()))
 
     def percentage_to_float(self, val):
-        """ Transform a string of ther form f.f% into f.f/100
+        """ Transform a string of the form f.f% into f.f/100
 
         Keyword Arguments:
             val: The string to convert

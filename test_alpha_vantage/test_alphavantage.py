@@ -4,7 +4,7 @@ from ..alpha_vantage.techindicators import TechIndicators
 from ..alpha_vantage.sectorperformance import SectorPerformances
 from ..alpha_vantage.cryptocurrencies import CryptoCurrencies
 from ..alpha_vantage.foreignexchange import ForeignExchange
-from pandas import DataFrame as df
+from pandas import DataFrame as df, Timestamp
 import unittest
 import sys
 from os import path
@@ -21,7 +21,7 @@ class TestAlphaVantage(unittest.TestCase):
     def get_file_from_url(url):
         """
             Return the file name used for testing, found in the test data folder
-            formed using the orginal url
+            formed using the original url
         """
         tmp = url
         for ch in [':', '/', '.', '?', '=', '&', ',']:
@@ -96,10 +96,13 @@ class TestAlphaVantage(unittest.TestCase):
             mock_request.get(url, text=f.read())
             data, _ = ts.get_intraday(
                 "MSFT", interval='1min', outputsize='full')
-            if sys.version_info[0] == 3:
-                assert isinstance(data.index[0], str)
+            if ts.indexing_type == 'date':
+                assert isinstance(data.index[0], Timestamp)
             else:
-                assert isinstance(data.index[0], basestring)
+                if sys.version_info[0] == 3:
+                    assert isinstance(data.index[0], str)
+                else:
+                    assert isinstance(data.index[0], basestring)
 
     @requests_mock.Mocker()
     def test_time_series_intraday_date_integer(self, mock_request):
@@ -184,35 +187,6 @@ class TestAlphaVantage(unittest.TestCase):
                 from_currency='BTC', to_currency='CNY')
             self.assertIsInstance(
                 data, dict, 'Result Data must be a dictionary')
-
-    @requests_mock.Mocker()
-    def test_crypto_currencies(self, mock_request):
-        """ Test that api call returns a json file as requested
-        """
-        cc = CryptoCurrencies(key=TestAlphaVantage._API_KEY_TEST)
-        url = "http://www.alphavantage.co/query?function=DIGITAL_CURRENCY_INTRADAY&symbol=BTC&market=CNY&apikey=test"
-        path_file = self.get_file_from_url("mock_crypto_currencies")
-        with open(path_file) as f:
-            mock_request.get(url, text=f.read())
-            data, _ = cc.get_digital_currency_intraday(
-                symbol='BTC', market='CNY')
-            self.assertIsInstance(
-                data, dict, 'Result Data must be a dictionary')
-
-    @requests_mock.Mocker()
-    def test_crypto_currencies_pandas(self, mock_request):
-        """ Test that api call returns a json file as requested
-        """
-        cc = CryptoCurrencies(
-            key=TestAlphaVantage._API_KEY_TEST, output_format='pandas')
-        url = "http://www.alphavantage.co/query?function=DIGITAL_CURRENCY_INTRADAY&symbol=BTC&market=CNY&apikey=test"
-        path_file = self.get_file_from_url("mock_crypto_currencies")
-        with open(path_file) as f:
-            mock_request.get(url, text=f.read())
-            data, _ = cc.get_digital_currency_intraday(
-                symbol='BTC', market='CNY')
-            self.assertIsInstance(
-                data, df, 'Result Data must be a pandas data frame')
 
     @requests_mock.Mocker()
     def test_batch_quotes(self, mock_request):

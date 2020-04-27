@@ -1,7 +1,8 @@
 import requests
-import sys
+import os
 from functools import wraps
 import inspect
+import sys
 # Pandas became an optional dependency, but we still want to track it
 try:
     import pandas
@@ -9,12 +10,6 @@ try:
 except ImportError:
     _PANDAS_FOUND = False
 import csv
-
-# Avoid compability issues
-if sys.version_info.major == 3 and sys.version_info.minor == 6:
-    from json import loads
-else:
-    from simplejson import loads
 
 
 class AlphaVantage(object):
@@ -27,8 +22,8 @@ class AlphaVantage(object):
     _ALPHA_VANTAGE_DIGITAL_CURRENCY_LIST = \
         "https://www.alphavantage.co/digital_currency_list/"
 
-    def __init__(self, key=None, retries=5, output_format='json',
-                 treat_info_as_error=True, indexing_type='date', proxy={}):
+    def __init__(self, key=None, output_format='json',
+                 treat_info_as_error=True, indexing_type='date', proxy=None):
         """ Initialize the class
 
         Keyword Arguments:
@@ -40,14 +35,20 @@ class AlphaVantage(object):
             indexing_type: Either 'date' to use the default date string given
             by the alpha vantage api call or 'integer' if you just want an
             integer indexing on your dataframe. Only valid, when the
-            output_format is 'pandas'.
+            output_format is 'pandas'
+            proxy: Dictionary mapping protocol or protocol and hostname to 
+            the URL of the proxy.
         """
         if key is None:
-            raise ValueError(
-                'Get a free key from the alphavantage website:'
-                ' https://www.alphavantage.co/support/#api-key')
+            key = os.getenv('ALPHAVANTAGE_API_KEY')
+        if not key or not isinstance(key, str):
+            raise ValueError('The AlphaVantage API key must be provided '
+                             'either through the key parameter or '
+                             'through the environment variable '
+                             'ALPHAVANTAGE_API_KEY. Get a free key '
+                             'from the alphavantage website: '
+                             'https://www.alphavantage.co/support/#api-key')
         self.key = key
-        self.retries = retries
         self.output_format = output_format
         if self.output_format is 'pandas' and not _PANDAS_FOUND:
             raise ValueError("The pandas library was not found, therefore can "
@@ -55,28 +56,10 @@ class AlphaVantage(object):
                              "manually")
         self.treat_info_as_error = treat_info_as_error
         # Not all the calls accept a data type appended at the end, this
-        # variable will be overriden by those functions not needing it.
+        # variable will be overridden by those functions not needing it.
         self._append_type = True
         self.indexing_type = indexing_type
-        self.proxy = proxy
-
-    def _retry(func):
-        """ Decorator for retrying api calls (in case of errors from the api
-        side in bringing the data)
-
-        Keyword Arguments:
-            func:  The function to be retried
-        """
-        @wraps(func)
-        def _retry_wrapper(self, *args, **kwargs):
-            error_message = ""
-            for retry in range(self.retries + 1):
-                try:
-                    return func(self, *args, **kwargs)
-                except ValueError as err:
-                    error_message = str(err)
-            raise ValueError(str(error_message))
-        return _retry_wrapper
+        self.proxy = proxy or {}
 
     @classmethod
     def _call_api_on_func(cls, func):
@@ -89,7 +72,11 @@ class AlphaVantage(object):
         """
 
         # Argument Handling
-        argspec = inspect.getargspec(func)
+        if sys.version_info[0] < 3:
+            # Deprecated since version 3.0
+            argspec = inspect.getargspec(func)
+        else:
+            argspec = inspect.getfullargspec(func)
         try:
             # Asumme most of the cases have a mixed between args and named
             # args
@@ -202,11 +189,15 @@ class AlphaVantage(object):
                         data_pandas = pandas.DataFrame.from_dict(data,
                                                                  orient='index',
                                                                  dtype=float)
-                    data_pandas.index.name = 'date'
                     if 'integer' in self.indexing_type:
                         # Set Date as an actual column so a new numerical index
                         # will be created, but only when specified by the user.
                         data_pandas.reset_index(level=0, inplace=True)
+                        data_pandas.index.name = 'index'
+                    else:
+                        data_pandas.index.name = 'date'
+                        # convert to pandas._libs.tslibs.timestamps.Timestamp
+                        data_pandas.index = pandas.to_datetime(data_pandas.index)
                     return data_pandas, meta_data
             elif 'csv' in self.output_format.lower():
                 return call_response, None
@@ -215,12 +206,18 @@ class AlphaVantage(object):
                     self.output_format))
         return _format_wrapper
 
-    def set_proxy(self, proxy={}):
-        self.proxy = proxy
+    def set_proxy(self, proxy=None):
+        """ Set a new proxy configuration
+
+        Keyword Arguments:
+            proxy: Dictionary mapping protocol or protocol and hostname to 
+            the URL of the proxy.
+        """
+        self.proxy = proxy or {}
 
     def map_to_matype(self, matype):
         """ Convert to the alpha vantage math type integer. It returns an
-        integer correspondant to the type of math to apply to a function. It
+        integer correspondent to the type of math to apply to a function. It
         raises ValueError if an integer greater than the supported math types
         is given.
 
@@ -247,7 +244,6 @@ class AlphaVantage(object):
             value = AlphaVantage._ALPHA_VANTAGE_MATH_MAP.index(matype)
         return value
 
-    @_retry
     def _handle_api_call(self, url):
         """ Handle the return call from the  api and return a data and meta_data
         object. It raises a ValueError on problems
@@ -266,6 +262,8 @@ class AlphaVantage(object):
                 raise ValueError(json_response["Error Message"])
             elif "Information" in json_response and self.treat_info_as_error:
                 raise ValueError(json_response["Information"])
+            elif "Note" in json_response and self.treat_info_as_error:
+                raise ValueError(json_response["Note"])
             return json_response
         else:
             csv_response = csv.reader(response.text.splitlines())
