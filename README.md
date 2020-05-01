@@ -212,6 +212,7 @@ loop.close()
 print(results)
 ```
 
+We have written a much more in depth article to explain asyncio for those who have never used it but want to learn about asyncio, concurrency, and multi-threading. Check it out here: [Which Should You Use: Asynchronous Programming or Multi-Threading?](https://medium.com/better-programming/which-should-you-use-asynchronous-programming-or-multi-threading-7435ec9adc8e?source=friends_link&sk=8c6c05c2bbc3666e9066547cb564c352)
 
 ## Examples
 
