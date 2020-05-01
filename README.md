@@ -8,8 +8,8 @@
 
 *Python module to get stock data/cryptocurrencies from the Alpha Vantage API*
 
-Alpha Vantage delivers a free API for real time financial data and most used finance indicators in a simple json or pandas format. This module implements a python interface to the free API provided by Alpha
-Vantage (http://www.alphavantage.co/). It requires a free API key, that can be requested on http://www.alphavantage.co/support/#api-key. You can have a look at all the API calls available in their documentation http://www.alphavantage.co/documentation
+Alpha Vantage delivers a free API for real time financial data and most used finance indicators in a simple json or pandas format. This module implements a python interface to the free API provided by [Alpha
+Vantage](https://www.alphavantage.co/). It requires a free API key, that can be requested on http://www.alphavantage.co/support/#api-key. You can have a look at all the API calls available in their documentation http://www.alphavantage.co/documentation
 
 ## News
 
