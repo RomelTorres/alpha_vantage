@@ -70,9 +70,9 @@ class TestAlphaVantage(unittest.TestCase):
         ts_rapidapi = TimeSeries(
             key=TestAlphaVantage._RAPIDAPI_KEY_TEST, rapidapi=True)
         ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST)
-        rapidapi_data, rapidapi_metadata = ts_rapidapi.get_daily(
+        rapidapi_data, _ = ts_rapidapi.get_daily(
             symbol=TestAlphaVantage._API_EQ_NAME_TEST)
-        data, metadata = ts.get_daily(
+        data, _ = ts.get_daily(
             symbol=TestAlphaVantage._API_EQ_NAME_TEST)
         self.assertTrue(rapidapi_data == data)
 
