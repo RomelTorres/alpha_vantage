@@ -33,7 +33,7 @@ class CryptoCurrencies(av):
         returns json or pandas only
         """
         _FUNCTION_KEY = 'CRYPTO_RATING'
-        return _FUNCTION_KEY, 'Crypto Rating FCAS', None
+        return _FUNCTION_KEY, 'Crypto Rating', None
     
     
     @av._output_format
