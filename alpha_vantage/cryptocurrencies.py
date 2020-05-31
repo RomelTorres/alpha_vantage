@@ -4,6 +4,16 @@ from .alphavantage import AlphaVantage as av
 class CryptoCurrencies(av):
     """This class implements all the crypto currencies api calls
     """
+    def __init__(self, *args, **kwargs):
+        """
+        Inherit AlphaVantage base class with its default arguments
+        """
+        super(CryptoCurrencies, self).__init__(*args, **kwargs)
+        self._append_type = False
+        if self.output_format.lower() == 'csv':
+            raise ValueError("Output format {} is not compatible with the CryptoCurrencies class".format(
+                self.output_format.lower()))
+    
     @av._output_format
     @av._call_api_on_func
     def get_crypto_rating(self, symbol):
