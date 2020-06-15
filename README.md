@@ -8,8 +8,9 @@
 
 *Python module to get stock data/cryptocurrencies from the Alpha Vantage API*
 
-Alpha Vantage delivers a free API for real time financial data and most used finance indicators in a simple json or pandas format. This module implements a python interface to the free API provided by [Alpha
-Vantage](https://www.alphavantage.co/). It requires a free API key, that can be requested on http://www.alphavantage.co/support/#api-key. You can have a look at all the API calls available in their documentation http://www.alphavantage.co/documentation
+Alpha Vantage delivers a free API for real time financial data and most used finance indicators in a simple json or pandas format. This module implements a python interface to the free API provided by [Alpha Vantage Stock API](https://www.alphavantage.co/). It requires a free API key, that can be requested on http://www.alphavantage.co/support/#api-key. You can have a look at all the API calls available in their [API documentation](https://www.alphavantage.co/documentation/).
+
+For code-less access to the APIs, you may also consider the official [Google Sheet Add-on](https://gsuite.google.com/marketplace/app/alpha_vantage_market_data/434809773372) or the [Microsoft Excel Add-on](https://appsource.microsoft.com/en-us/product/office/WA200001365) by Alpha Vantage. Check out this [stock API guide](https://medium.com/@patrick.collins_58673/stock-api-landscape-5c6e054ee631) for some common tips on working with financial market data. 
 
 ## News
 
@@ -250,6 +251,7 @@ You can reach/follow the Alpha Vantage team on any of the following platforms:
 * [Medium-Patrick](https://medium.com/@patrick.collins_58673)
 * [Medium-AlphaVantage](https://medium.com/alpha-vantage)
 * Email: support@alphavantage.co
+* Community events: https://alphavhack.devpost.com/
 
 
 ## Star if you like it.
