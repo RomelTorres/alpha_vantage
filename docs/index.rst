@@ -14,9 +14,11 @@ Welcome to alpha_vantage's documentation!
 data, plus a comprehensive set of technical indicators. This project is a python wrapper
 around this API to offer python plus json/pandas support. I hope you enjoy it.
 It requires a free API, that can be
-requested on http://www.alphavantage.co/support/#api-key.
+requested on http://www.alphavantage.co/support/#api-key. This `stock API article <https://medium.com/@patrick.collins_58673/stock-api-landscape-5c6e054ee631>`_ also contains general guidance on ingesting and integrating with market data. 
 
-If you are a spreadsheet user, try out the `Google Sheets Add-on <https://gsuite.google.com/marketplace/app/alpha_vantage_market_data/434809773372>`_ and `Microsoft Excel Add-on <https://appsource.microsoft.com/en-us/product/office/WA200001365>`_ from Alpha Vantage. Check out this `stock API article <https://medium.com/@patrick.collins_58673/stock-api-landscape-5c6e054ee631>`_ for general tips on working with financial market data. 
+If you are a spreadsheet user, see also: 
+`Microsoft Excel Add-on <https://appsource.microsoft.com/en-us/product/office/WA200001365>`_ and
+`Google Sheets Add-on <https://gsuite.google.com/marketplace/app/alpha_vantage_market_data/434809773372>`_ 
 
 Install
 -------
