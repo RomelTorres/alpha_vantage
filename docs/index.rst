@@ -60,8 +60,12 @@ And the issue tracker as well: https://github.com/RomelTorres/alpha_vantage/issu
 
 Contributions
 =============
-If you have a feature that you want to see merged in the code, please do a pull
-request with it and it will be evaluated.
+If you have a feature that you want to see merged in the code, please do a pull request with it and it will be evaluated.
+
+Community Pulse
+===============
+* Alpha Vantage used by `Harvard COVID-19 Global Policy Tracker <https://projects.iq.harvard.edu/covidpt/global-policy-tracker>`_ (`link <https://www.hbs.edu/covid-19-business-impact/Insights/Economic-and-Financial-Impacts/Global-Policy-Tracker>`_)
+* Alpha Vantage featured by Xignite's `stock API press release <https://www.xignite.com/news/best-6-free-and-paid-stock-market-apis/>`_
 
 License
 =======
