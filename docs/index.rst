@@ -65,7 +65,7 @@ If you have a feature that you want to see merged in the code, please do a pull 
 Community Pulse
 ===============
 * Alpha Vantage used by `Harvard COVID-19 Global Policy Tracker <https://projects.iq.harvard.edu/covidpt/global-policy-tracker>`_ (`link <https://www.hbs.edu/covid-19-business-impact/Insights/Economic-and-Financial-Impacts/Global-Policy-Tracker>`_)
-* Alpha Vantage featured by Xignite's `stock API press release <https://www.xignite.com/news/best-6-free-and-paid-stock-market-apis/>`_
+* Alpha Vantage featured in `Xignite stock API press release <https://www.xignite.com/news/best-6-free-and-paid-stock-market-apis/>`_, `Google Cloud Tutorial <https://cloud.google.com/community/tutorials/secrets-manager-python>`_, and `MATLAB tutorial <https://www.mathworks.com/matlabcentral/fileexchange/74176-reinforcement-learning-for-financial-trading>`_
 
 License
 =======
