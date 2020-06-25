@@ -65,8 +65,7 @@ If you have a feature that you want to see merged in the code, please do a pull 
 Community Pulse
 ===============
 * Alpha Vantage used by `Harvard COVID-19 Global Policy Tracker <https://projects.iq.harvard.edu/covidpt/global-policy-tracker>`_ (`link <https://www.hbs.edu/covid-19-business-impact/Insights/Economic-and-Financial-Impacts/Global-Policy-Tracker>`_)
-* Alpha Vantage featured in `Xignite stock API press release <https://www.xignite.com/news/best-6-free-and-paid-stock-market-apis/>`_, `Google Cloud Tutorial <https://cloud.google.com/community/tutorials/secrets-manager-python>`_, and `MATLAB tutorial <https://www.mathworks.com/matlabcentral/fileexchange/74176-reinforcement-learning-for-financial-trading>`_
-* Alpha Vantage highlighted by several leading universities, including `Best 5 Stock APIs in 2020 – A Guide for Investors <https://digital.hbs.edu/platform-digit/submission/best-5-stock-apis-in-2020-a-guide-for-investors/>`_ by Harvard Business School and `Best 5 (Free and Paid) Stock Market APIs in 2020 <https://wp.nyu.edu/qids/2020/06/23/best-stock-api-2020/>`_ by New York University
+* Alpha Vantage featured in `Xignite stock API press release <https://www.xignite.com/news/best-6-free-and-paid-stock-market-apis/>`_, `Google Cloud Tutorial <https://cloud.google.com/community/tutorials/secrets-manager-python>`_, `MATLAB tutorial <https://www.mathworks.com/matlabcentral/fileexchange/74176-reinforcement-learning-for-financial-trading>`_, and `Best 5 (Free and Paid) Stock Market APIs in 2020 <https://wp.nyu.edu/qids/2020/06/23/best-stock-api-2020/>`_ by NYU's quant investing project
 
 License
 =======
