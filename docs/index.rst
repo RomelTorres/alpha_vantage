@@ -10,11 +10,8 @@ Welcome to alpha_vantage's documentation!
 
 *Python module to get stock data from the Alpha Vantage API*
 
-`Alpha Vantage Stock API <https://www.alphavantage.co/>`_ is a free JSON APIs for stock market
-data, plus a comprehensive set of technical indicators. This project is a python wrapper
-around this API to offer python plus json/pandas support. I hope you enjoy it.
-It requires a free API, that can be
-requested on http://www.alphavantage.co/support/#api-key. This `stock API article <https://medium.com/@patrick.collins_58673/stock-api-landscape-5c6e054ee631>`_ also contains general guidance on ingesting and integrating with market data. 
+The `Alpha Vantage Stock API <https://www.alphavantage.co/>`_ provides free JSON access to the stock market, plus a comprehensive set of technical indicators. This project is a python wrapper around this API to offer python plus json/pandas support. I hope you enjoy it.
+It requires a free API, that can be requested on http://www.alphavantage.co/support/#api-key. This `stock API article <https://medium.com/@patrick.collins_58673/stock-api-landscape-5c6e054ee631>`_ also contains general guidance on ingesting and integrating with market data. 
 
 If you are a spreadsheet user, see also: 
 `Microsoft Excel Add-on <https://appsource.microsoft.com/en-us/product/office/WA200001365>`_ and
@@ -65,7 +62,7 @@ If you have a feature that you want to see merged in the code, please do a pull 
 Community Pulse
 ===============
 * Alpha Vantage used by `Harvard COVID-19 Global Policy Tracker <https://projects.iq.harvard.edu/covidpt/global-policy-tracker>`_ (`link <https://www.hbs.edu/covid-19-business-impact/Insights/Economic-and-Financial-Impacts/Global-Policy-Tracker>`_)
-* Alpha Vantage featured in `Xignite stock API press release <https://www.xignite.com/news/best-6-free-and-paid-stock-market-apis/>`_, `Google Cloud Tutorial <https://cloud.google.com/community/tutorials/secrets-manager-python>`_, `MATLAB tutorial <https://www.mathworks.com/matlabcentral/fileexchange/74176-reinforcement-learning-for-financial-trading>`_, and `Best 5 (Free and Paid) Stock Market APIs in 2020 <https://wp.nyu.edu/qids/2020/06/23/best-stock-api-2020/>`_ by NYU's quant investing project
+* Alpha Vantage featured in `Xignite stock API press release <https://www.xignite.com/news/best-6-free-and-paid-stock-market-apis/>`_ and `Best 5 (Free and Paid) Stock Market APIs in 2020 <https://wp.nyu.edu/qids/2020/06/23/best-stock-api-2020/>`_ by NYU's Quantitative Investing project
 
 License
 =======
