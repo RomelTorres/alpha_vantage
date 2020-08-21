@@ -239,11 +239,14 @@ class AlphaVantage(object):
                         # in the resulting data frame. If in the future
                         # alphavantage decides to do more with returning arrays
                         # this might become buggy. For now will do the trick.
-                        data_array = []
-                        for val in data:
-                            data_array.append([v for _, v in val.items()])
-                        data_pandas = pandas.DataFrame(data_array, columns=[
-                            k for k, _ in data[0].items()])
+                        if not data:
+                            data_pandas = pandas.DataFrame()
+                        else:
+                            data_array = []
+                            for val in data:
+                                data_array.append([v for _, v in val.items()])
+                            data_pandas = pandas.DataFrame(data_array, columns=[
+                                k for k, _ in data[0].items()])
                     else:
                         try:
                             data_pandas = pandas.DataFrame.from_dict(data,
