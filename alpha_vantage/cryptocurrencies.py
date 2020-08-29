@@ -60,6 +60,22 @@ class CryptoCurrencies(av):
 
     @av._output_format
     @av._call_api_on_func
+    def get_digital_currency_exchange_rate(self, from_currency, to_currency):
+        """ Returns the realtime exchange rate for any pair of digital
+        currency (e.g., BTC) or physical currency (e.g., USD).
+        Keyword Arguments:
+            from_currency: The currency you would like to get the exchange rate
+            for. It can either be a physical currency or digital/crypto currency.
+            For example: from_currency=USD or from_currency=BTC.
+            to_currency: The destination currency for the exchange rate.
+            It can either be a physical currency or digital/crypto currency.
+            For example: to_currency=USD or to_currency=BTC.
+        """
+        _FUNCTION_KEY = 'CURRENCY_EXCHANGE_RATE'
+        return _FUNCTION_KEY, 'Realtime Currency Exchange Rate', None
+
+    @av._output_format
+    @av._call_api_on_func
     def get_digital_crypto_rating(self, symbol):
         """ Returns the Fundamental Crypto Asset Score for a digital currency
         (e.g., BTC), and when it was last updated.
