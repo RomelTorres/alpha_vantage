@@ -15,6 +15,7 @@ install:
     - pip install pandas==0.19.2
     - pip install requests
     - pip install requests-mock
+    - pip install numpy==1.16.4
 script:
     nosetests --nocapture test_alpha_vantage/test_alphavantage.py
 allow_failure:
