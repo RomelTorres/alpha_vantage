@@ -4,6 +4,7 @@ from ..alpha_vantage.timeseries import TimeSeries
 from ..alpha_vantage.techindicators import TechIndicators
 from ..alpha_vantage.sectorperformance import SectorPerformances
 from ..alpha_vantage.foreignexchange import ForeignExchange
+from ..alpha_vantage.fundamentaldata import FundamentalData
 
 from pandas import DataFrame as df, Timestamp
 
@@ -200,3 +201,27 @@ class TestAlphaVantage(unittest.TestCase):
                 from_currency='BTC', to_currency='CNY')
             self.assertIsInstance(
                 data, dict, 'Result Data must be a dictionary')
+
+    @requests_mock.Mocker()
+    def test_fundamental_data(self, mock_request):
+        """Test that api call returns a json file as requested
+        """
+        fd = FundamentalData(key=TestAlphaVantage._API_KEY_TEST)
+        url = 'https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=IBM&apikey=test'
+        path_file = self.get_file_from_url("mock_fundamental_data")
+        with open(path_file) as f:
+            mock_request.get(url, text=f.read())
+            data, _ = fd.get_income_statement_annual(symbol='IBM')
+            self.assertIsInstance(data, df, 'Result Data must be a pandas data frame')
+
+    @requests_mock.Mocker()
+    def test_company_overview(self, mock_request):
+        """Test that api call returns a json file as requested
+        """
+        fd = FundamentalData(key=TestAlphaVantage._API_KEY_TEST)
+        url = "https://www.alphavantage.co/query?function=OVERVIEW&symbol=IBM&apikey=test"
+        path_file = self.get_file_from_url("mock_company_overview")
+        with open(path_file) as f:
+            mock_request.get(url, text=f.read())
+            data, _ = fd.get_company_overview(symbol='IBM')
+            self.assertIsInstance(data, dict, 'Result Data must be a dictionary')
