@@ -26,6 +26,23 @@ class TimeSeries(av):
 
     @av._output_format
     @av._call_api_on_func
+    def get_intraday_extended(self, symbol, interval='15min', slice='year1month1'):
+        """ Return extended intraday time series in one csv_reader object.
+        It raises ValueError when problems arise
+
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min'
+                (default '15min')
+            slice: the trailing 2 years of intraday data is evenly divided into
+                24 "slices" - year1month1, year1month2, ..., year2month12
+        """
+        _FUNCTION_KEY = "TIME_SERIES_INTRADAY_EXTENDED"
+        return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'
+
+    @av._output_format
+    @av._call_api_on_func
     def get_daily(self, symbol, outputsize='compact'):
         """ Return daily time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
@@ -115,7 +132,7 @@ class TimeSeries(av):
     @av._call_api_on_func
     def get_quote_endpoint(self, symbol):
         """ Return the latest price and volume information for a
-         security of your choice 
+         security of your choice
 
         Keyword Arguments:
             symbol:  the symbol for the equity we want to get its data
