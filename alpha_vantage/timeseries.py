@@ -26,7 +26,7 @@ class TimeSeries(av):
 
     @av._output_format
     @av._call_api_on_func
-    def get_intraday_extended(self, symbol, interval='15min', slice='year1month1'):
+    def get_intraday_extended(self, symbol, interval='15min', slice='year1month1', adjusted=True):
         """ Return extended intraday time series in one csv_reader object.
         It raises ValueError when problems arise
 
@@ -37,6 +37,9 @@ class TimeSeries(av):
                 (default '15min')
             slice: the trailing 2 years of intraday data is evenly divided into
                 24 "slices" - year1month1, year1month2, ..., year2month12
+            adjusted: By default, adjusted=true and the output time series is 
+                adjusted by historical split and dividend events. 
+                Set adjusted=false to query raw (as-traded) intraday values.
         """
         _FUNCTION_KEY = "TIME_SERIES_INTRADAY_EXTENDED"
         return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'

@@ -10,6 +10,7 @@ from pandas import DataFrame as df, Timestamp
 
 import unittest
 import sys
+import collections
 from os import path
 import requests_mock
 
@@ -131,6 +132,20 @@ class TestAlphaVantage(unittest.TestCase):
             data, _ = ts.get_intraday(
                 "MSFT", interval='1min', outputsize='full')
             assert type(data.index[0]) == int
+
+    @requests_mock.Mocker()
+    def test_time_series_intraday_extended(self, mock_request):
+        """ Test that api call returns a csv-reader as requested
+        """
+        ts = TimeSeries(key=TestAlphaVantage._API_KEY_TEST, output_format='csv')
+        url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY_EXTENDED&symbol=MSFT&interval=1min&slice=year1month1&adjusted=True&apikey=test&datatype=csv"
+        path_file = self.get_file_from_url("mock_time_series_extended")
+        with open(path_file) as f:
+            mock_request.get(url, text=f.read())
+            data, _ = ts.get_intraday_extended(
+                "MSFT", interval='1min')
+            self.assertIsInstance(
+              data, collections.Iterator, 'Result Data must implement Iterator-interface')
 
     @requests_mock.Mocker()
     def test_technical_indicator_sma_python3(self, mock_request):
