@@ -219,7 +219,11 @@ class AlphaVantage(object):
                 self, *args, **kwargs)
             if 'json' in self.output_format.lower() or 'pandas' \
                     in self.output_format.lower():
-                data = call_response[data_key]
+                if data_key is not None:
+                    data = call_response[data_key]
+                else:
+                    data = call_response
+                
 
                 if meta_data_key is not None:
                     meta_data = call_response[meta_data_key]
@@ -232,18 +236,36 @@ class AlphaVantage(object):
                     output_format = override.lower()
                 # Choose output format
                 if output_format == 'json':
-                    return data, meta_data
+                    if isinstance(data, list):
+                        # If the call returns a list, then we will append them
+                        # in the resulting data frame. If in the future
+                        # alphavantage decides to do more with returning arrays
+                        # this might become buggy. For now will do the trick.
+                        if not data:
+                            data_pandas = pandas.DataFrame()
+                        else:
+                            data_array = []
+                            for val in data:
+                                data_array.append([v for _, v in val.items()])
+                            data_pandas = pandas.DataFrame(data_array, columns=[
+                                k for k, _ in data[0].items()])
+                        return data_pandas, meta_data
+                    else:
+                        return data, meta_data
                 elif output_format == 'pandas':
                     if isinstance(data, list):
                         # If the call returns a list, then we will append them
                         # in the resulting data frame. If in the future
                         # alphavantage decides to do more with returning arrays
                         # this might become buggy. For now will do the trick.
-                        data_array = []
-                        for val in data:
-                            data_array.append([v for _, v in val.items()])
-                        data_pandas = pandas.DataFrame(data_array, columns=[
-                            k for k, _ in data[0].items()])
+                        if not data:
+                            data_pandas = pandas.DataFrame()
+                        else:
+                            data_array = []
+                            for val in data:
+                                data_array.append([v for _, v in val.items()])
+                            data_pandas = pandas.DataFrame(data_array, columns=[
+                                k for k, _ in data[0].items()])
                     else:
                         try:
                             data_pandas = pandas.DataFrame.from_dict(data,

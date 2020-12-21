@@ -14,6 +14,7 @@ For code-less access to the APIs, you may also consider the official [Google She
 
 ## News
 
+* From version 2.3.0 onwards, fundamentals data and extended intraday is supported.
 * From version 2.2.0 onwards, asyncio support now provided. See below for more information. 
 * From version 2.1.3 onwards, [rapidAPI](https://rapidapi.com/alphavantage/api/alpha-vantage-alpha-vantage-default) key integration is now available.
 * From version 2.1.0 onwards, error logging of bad API calls has been made more apparent.
