@@ -4,20 +4,20 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 try:
-    with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-        long_description = f.read()
+    with open("README.md", "r") as fh:
+        long_description = fh.read()
 except IOError:
     long_description = 'Python module to get stock data from the Alpha Vantage Api'
 
 setup(
     name='alpha_vantage',
-    version='2.3.0',
+    version='2.3.1',
     author='Romel J. Torres',
     author_email='romel.torres@gmail.com',
     license='MIT',
     description='Python module to get stock data from the Alpha Vantage Api',
-    long_description_content_type="text/markdown",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
