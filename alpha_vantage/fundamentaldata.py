@@ -87,6 +87,33 @@ class FundamentalData(av):
         """
         _FUNCTION_KEY = 'BALANCE_SHEET'
         return _FUNCTION_KEY, 'quarterlyReports', 'symbol'
+    
+     @av._output_format
+     @av._call_api_on_func
+     def get_eps_annual(self, symbol):
+        """
+        Returns the Earnings per share (Eps) data for the company on an annual basis.
+        
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+        """
+
+        _FUNCTION_KEY = "EARNINGS"
+        return _FUNCTION_KEY, "annualEarnings", "symbol"
+
+     @av._output_format
+     @av._call_api_on_func
+     def get_eps_quarterly(self, symbol):
+        """
+        Returns the Earnings per share (Eps) data for the company on a quartely basis.
+        This also includes the analyst earning estimates and the earning surprise.
+        
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+        """
+
+        _FUNCTION_KEY = "EARNINGS"
+        return _FUNCTION_KEY, "quarterlyEarnings", "symbol"
 
     @av._output_format
     @av._call_api_on_func
