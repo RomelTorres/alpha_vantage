@@ -62,7 +62,7 @@ class AlphaVantage(AlphaVantageBase):
             raise NotImplementedError(
                 'Handling of data type {} is not yet supported.'.format(output_format))
     
-    class _call_api_on_func(AlphaVantageBase._call_api_on_func):
+    class call_api_on_func(AlphaVantageBase.call_api_on_func):
         """Decorator for forming the API call with the arguments of the
         function, it works by taking the arguments given to the function
         and building the url to call the api on it. Allows overriding the
@@ -94,7 +94,7 @@ class AlphaVantage(AlphaVantageBase):
             
             return _call_wrapper
     
-    class _output_format(AlphaVantageBase._output_format):
+    class output_format(AlphaVantageBase.output_format):
         """Decorator that processes the response output to conform to the
         requested data type. The data type can also be overridden.
     

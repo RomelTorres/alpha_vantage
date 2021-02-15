@@ -17,8 +17,8 @@ class SectorPerformances(av):
                 "Output format {} is not compatible with the SectorPerformances class".format(
                     self.output_format.lower()))
     
-    @av._output_format(formatting='sector')
-    @av._call_api_on_func()
+    @av.output_format(formatting='sector')
+    @av.call_api_on_func()
     def get_sector(self):
         """This API returns the realtime and historical sector performances
         calculated from S&P500 incumbents.

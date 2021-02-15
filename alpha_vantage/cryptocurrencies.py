@@ -4,8 +4,8 @@ from .alphavantage import AlphaVantage as av
 class CryptoCurrencies(av):
     """This class implements all the crypto currencies API calls."""
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_digital_currency_daily(self, symbol, market):
         """ Returns  the daily historical time series for a digital currency
         (e.g., BTC) traded on a specific market (e.g., CNY/Chinese Yuan),
@@ -22,8 +22,8 @@ class CryptoCurrencies(av):
         _FUNCTION_KEY = 'DIGITAL_CURRENCY_DAILY'
         return _FUNCTION_KEY, 'Time Series (Digital Currency Daily)', 'Meta Data'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_digital_currency_weekly(self, symbol, market):
         """ Returns  the weekly historical time series for a digital currency
         (e.g., BTC) traded on a specific market (e.g., CNY/Chinese Yuan),
@@ -40,8 +40,8 @@ class CryptoCurrencies(av):
         _FUNCTION_KEY = 'DIGITAL_CURRENCY_WEEKLY'
         return _FUNCTION_KEY, 'Time Series (Digital Currency Weekly)', 'Meta Data'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_digital_currency_monthly(self, symbol, market):
         """ Returns  the monthly historical time series for a digital currency
         (e.g., BTC) traded on a specific market (e.g., CNY/Chinese Yuan),
@@ -58,8 +58,8 @@ class CryptoCurrencies(av):
         _FUNCTION_KEY = 'DIGITAL_CURRENCY_MONTHLY'
         return _FUNCTION_KEY, 'Time Series (Digital Currency Monthly)', 'Meta Data'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_digital_currency_exchange_rate(self, from_currency, to_currency):
         """ Returns the realtime exchange rate for any pair of digital
         currency (e.g., BTC) or physical currency (e.g., USD).
@@ -74,8 +74,8 @@ class CryptoCurrencies(av):
         _FUNCTION_KEY = 'CURRENCY_EXCHANGE_RATE'
         return _FUNCTION_KEY, 'Realtime Currency Exchange Rate', None
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_digital_crypto_rating(self, symbol):
         """ Returns the Fundamental Crypto Asset Score for a digital currency
         (e.g., BTC), and when it was last updated.

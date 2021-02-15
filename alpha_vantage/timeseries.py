@@ -4,8 +4,8 @@ from .alphavantage import AlphaVantage as av
 class TimeSeries(av):
     """This class implements all the api calls to times series"""
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_intraday(self, symbol, interval='15min', outputsize='compact'):
         """ Return intraday time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
@@ -23,8 +23,8 @@ class TimeSeries(av):
         _FUNCTION_KEY = "TIME_SERIES_INTRADAY"
         return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'
     
-    @av._output_format()
-    @av._call_api_on_func('csv')
+    @av.output_format()
+    @av.call_api_on_func('csv')
     def get_intraday_extended(self, symbol, interval='15min', slice='year1month1', adjusted=True):
         """ Return extended intraday time series in one csv_reader object.
         It raises ValueError when problems arise
@@ -43,8 +43,8 @@ class TimeSeries(av):
         _FUNCTION_KEY = "TIME_SERIES_INTRADAY_EXTENDED"
         return _FUNCTION_KEY, None, None
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_daily(self, symbol, outputsize='compact'):
         """ Return daily time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
@@ -59,8 +59,8 @@ class TimeSeries(av):
         _FUNCTION_KEY = "TIME_SERIES_DAILY"
         return _FUNCTION_KEY, 'Time Series (Daily)', 'Meta Data'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_daily_adjusted(self, symbol, outputsize='compact'):
         """ Return daily adjusted (date, daily open, daily high, daily low,
         daily close, daily split/dividend-adjusted close, daily volume)
@@ -77,8 +77,8 @@ class TimeSeries(av):
         _FUNCTION_KEY = "TIME_SERIES_DAILY_ADJUSTED"
         return _FUNCTION_KEY, 'Time Series (Daily)', 'Meta Data'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_weekly(self, symbol):
         """ Return weekly time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
@@ -90,8 +90,8 @@ class TimeSeries(av):
         _FUNCTION_KEY = "TIME_SERIES_WEEKLY"
         return _FUNCTION_KEY, 'Weekly Time Series', 'Meta Data'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_weekly_adjusted(self, symbol):
         """  weekly adjusted time series (last trading day of each week,
         weekly open, weekly high, weekly low, weekly close, weekly adjusted
@@ -104,8 +104,8 @@ class TimeSeries(av):
         _FUNCTION_KEY = "TIME_SERIES_WEEKLY_ADJUSTED"
         return _FUNCTION_KEY, 'Weekly Adjusted Time Series', 'Meta Data'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_monthly(self, symbol):
         """ Return monthly time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
@@ -117,8 +117,8 @@ class TimeSeries(av):
         _FUNCTION_KEY = "TIME_SERIES_MONTHLY"
         return _FUNCTION_KEY, 'Monthly Time Series', 'Meta Data'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_monthly_adjusted(self, symbol):
         """ Return monthly time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
@@ -130,8 +130,8 @@ class TimeSeries(av):
         _FUNCTION_KEY = "TIME_SERIES_MONTHLY_ADJUSTED"
         return _FUNCTION_KEY, 'Monthly Adjusted Time Series', 'Meta Data'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_quote_endpoint(self, symbol):
         """ Return the latest price and volume information for a
          security of your choice
@@ -143,8 +143,8 @@ class TimeSeries(av):
         _FUNCTION_KEY = "GLOBAL_QUOTE"
         return _FUNCTION_KEY, 'Global Quote', None
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_symbol_search(self, keywords):
         """ Return best matching symbols and market information
         based on keywords. It raises ValueError when problems arise

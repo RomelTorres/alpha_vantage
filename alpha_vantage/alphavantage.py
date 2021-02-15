@@ -185,7 +185,7 @@ class AlphaVantage(object):
             raise ValueError('Error getting data from the API, no return was given.')
         return csv_response
     
-    class _call_api_on_func(object):
+    class call_api_on_func(object):
         """Decorator for forming the API call with the arguments of the
         function, it works by taking the arguments given to the function
         and building the url to call the api on it. Allows overriding the
@@ -306,7 +306,7 @@ class AlphaVantage(object):
             
             return used_kwargs
     
-    class _output_format(object):
+    class output_format(object):
         """Decorator that processes the response output to conform to the
         requested data type. The data type can also be overridden.
     

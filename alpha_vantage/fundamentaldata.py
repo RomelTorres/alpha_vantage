@@ -17,8 +17,8 @@ class FundamentalData(av):
                 "Output format {} is not compatible with the FundamentalData class.".format(
                     self.output_format.lower()))
     
-    @av._output_format()
-    @av._call_api_on_func('csv')
+    @av.output_format()
+    @av.call_api_on_func('csv')
     def get_listing_status(self, date=None, state='active'):
         """
         Returns a list of active or delisted US stocks and ETFs, either as of the latest trading
@@ -29,8 +29,8 @@ class FundamentalData(av):
         _FUNCTION_KEY = 'LISTING_STATUS'
         return _FUNCTION_KEY, None, None
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_company_overview(self, symbol):
         """Returns the company information, financial ratios,
         and other key metrics for the equity specified. 
@@ -43,8 +43,8 @@ class FundamentalData(av):
         _FUNCTION_KEY = 'OVERVIEW'
         return _FUNCTION_KEY, None, None
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_income_statement_annual(self, symbol):
         """Returns the annual and quarterly income statements for the company of interest.
         Data is generally refreshed on the same day a company reports its latest 
@@ -56,8 +56,8 @@ class FundamentalData(av):
         _FUNCTION_KEY = 'INCOME_STATEMENT'
         return _FUNCTION_KEY, 'annualReports', 'symbol'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_income_statement_quarterly(self, symbol):
         """Returns the annual and quarterly income statements for the company of interest.
         Data is generally refreshed on the same day a company reports its latest 
@@ -69,8 +69,8 @@ class FundamentalData(av):
         _FUNCTION_KEY = 'INCOME_STATEMENT'
         return _FUNCTION_KEY, 'quarterlyReports', 'symbol'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_balance_sheet_annual(self, symbol):
         """Returns the annual and quarterly balance sheets for the company of interest.
         Data is generally refreshed on the same day a company reports its latest 
@@ -82,8 +82,8 @@ class FundamentalData(av):
         _FUNCTION_KEY = 'BALANCE_SHEET'
         return _FUNCTION_KEY, 'annualReports', 'symbol'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_balance_sheet_quarterly(self, symbol):
         """Returns the annual and quarterly balance sheets for the company of interest.
         Data is generally refreshed on the same day a company reports its latest 
@@ -95,8 +95,8 @@ class FundamentalData(av):
         _FUNCTION_KEY = 'BALANCE_SHEET'
         return _FUNCTION_KEY, 'quarterlyReports', 'symbol'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_cash_flow_annual(self, symbol):
         """Returns the annual and quarterly cash flows for the company of interest.
         Data is generally refreshed on the same day a company reports its latest 
@@ -108,8 +108,8 @@ class FundamentalData(av):
         _FUNCTION_KEY = 'CASH_FLOW'
         return _FUNCTION_KEY, 'annualReports', 'symbol'
     
-    @av._output_format()
-    @av._call_api_on_func()
+    @av.output_format()
+    @av.call_api_on_func()
     def get_cash_flow_quarterly(self, symbol):
         """Returns the annual and quarterly cash flows for the company of interest.
         Data is generally refreshed on the same day a company reports its latest 
