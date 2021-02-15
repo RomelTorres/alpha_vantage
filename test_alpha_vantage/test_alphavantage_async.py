@@ -1,18 +1,18 @@
 #!/usr/bin/env python
-from ..alpha_vantage.async_support.alphavantage import AlphaVantage
-from ..alpha_vantage.async_support.timeseries import TimeSeries
-from ..alpha_vantage.async_support.techindicators import TechIndicators
-from ..alpha_vantage.async_support.sectorperformance import SectorPerformances
-from ..alpha_vantage.async_support.foreignexchange import ForeignExchange
+import asyncio
+import json
+import unittest
+from functools import wraps
+from os import path
 
+from aioresponses import aioresponses
 from pandas import DataFrame as df, Timestamp
 
-import asyncio
-from aioresponses import aioresponses
-from functools import wraps
-import json
-from os import path
-import unittest
+from ..alpha_vantage.async_support.alphavantage import AlphaVantage
+from ..alpha_vantage.async_support.foreignexchange import ForeignExchange
+from ..alpha_vantage.async_support.sectorperformance import SectorPerformances
+from ..alpha_vantage.async_support.techindicators import TechIndicators
+from ..alpha_vantage.async_support.timeseries import TimeSeries
 
 
 def make_async(f):
@@ -62,12 +62,16 @@ class TestAlphaVantageAsync(unittest.TestCase):
         """
         av = AlphaVantage(key=TestAlphaVantageAsync._API_KEY_TEST)
         url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=1min&apikey=test"
+        params = {
+            'function': 'TIME_SERIES_INTRADAY',
+            'symbol': 'MSFT',
+            'interval': '1min'
+        }
         path_file = self.get_file_from_url("mock_time_series")
         with open(path_file) as f, aioresponses() as m:
             m.get(url, payload=json.loads(f.read()))
-            data = await av._handle_api_call(url)
-            self.assertIsInstance(
-                data, dict, 'Result Data must be a dictionary')
+            data = await av._handle_api_call(params)
+            self.assertIsInstance(data, dict, 'Result Data must be a dictionary')
         await av.close()
 
     @make_async
