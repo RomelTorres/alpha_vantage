@@ -1,16 +1,16 @@
 #!/usr/bin/env python
-from ..alpha_vantage.alphavantage import AlphaVantage
-from ..alpha_vantage.timeseries import TimeSeries
-from ..alpha_vantage.techindicators import TechIndicators
-from ..alpha_vantage.cryptocurrencies import CryptoCurrencies
-from ..alpha_vantage.foreignexchange import ForeignExchange
+import os
+import time
+import timeit
+import unittest
 
 from pandas import DataFrame as df
 
-import os
-import unittest
-import timeit
-import time
+from ..alpha_vantage.alphavantage import AlphaVantage
+from ..alpha_vantage.cryptocurrencies import CryptoCurrencies
+from ..alpha_vantage.foreignexchange import ForeignExchange
+from ..alpha_vantage.techindicators import TechIndicators
+from ..alpha_vantage.timeseries import TimeSeries
 
 
 class TestAlphaVantage(unittest.TestCase):
@@ -23,9 +23,9 @@ class TestAlphaVantage(unittest.TestCase):
 
     def setUp(self):
         """
-        Wait some time before running each call again.
+        Wait some time before running each call again, to not exceed 5 per minute.
         """
-        time.sleep(1)
+        time.sleep(12)
 
     def _assert_result_is_format(self, func, output_format='json', **args):
         """Check that the data and meta data object are dictionaries
@@ -135,7 +135,7 @@ class TestAlphaVantage(unittest.TestCase):
         self._assert_result_is_format(cc.get_currency_exchange_rate,
                                       output_format='json',
                                       from_currency='USD',
-                                      to_currency='BTC')
+                                      to_currency='EUR')
 
     def test_get_currency_exchange_intraday_json(self):
         """Test that we get a dictionary containing json data
