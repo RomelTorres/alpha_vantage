@@ -134,8 +134,8 @@ class TestAlphaVantage(unittest.TestCase):
         cc = ForeignExchange(key=TestAlphaVantage._API_KEY_TEST)
         self._assert_result_is_format(cc.get_currency_exchange_rate,
                                       output_format='json',
-                                      from_currency='USD',
-                                      to_currency='EUR')
+                                      from_currency='BTC',
+                                      to_currency='USD')
 
     def test_get_currency_exchange_intraday_json(self):
         """Test that we get a dictionary containing json data
