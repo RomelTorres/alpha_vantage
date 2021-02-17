@@ -385,7 +385,7 @@ class AlphaVantage(object):
                     else:
                         # JSON to CSV conversion through Pandas.
                         # Convert to CSV reader to stay consistent with native CSV API call.
-                        return csv.reader(data_pandas.to_csv().splitlines())
+                        return csv.reader(data_pandas.to_csv().splitlines()), meta_data
             elif 'csv' == api_format:
                 if 'pandas' == output_format or \
                         'json' == output_format:
