@@ -419,6 +419,9 @@ class AlphaVantage(object):
                 if 'time' in data_pandas.columns:
                     data_pandas.index = data_pandas.time
                     data_pandas.drop(columns=['time'], inplace=True)
+                elif 'timestamp' in data_pandas.columns:
+                    data_pandas.index = data_pandas.timestamp
+                    data_pandas.drop(columns=['timestamp'], inplace=True)
                 data_pandas.index = pandas.to_datetime(data_pandas.index)
             
             return data_pandas
