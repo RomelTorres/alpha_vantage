@@ -1,1 +1,0 @@
-../fundamentaldata.py
