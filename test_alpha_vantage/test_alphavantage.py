@@ -1,18 +1,18 @@
 #! /usr/bin/env python
-import collections
-import sys
-import unittest
-from os import path
-
-import requests_mock
-from pandas import DataFrame as df, Timestamp
-
 from ..alpha_vantage.alphavantage import AlphaVantage
+from ..alpha_vantage.timeseries import TimeSeries
+from ..alpha_vantage.techindicators import TechIndicators
+from ..alpha_vantage.sectorperformance import SectorPerformances
 from ..alpha_vantage.foreignexchange import ForeignExchange
 from ..alpha_vantage.fundamentaldata import FundamentalData
-from ..alpha_vantage.sectorperformance import SectorPerformances
-from ..alpha_vantage.techindicators import TechIndicators
-from ..alpha_vantage.timeseries import TimeSeries
+
+from pandas import DataFrame as df, Timestamp
+
+import unittest
+import sys
+import collections
+from os import path
+import requests_mock
 
 
 class TestAlphaVantage(unittest.TestCase):
@@ -49,16 +49,12 @@ class TestAlphaVantage(unittest.TestCase):
         """
         av = AlphaVantage(key=TestAlphaVantage._API_KEY_TEST)
         url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=MSFT&interval=1min&apikey=test"
-        params = {
-            'function': 'TIME_SERIES_INTRADAY',
-            'symbol': 'MSFT',
-            'interval': '1min'
-        }
         path_file = self.get_file_from_url("mock_time_series")
         with open(path_file) as f:
             mock_request.get(url, text=f.read())
-            data = av._handle_api_call(params)
-            self.assertIsInstance(data, dict, 'Result Data must be a dictionary')
+            data = av._handle_api_call(url)
+            self.assertIsInstance(
+                data, dict, 'Result Data must be a dictionary')
 
     @requests_mock.Mocker()
     def test_rapidapi_key(self, mock_request):
@@ -223,16 +219,15 @@ class TestAlphaVantage(unittest.TestCase):
 
     @requests_mock.Mocker()
     def test_fundamental_data(self, mock_request):
-        """Test that api call returns a json file as requested"""
+        """Test that api call returns a json file as requested
+        """
         fd = FundamentalData(key=TestAlphaVantage._API_KEY_TEST)
         url = 'https://www.alphavantage.co/query?function=INCOME_STATEMENT&symbol=IBM&apikey=test'
         path_file = self.get_file_from_url("mock_fundamental_data")
         with open(path_file) as f:
             mock_request.get(url, text=f.read())
             data, _ = fd.get_income_statement_annual(symbol='IBM')
-            self.assertIsInstance(data, list, 'Result Data must be a list of JSONs')
-            for entry in data:
-                self.assertIsInstance(entry, dict, 'Result Data entries must be dicts')
+            self.assertIsInstance(data, df, 'Result Data must be a pandas data frame')
 
     @requests_mock.Mocker()
     def test_company_overview(self, mock_request):

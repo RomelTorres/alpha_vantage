@@ -5,7 +5,7 @@ from .alphavantage import AlphaVantage as av
 class SectorPerformances(av):
     """This class implements all the sector performance api calls
     """
-    
+
     def __init__(self, *args, **kwargs):
         """
         Inherit AlphaVantage base class with its default arguments
@@ -13,12 +13,19 @@ class SectorPerformances(av):
         super(SectorPerformances, self).__init__(*args, **kwargs)
         self._append_type = False
         if self.output_format.lower() == 'csv':
-            raise ValueError(
-                "Output format {} is not compatible with the SectorPerformances class".format(
-                    self.output_format.lower()))
-    
-    @av.output_format(formatting='sector')
-    @av.call_api_on_func()
+            raise ValueError("Output format {} is not comatible with the SectorPerformances class".format(
+                self.output_format.lower()))
+
+    def percentage_to_float(self, val):
+        """ Transform a string of the form f.f% into f.f/100
+
+        Keyword Arguments:
+            val: The string to convert
+        """
+        return float(val.strip('%')) / 100
+
+    @av._output_format_sector
+    @av._call_api_on_func
     def get_sector(self):
         """This API returns the realtime and historical sector performances
         calculated from S&P500 incumbents.

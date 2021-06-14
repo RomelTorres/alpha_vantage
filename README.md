@@ -52,6 +52,11 @@ You may also get a key from [rapidAPI](https://rapidapi.com/alphavantage/api/alp
 ts = TimeSeries(key='YOUR_API_KEY',rapidapi=True)
 ```
 
+Internally there is a retries counter, that can be used to minimize connection errors (in case that the API is not able to respond in time), the default is set to
+5 but can be increased or decreased whenever needed.
+```python
+ts = TimeSeries(key='YOUR_API_KEY',retries='YOUR_RETRIES')
+```
 The library supports giving its results as json dictionaries (default), pandas dataframe (if installed) or csv, simply pass the parameter output_format='pandas' to change the format of the output for all the API calls in the given class. Please note that some API calls do not support the csv format (namely ```ForeignExchange, SectorPerformances and TechIndicators```) because the API endpoint does not support the format on their calls either.
 
 ```python
@@ -98,17 +103,6 @@ plt.show()
 ```
 Giving us as output:
 ![alt text](images/docs_ts_msft_example.png?raw=True "MSFT minute value plot example")
-
-### Fundamental data
-It is also possible to query fundamental data.
-
-```python
-from alpha_vantage.fundamentaldata import FundamentalData
-
-fd = FundamentalData(key='YOUR_API_KEY', output_format='pandas')
-data, meta_data = fd.get_listing_status()
-print(data)
-```
 
 ### Technical indicators
 The same way we can get pandas to plot technical indicators like Bollinger Bands®
