@@ -16,6 +16,10 @@ class CryptoCurrencies(av):
             symbol=BTC.
             market: The exchange market of your choice. It can be any of the
             market in the market list. For example: market=CNY.
+            interval: Time interval between two consecutive data points in 
+            the time series. 
+            The following values are supported: '1min', '5min', '15min', '30min', '60min'
+            (default '15min')
         """
         _FUNCTION_KEY = 'CRYPTO_INTRADAY'
         return _FUNCTION_KEY, 'Time Series Crypto ({})'.format(interval), 'Meta Data'
