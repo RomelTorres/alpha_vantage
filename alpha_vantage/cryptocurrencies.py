@@ -6,6 +6,22 @@ class CryptoCurrencies(av):
     """
     @av._output_format
     @av._call_api_on_func
+    def get_digital_currency_intraday(self, symbol, market, interval='15min'):
+        """ Returns intraday time series (timestamp, open, high, low, close, volume)
+         of the cryptocurrency specified, updated realtime. 
+
+        Keyword Arguments:
+            symbol: The digital/crypto currency of your choice. It can be any
+            of the currencies in the digital currency list. For example:
+            symbol=BTC.
+            market: The exchange market of your choice. It can be any of the
+            market in the market list. For example: market=CNY.
+        """
+        _FUNCTION_KEY = 'CRYPTO_INTRADAY'
+        return _FUNCTION_KEY, 'Time Series Crypto ({})'.format(interval), 'Meta Data'
+
+    @av._output_format
+    @av._call_api_on_func
     def get_digital_currency_daily(self, symbol, market):
         """ Returns  the daily historical time series for a digital currency
         (e.g., BTC) traded on a specific market (e.g., CNY/Chinese Yuan),
