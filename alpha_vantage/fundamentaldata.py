@@ -31,6 +31,29 @@ class FundamentalData(av):
         """
         _FUNCTION_KEY = 'OVERVIEW'
         return _FUNCTION_KEY, None, None
+
+    @av._output_format
+    @av._call_api_on_func
+    def get_eps(self, symbol, interval=None):
+        """
+        Returns the Earnings per share (Eps) data for the company, either quarterly
+        (including analyst estimates and earnings suprise) or annually or both.
+        
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval: what kind of eps data to return; 
+                      annually [str]: return yearly eps as pandas dataframe
+                      quarterly [str]: return quarterly eps as pandas dataframe
+                      None [None]: return annual and quarterly data as a dict 
+        """
+
+        _FUNCTION_KEY = "EARNINGS"
+        if interval == "quarterly":
+            return _FUNCTION_KEY, "quarterlyEarnings", "symbol"
+        elif interval == "annually":
+            return _FUNCTION_KEY, "annualEarnings", "symbol"
+        elif interval is None:
+            return _FUNCTION_KEY, None, None
     
     @av._output_format
     @av._call_api_on_func
