@@ -21,6 +21,33 @@ class CryptoCurrencies(av):
         """
         _FUNCTION_KEY = 'DIGITAL_CURRENCY_DAILY'
         return _FUNCTION_KEY, 'Time Series (Digital Currency Daily)', 'Meta Data'
+    
+    @av._output_format
+    @av._call_api_on_func
+    def get_digital_currency_intraday(self, symbol, market, interval='5min', outputsize='compact'):
+        """
+        This API returns intraday time series (timestamp, open, high, low, close, volume)
+        of the cryptocurrency specified, updated realtime.
+        
+        Keyword Arguments:
+            symbol: The digital/crypto currency of your choice. It can be any
+            of the currencies in the digital currency list. For example:
+            symbol=BTC.
+            market: The exchange market of your choice. It can be any of the
+            market in the market list. For example: market=CNY.
+            interval: Time interval between two consecutive data points in the time series. 
+            The following values are supported: 1min, 5min, 15min, 30min, 60min
+            default value is 5min
+            Optional outputsize: By default, outputsize=compact. 
+            Strings compact and full are accepted with the following specifications: 
+            compact returns only the latest 100 data points in the intraday time series; 
+            full returns the full-length intraday time series. 
+            The "compact" option is recommended if you would like to reduce the data size 
+            of each API call.
+        """
+        _FUNCTION_KEY = 'CRYPTO_INTRADAY'
+        return _FUNCTION_KEY, f'Time Series Crypto ({interval})', 'Meta Data'
+        
 
     @av._output_format
     @av._call_api_on_func
