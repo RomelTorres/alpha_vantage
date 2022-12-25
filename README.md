@@ -16,7 +16,7 @@ For code-less access to the APIs, you may also consider the official [Google She
 
 * From version 2.3.0 onwards, fundamentals data and extended intraday is supported.
 * From version 2.2.0 onwards, asyncio support now provided. See below for more information. 
-* From version 2.1.3 onwards, [rapidAPI](https://rapidapi.com/alphavantage/api/alpha-vantage-alpha-vantage-default) key integration is now available.
+* From version 2.1.3 onwards, [rapidAPI](https://rapidapi.com/alphavantage/api/alpha-vantage/) key integration is now available.
 * From version 2.1.0 onwards, error logging of bad API calls has been made more apparent.
 * From version 1.9.0 onwards, the urllib was substituted by pythons request library that is thread safe. If you have any error, post an issue.
 * From version 1.8.0 onwards, the column names of the data frames have changed, they are now exactly what alphavantage gives back in their json response. You can see the examples in better detail in the following git repo:  https://github.com/RomelTorres/av_example
