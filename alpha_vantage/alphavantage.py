@@ -90,7 +90,7 @@ class AlphaVantage(object):
         else:
             argspec = inspect.getfullargspec(func)
         try:
-            # Asumme most of the cases have a mixed between args and named
+            # Assume most of the cases have a mixed between args and named
             # args
             positional_count = len(argspec.args) - len(argspec.defaults)
             defaults = dict(
