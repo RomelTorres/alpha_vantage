@@ -7,7 +7,7 @@ class TimeSeries(av):
     """
     @av._output_format
     @av._call_api_on_func
-    def get_intraday(self, symbol, interval='15min', outputsize='compact'):
+    def get_intraday(self, symbol, interval='15min', outputsize='compact', month=''):
         """ Return intraday time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
 
@@ -20,28 +20,11 @@ class TimeSeries(av):
                 'compact' and 'full; the first returns the last 100 points in the
                 data series, and 'full' returns the full-length intraday times
                 series, commonly above 1MB (default 'compact')
+            month:  The specified month of targeted time series. By default, the latest
+                month available in the API is returned. Strings should be in the format
+                YYYY-MM (e.g. 2021-07) (default '')
         """
         _FUNCTION_KEY = "TIME_SERIES_INTRADAY"
-        return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'
-
-    @av._output_format
-    @av._call_api_on_func
-    def get_intraday_extended(self, symbol, interval='15min', slice='year1month1', adjusted=True):
-        """ Return extended intraday time series in one csv_reader object.
-        It raises ValueError when problems arise
-
-        Keyword Arguments:
-            symbol:  the symbol for the equity we want to get its data
-            interval:  time interval between two conscutive values,
-                supported values are '1min', '5min', '15min', '30min', '60min'
-                (default '15min')
-            slice: the trailing 2 years of intraday data is evenly divided into
-                24 "slices" - year1month1, year1month2, ..., year2month12
-            adjusted: By default, adjusted=true and the output time series is 
-                adjusted by historical split and dividend events. 
-                Set adjusted=false to query raw (as-traded) intraday values.
-        """
-        _FUNCTION_KEY = "TIME_SERIES_INTRADAY_EXTENDED"
         return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'
 
     @av._output_format

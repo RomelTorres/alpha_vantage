@@ -123,6 +123,7 @@ class AlphaVantage(object):
                 self, *args, **kwargs)
             base_url = AlphaVantage._RAPIDAPI_URL if self.rapidapi else AlphaVantage._ALPHA_VANTAGE_API_URL
             url = "{}function={}".format(base_url, function_name)
+            url += "&entitlement=realtime"  # Append entitlement=realtime to every request
             for idx, arg_name in enumerate(argspec.args[1:]):
                 try:
                     arg_value = args[idx]
@@ -141,8 +142,10 @@ class AlphaVantage(object):
                         # format it, you gotta format it nicely
                         arg_value = ','.join(arg_value)
                     url = '{}&{}={}'.format(url, arg_name, arg_value)
+            # If 'month' is in used_kwargs, add it to the url.
+            if 'month' in used_kwargs and used_kwargs['month']:
+                url = '{}&month={}'.format(url, used_kwargs['month'])
             # Allow the output format to be json or csv (supported by
-            # alphavantage api). Pandas is simply json converted.
             if 'json' in self.output_format.lower() or 'csv' in self.output_format.lower():
                 oformat = self.output_format.lower()
             elif 'pandas' in self.output_format.lower():
