@@ -26,7 +26,7 @@ class AlphaVantage(object):
     _RAPIDAPI_URL = "https://alpha-vantage.p.rapidapi.com/query?"
 
     def __init__(self, key=None, output_format='json',
-                 treat_info_as_error=True, indexing_type='date', proxy=None, rapidapi=False):
+                 treat_info_as_error=True, index=True, indexing_type='date', proxy=None, rapidapi=False):
         """ Initialize the class
 
         Keyword Arguments:
@@ -35,6 +35,7 @@ class AlphaVantage(object):
                 server not able to answer the call.
             treat_info_as_error: Treat information from the api as errors
             output_format:  Either 'json', 'pandas' os 'csv'
+            index: Yes or No; Giving option to override indexing if not interested
             indexing_type: Either 'date' to use the default date string given
             by the alpha vantage api call or 'integer' if you just want an
             integer indexing on your dataframe. Only valid, when the
@@ -70,6 +71,7 @@ class AlphaVantage(object):
         # Not all the calls accept a data type appended at the end, this
         # variable will be overridden by those functions not needing it.
         self._append_type = True
+        self.index = index
         self.indexing_type = indexing_type
         self.proxy = proxy or {}
 
@@ -282,17 +284,19 @@ class AlphaVantage(object):
                                                                      dtype='object')
                             return data_pandas, meta_data
 
-                    if 'integer' in self.indexing_type:
-                        # Set Date as an actual column so a new numerical index
-                        # will be created, but only when specified by the user.
-                        data_pandas.reset_index(level=0, inplace=True)
-                        data_pandas.index.name = 'index'
+                    if self.index:
+                        if 'integer' in self.indexing_type:
+                            # Set Date as an actual column so a new numerical index
+                            # will be created, but only when specified by the user.
+                            data_pandas.reset_index(level=0, inplace=True)
+                            data_pandas.index.name = 'index'
+                        else:
+                            data_pandas.index.name = 'date'
+                            # convert to pandas._libs.tslibs.timestamps.Timestamp
+                            data_pandas.index = pandas.to_datetime(data_pandas.index)
+                        return data_pandas, meta_data
                     else:
-                        data_pandas.index.name = 'date'
-                        # convert to pandas._libs.tslibs.timestamps.Timestamp
-                        data_pandas.index = pandas.to_datetime(
-                            data_pandas.index)
-                    return data_pandas, meta_data
+                        return data_pandas, meta_data
             elif 'csv' in self.output_format.lower():
                 return call_response, None
             else:
