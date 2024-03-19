@@ -232,3 +232,59 @@ class TestAlphaVantage(unittest.TestCase):
                                       output_format='pandas',
                                       symbol='BTC',
                                       market='CNY')
+
+        
+        
+    def test_news_sentiment(self):
+        
+        ## Ouput will be a pandas dataframe
+#         # Test dictionary as output
+#         ns = AlphaIntelligence(key=TestAlphaVantage._API_KEY_TEST)
+#         self._assert_result_is_format(ns.get_news_sentiment,
+#                                       tickers=TestAlphaVantage._API_EQ_NAME_TEST)
+        # Test panda as output
+        ns = AlphaIntelligence(key=TestAlphaVantage._API_KEY_TEST,
+                            output_format='pandas')
+        self._assert_result_is_format(ns.get_news_sentiment, output_format='pandas',
+                                      tickers=TestAlphaVantage._API_EQ_NAME_TEST)
+        
+        
+        
+    def test_top_gainers(self):
+        
+        ## Ouput will be a pandas dataframe
+        # Test dictionary as output
+#         ns = AlphaIntelligence(key=TestAlphaVantage._API_KEY_TEST)
+#         self._assert_result_is_format(ns.get_top_gainers)
+        
+        # Test panda as output
+        ns = AlphaIntelligence(key=TestAlphaVantage._API_KEY_TEST,
+                            output_format='pandas')
+        self._assert_result_is_format(ns.get_top_gainers, output_format='pandas')
+        
+        
+    def test_top_losers(self):
+        
+        ## Ouput will be a pandas dataframe
+        # Test dictionary as output
+#         ns = AlphaIntelligence(key=TestAlphaVantage._API_KEY_TEST)
+#         self._assert_result_is_format(ns.get_top_gainers)
+        
+        # Test panda as output
+        ns = AlphaIntelligence(key=TestAlphaVantage._API_KEY_TEST,
+                            output_format='pandas')
+        self._assert_result_is_format(ns.get_top_losers, output_format='pandas')
+        
+        
+    def test_top_active(self):
+        
+        ## Ouput will be a pandas dataframe
+        # Test dictionary as output
+#         ns = AlphaIntelligence(key=TestAlphaVantage._API_KEY_TEST)
+#         self._assert_result_is_format(ns.get_top_gainers)
+        
+        # Test panda as output
+        ns = AlphaIntelligence(key=TestAlphaVantage._API_KEY_TEST,
+                            output_format='pandas')
+        self._assert_result_is_format(ns.get_most_actively_traded, output_format='pandas')
+        
