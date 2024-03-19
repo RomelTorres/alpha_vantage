@@ -137,6 +137,7 @@ README.rst
 # sphinx build folder
 _build
 
-
+#Local test file
+local_test.py
 
 # End of https://www.gitignore.io/api/vim,linux,python
