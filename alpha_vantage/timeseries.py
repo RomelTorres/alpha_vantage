@@ -7,7 +7,8 @@ class TimeSeries(av):
     """
     @av._output_format
     @av._call_api_on_func
-    def get_intraday(self, symbol, interval='15min', outputsize='compact'):
+    def get_intraday(self, symbol: str, interval:str='15min', outputsize:str='compact', 
+                     month:str=None, extended_hours:str='true', adjusted:str='true'):
         """ Return intraday time series in two json objects as data and
         meta_data. It raises ValueError when problems arise
 
@@ -20,6 +21,17 @@ class TimeSeries(av):
                 'compact' and 'full; the first returns the last 100 points in the
                 data series, and 'full' returns the full-length intraday times
                 series, commonly above 1MB (default 'compact')
+            month: If not None, specify a year and month to get data, supported
+                format is YYYY-MM. For example "2009-01" (default None)
+            extended_hours: By default, extended_hours=true and the output time series 
+                will include both the regular trading hours and the extended trading hours 
+                (4:00am to 8:00pm Eastern Time for the US market). Set extended_hours=false 
+                to query regular trading hours (9:30am to 4:00pm US Eastern Time) only.
+                (default 'true')
+            adjusted: By default, adjusted=true and the output time series is adjusted by 
+                historical split and dividend events. Set adjusted=false to
+                query raw (as-traded) intraday values.
+                (default 'true')
         """
         _FUNCTION_KEY = "TIME_SERIES_INTRADAY"
         return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'
