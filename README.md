@@ -37,6 +37,8 @@ git clone https://github.com/RomelTorres/alpha_vantage.git
 pip install -e alpha_vantage
 ```
 
+✨ New! Don't want to write any code? Try out [https://trading-agents.ai/](https://trading-agents.ai/) (#1 trending on Github), which uses the Alpha Vantage API at the backend.
+
 ## Usage
 To get data from the API, simply import the library and call the object with your API key. Next, get ready for some awesome, free, realtime finance data. Your API key may also be stored in the environment variable ``ALPHAVANTAGE_API_KEY``.
 ```python
