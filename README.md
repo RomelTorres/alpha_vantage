@@ -229,12 +229,10 @@ The code documentation can be found at https://alpha-vantage.readthedocs.io/en/l
 ## Contributing
 Contributing is always welcome. Just contact us on how best you can contribute, add an issue, or make a PR. 
 
-## TODOs:
-* The integration tests are not being run at the moment within travis, gotta fix them to run.
-* Add test for csv calls as well.
-* Add tests for incompatible parameter raise errors.
-* Github actions & other items in the issues page. 
-
+## Community Pulses:
+* Dr. Martinez, a thought leader in FP&A, has picked Alpha Vantage as the [best overall](https://www.linkedin.com/pulse/what-best-stock-market-apis-2026-christian-martinez-hm20e/) stock market API. 
+* iexcloud.org, an popular website (note: the website is not owned by IEX) tracking the closure of IEX Cloud, has highlighted Alpha Vantage API as a [leading market data solution in the agentic AI era](https://iexcloud.org/top-stock-api-guide).
+* Alpha Vantage API leads the best market data API [review](https://medium.datadriveninvestor.com/top-stock-market-apis-you-must-be-aware-of-80c5d3a5e1cb) published by Data Driven Investor, a prominent data science & AI publication.
 
 
 ## Contact:
