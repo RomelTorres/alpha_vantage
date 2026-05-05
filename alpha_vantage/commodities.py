@@ -6,6 +6,30 @@ class Commodities(av):
     """
     @av._output_format
     @av._call_api_on_func
+    def get_gold(self, interval='monthly', symbol='GOLD'):
+        """ Returns the Gold historical prices
+
+        Keyword Arguments:
+            interval:  supported values are 'daily', 'weekly', 'monthly' (default 'monthly')
+            symbol: supported values are 'GOLD' and 'XAU' (default 'GOLD')
+        """
+        _FUNCTION_KEY = 'GOLD_SILVER_HISTORY'
+        return _FUNCTION_KEY, 'data', None
+
+    @av._output_format
+    @av._call_api_on_func
+    def get_silver(self, interval='monthly', symbol='SILVER'):
+        """ Returns the Silver historical prices
+
+        Keyword Arguments:
+            interval:  supported values are 'daily', 'weekly', 'monthly' (default 'monthly')
+            symbol: supported values are 'SILVER' and 'XAG' (default 'SILVER')
+        """
+        _FUNCTION_KEY = 'GOLD_SILVER_HISTORY'
+        return _FUNCTION_KEY, 'data', None
+
+    @av._output_format
+    @av._call_api_on_func
     def get_wti(self, interval='monthly'):
         """ Returns the West Texas Intermediate (WTI) crude oil prices.
 
