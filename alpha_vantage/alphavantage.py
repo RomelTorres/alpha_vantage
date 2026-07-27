@@ -26,7 +26,7 @@ class AlphaVantage(object):
     _RAPIDAPI_URL = "https://alpha-vantage.p.rapidapi.com/query?"
 
     def __init__(self, key=None, output_format='json',
-                 treat_info_as_error=True, indexing_type='date', proxy=None, rapidapi=False):
+                 treat_info_as_error=True, indexing_type='date', proxy=None, rapidapi=False, session=None):
         """ Initialize the class
 
         Keyword Arguments:
@@ -43,6 +43,7 @@ class AlphaVantage(object):
             the URL of the proxy.
             rapidapi: Boolean describing whether or not the API key is
             through the RapidAPI platform or not
+            session: Optional custom requests session for caching and rate limits.
         """
         if key is None:
             key = os.getenv('ALPHAVANTAGE_API_KEY')
@@ -72,6 +73,24 @@ class AlphaVantage(object):
         self._append_type = True
         self.indexing_type = indexing_type
         self.proxy = proxy or {}
+
+        if session is None:
+            self.session = None
+        else:
+            try:
+                from requests_cache import OriginalSession
+            except ImportError:
+                OriginalSession = None
+            def is_valid_session(session):
+                """Check if the session is a valid requests session or cached session."""
+                return (
+                    isinstance(session, requests.Session) or
+                    (OriginalSession is not None and isinstance(session, OriginalSession))
+                )
+            if is_valid_session(session):
+                self.session = session
+            else:
+                self.session = None
 
     @classmethod
     def _call_api_on_func(cls, func):
@@ -348,7 +367,12 @@ class AlphaVantage(object):
             meta_data_key:  The key for getting the meta data information out
             of the json object
         """
-        response = requests.get(url, proxies=self.proxy, headers=self.headers)
+        if self.session: # Uses the session if it was defined
+            response = self.session.get(
+                url, proxies=self.proxy, headers=self.headers
+            )
+        else:
+            response = requests.get(url, proxies=self.proxy, headers=self.headers)
         if 'json' in self.output_format.lower() or 'pandas' in \
                 self.output_format.lower():
             json_response = response.json()

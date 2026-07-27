@@ -38,7 +38,8 @@ setup(
     test_requires=[
         'aioresponses',
         'nose',
-        'requests_mock'
+        'requests_mock',
+        'requests_cache'
     ],
     extras_requires={
         'pandas': ['pandas'],
